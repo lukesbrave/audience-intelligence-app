@@ -12,7 +12,13 @@ interface AudienceProfileViewProps {
 }
 
 function AudienceProfileView({ profile }: AudienceProfileViewProps) {
-  const { demographics, painPoints, goals, currentSolutions, decisionFactors, communicationPrefs } = profile;
+  // Defensive: provide defaults for all properties
+  const demographics = profile?.demographics || { ageRange: '', locations: [], jobTitles: [], industry: '', incomeLevel: '' };
+  const painPoints = profile?.painPoints || [];
+  const goals = profile?.goals || [];
+  const currentSolutions = profile?.currentSolutions || [];
+  const decisionFactors = profile?.decisionFactors || [];
+  const communicationPrefs = profile?.communicationPrefs || { channels: [], contentFormats: [], tonePreference: '' };
 
   return (
     <div className="space-y-6">
@@ -33,14 +39,18 @@ function AudienceProfileView({ profile }: AudienceProfileViewProps) {
         <GoalsPanel goals={goals} />
       </div>
 
-      {/* Solutions & Decision Factors */}
-      <SolutionsFactorsGrid
-        currentSolutions={currentSolutions}
-        decisionFactors={decisionFactors}
-      />
+      {/* Solutions & Decision Factors - only show if data exists */}
+      {(currentSolutions.length > 0 || decisionFactors.length > 0) && (
+        <SolutionsFactorsGrid
+          currentSolutions={currentSolutions}
+          decisionFactors={decisionFactors}
+        />
+      )}
 
-      {/* Communication Preferences */}
-      <CommunicationPrefsCard preferences={communicationPrefs} />
+      {/* Communication Preferences - only show if data exists */}
+      {(communicationPrefs.channels?.length > 0 || communicationPrefs.contentFormats?.length > 0 || communicationPrefs.tonePreference) && (
+        <CommunicationPrefsCard preferences={communicationPrefs} />
+      )}
     </div>
   );
 }

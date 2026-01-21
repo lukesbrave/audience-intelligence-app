@@ -8,27 +8,36 @@ interface PainPointsPanelProps {
 }
 
 function PainPointsPanel({ painPoints }: PainPointsPanelProps) {
-  // Group by severity
-  const critical = painPoints.filter(p => p.severity === 'critical');
-  const moderate = painPoints.filter(p => p.severity === 'moderate');
-  const minor = painPoints.filter(p => p.severity === 'minor');
+  // Normalize severity values (handle both old and new formats)
+  const normalizeSeverity = (severity: string): 'critical' | 'moderate' | 'minor' => {
+    if (severity === 'critical' || severity === 'high') return 'critical';
+    if (severity === 'moderate' || severity === 'medium') return 'moderate';
+    return 'minor';
+  };
 
-  const renderPainPointCard = (point: PainPoint, index: number) => (
-    <div
-      key={index}
-      className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-sm transition-shadow"
-    >
-      <div className="flex items-start gap-3">
-        {/* Severity bar */}
-        <div
-          className={`w-1 self-stretch rounded-full ${
-            point.severity === 'critical'
-              ? 'bg-red-500'
-              : point.severity === 'moderate'
-                ? 'bg-amber-500'
-                : 'bg-green-500'
-          }`}
-        />
+  // Group by severity
+  const critical = painPoints.filter(p => normalizeSeverity(p.severity) === 'critical');
+  const moderate = painPoints.filter(p => normalizeSeverity(p.severity) === 'moderate');
+  const minor = painPoints.filter(p => normalizeSeverity(p.severity) === 'minor');
+
+  const renderPainPointCard = (point: PainPoint, index: number) => {
+    const severity = normalizeSeverity(point.severity);
+    return (
+      <div
+        key={index}
+        className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-sm transition-shadow"
+      >
+        <div className="flex items-start gap-3">
+          {/* Severity bar */}
+          <div
+            className={`w-1 self-stretch rounded-full ${
+              severity === 'critical'
+                ? 'bg-red-500'
+                : severity === 'moderate'
+                  ? 'bg-amber-500'
+                  : 'bg-green-500'
+            }`}
+          />
         <div className="flex-1 min-w-0">
           <p className="font-medium text-gray-900">{point.pain}</p>
           {point.emotionalContext && (
@@ -43,6 +52,7 @@ function PainPointsPanel({ painPoints }: PainPointsPanelProps) {
       </div>
     </div>
   );
+  };
 
   return (
     <div className="bg-gray-50 rounded-xl border border-gray-200 p-5">

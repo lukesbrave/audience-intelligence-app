@@ -8,27 +8,36 @@ interface GoalsPanelProps {
 }
 
 function GoalsPanel({ goals }: GoalsPanelProps) {
-  // Group by priority
-  const high = goals.filter(g => g.priority === 'high');
-  const medium = goals.filter(g => g.priority === 'medium');
-  const low = goals.filter(g => g.priority === 'low');
+  // Normalize priority values (handle both old and new formats)
+  const normalizePriority = (priority: string): 'high' | 'medium' | 'low' => {
+    if (priority === 'high' || priority === 'primary') return 'high';
+    if (priority === 'medium' || priority === 'secondary') return 'medium';
+    return 'low';
+  };
 
-  const renderGoalCard = (goal: Goal, index: number) => (
-    <div
-      key={index}
-      className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-sm transition-shadow"
-    >
-      <div className="flex items-start gap-3">
-        {/* Priority bar */}
-        <div
-          className={`w-1 self-stretch rounded-full ${
-            goal.priority === 'high'
-              ? 'bg-[#16314C]'
-              : goal.priority === 'medium'
-                ? 'bg-[#BBDCEF]'
-                : 'bg-gray-300'
-          }`}
-        />
+  // Group by priority
+  const high = goals.filter(g => normalizePriority(g.priority) === 'high');
+  const medium = goals.filter(g => normalizePriority(g.priority) === 'medium');
+  const low = goals.filter(g => normalizePriority(g.priority) === 'low');
+
+  const renderGoalCard = (goal: Goal, index: number) => {
+    const priority = normalizePriority(goal.priority);
+    return (
+      <div
+        key={index}
+        className="bg-white rounded-lg border border-gray-100 p-4 hover:shadow-sm transition-shadow"
+      >
+        <div className="flex items-start gap-3">
+          {/* Priority bar */}
+          <div
+            className={`w-1 self-stretch rounded-full ${
+              priority === 'high'
+                ? 'bg-[#16314C]'
+                : priority === 'medium'
+                  ? 'bg-[#BBDCEF]'
+                  : 'bg-gray-300'
+            }`}
+          />
         <div className="flex-1 min-w-0">
           <p className="font-medium text-gray-900">{goal.goal}</p>
           <div className="flex flex-wrap items-center gap-3 mt-2">
@@ -53,6 +62,7 @@ function GoalsPanel({ goals }: GoalsPanelProps) {
       </div>
     </div>
   );
+  };
 
   return (
     <div className="bg-gray-50 rounded-xl border border-gray-200 p-5">
