@@ -61,3 +61,17 @@ export type { QuickWinsCardProps } from './QuickWinsCard';
 export { PullQuote } from './PullQuote';
 export type { PullQuoteProps } from './PullQuote';
 
+export { CopyButton } from './CopyButton';
+export type { CopyButtonProps } from './CopyButton';
+
+export { LanguageCard, LanguageGrid } from './LanguageCard';
+export type { LanguageCardProps, LanguageGridProps, LanguageType } from './LanguageCard';
+
+export { ChannelCard, ChannelListItem } from './ChannelCard';
+export type { ChannelCardProps, ChannelListItemProps, ChannelPriority } from './ChannelCard';
+
+export { OfferStageCard } from './OfferStageCard';
+export type { OfferStageCardProps, OfferLevel } from './OfferStageCard';
+
+export { ConfidenceIndicator } from './ConfidenceIndicator';
+export type { ConfidenceIndicatorProps, ConfidenceLevel } from './ConfidenceIndicator';
