@@ -1,61 +1,12 @@
 'use client';
 
-import { useState, useCallback, useEffect, useRef, ReactNode, Suspense } from 'react';
+import { useState, useCallback, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { DashboardLayout } from '@/components/layout';
 import { ProgressStepper, RotatingTips, CompletionModal } from '@/components/features/research';
-import { ReportViewContainer } from '@/components/features/report/views';
+import { ToolkitContainer } from '@/components/features/report/toolkit/ToolkitContainer';
 import { ResearchResponse } from '@/lib/types';
 
 type AppState = 'initializing' | 'processing' | 'completing' | 'complete' | 'error';
-
-// Wrapper component that receives props from DashboardLayout and passes them to ReportViewContainer
-interface ReportWrapperProps {
-  response: ResearchResponse;
-  onSave: () => void;
-  isSaved: boolean;
-  onNewResearch: () => void;
-  onOfferGenerated: (hasOffer: boolean) => void;
-  activeSection?: string;
-  onNavigate?: (section: string) => void;
-  children?: ReactNode;
-}
-
-function ReportWrapper({
-  response,
-  onSave,
-  isSaved,
-  onNewResearch,
-  onOfferGenerated,
-  activeSection = 'overview',
-  onNavigate = () => {}
-}: ReportWrapperProps) {
-  return (
-    <div className="bg-white min-h-full">
-      {/* Top bar with new research button */}
-      <div className="border-b border-gray-200 px-6 py-3 flex items-center justify-end">
-        <button
-          onClick={onNewResearch}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#16314C] bg-[#BBDCEF]/20 hover:bg-[#BBDCEF]/40 rounded-lg transition-colors"
-        >
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          New Research
-        </button>
-      </div>
-
-      <ReportViewContainer
-        response={response}
-        activeSection={activeSection}
-        onNavigate={onNavigate}
-        onSave={onSave}
-        isSaved={isSaved}
-        onOfferGenerated={onOfferGenerated}
-      />
-    </div>
-  );
-}
 
 // Polling interval in milliseconds
 const POLL_INTERVAL = 3000;
@@ -68,7 +19,6 @@ function ResearchPageContent() {
   const [response, setResponse] = useState<ResearchResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [savedReportId, setSavedReportId] = useState<string | null>(null);
-  const [hasOfferData, setHasOfferData] = useState(false);
 
   // Ref to track polling state
   const pollingRef = useRef<{
@@ -230,25 +180,17 @@ function ResearchPageContent() {
     window.location.href = '/onboarding';
   }, []);
 
-  // Use dashboard layout when viewing completed report
-  // ReportWrapper receives activeSection and onNavigate from DashboardLayout via cloneElement
-  // and passes them to ReportViewContainer
+  // Use the new ToolkitContainer design when viewing completed report
   if (state === 'complete' && response) {
     return (
-      <DashboardLayout
-        showReportNav={true}
-        researchPhases={response.report.researchFindings}
-        hasOfferData={hasOfferData}
-        isResearchComplete={true}
-      >
-        <ReportWrapper
+      <div className="h-screen">
+        <ToolkitContainer
           response={response}
+          googleDocUrl={response.googleDocUrl}
           onSave={handleSave}
           isSaved={!!savedReportId}
-          onNewResearch={handleNewResearch}
-          onOfferGenerated={setHasOfferData}
         />
-      </DashboardLayout>
+      </div>
     );
   }
 
