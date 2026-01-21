@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { ResearchStatus } from '@/lib/supabase/types';
@@ -15,11 +14,12 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Validate authentication
-    const cookieStore = await cookies();
-    const authCookie = cookieStore.get('ai-auth');
+    const supabase = await createClient();
 
-    if (!authCookie || authCookie.value !== 'authenticated') {
+    // Validate authentication using Supabase
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -27,7 +27,6 @@ export async function GET(
     }
 
     const { id } = await params;
-    const supabase = await createClient();
 
     // Try to get research_status columns, fall back to just response_data if migration not applied
     interface ReportWithStatus {

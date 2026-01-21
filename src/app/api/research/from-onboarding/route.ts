@@ -1,4 +1,3 @@
-import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 
@@ -7,11 +6,12 @@ import { createClient } from '@/lib/supabase/server';
 
 export async function POST(request: Request) {
   try {
-    // Validate authentication
-    const cookieStore = await cookies();
-    const authCookie = cookieStore.get('ai-auth');
+    const supabase = await createClient();
 
-    if (!authCookie || authCookie.value !== 'authenticated') {
+    // Validate authentication using Supabase
+    const { data: { user } } = await supabase.auth.getUser();
+
+    if (!user) {
       return NextResponse.json(
         { error: 'Unauthorized' },
         { status: 401 }
@@ -45,7 +45,6 @@ export async function POST(request: Request) {
     }
 
     // Update report status to processing (if column exists)
-    const supabase = await createClient();
     try {
       const { error: updateError } = await supabase
         .from('reports')
