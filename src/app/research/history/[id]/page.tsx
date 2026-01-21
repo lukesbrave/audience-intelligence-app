@@ -43,5 +43,5 @@ export default async function ReportDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ReportDetailClient report={toSavedReport(report)} />;
+  return <ReportDetailClient report={toSavedReport(report as DatabaseReport)} />;
 }
