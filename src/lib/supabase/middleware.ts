@@ -29,7 +29,10 @@ export async function updateSession(request: NextRequest) {
 
   const {
     data: { user },
+    error: authError,
   } = await supabase.auth.getUser()
+
+  console.log('[Middleware] Path:', request.nextUrl.pathname, '| User:', user?.id || 'none', '| Error:', authError?.message || 'none')
 
   // Public routes that don't require authentication
   const publicPaths = ['/login', '/signup', '/auth/callback']
