@@ -30,6 +30,9 @@ export interface DatabaseReport {
   google_doc_url: string | null;
   research_status: ResearchStatus;
   research_error: string | null;
+  gamma_url: string | null;
+  gamma_embed_url: string | null;
+  gamma_download_url: string | null;
   created_at: string;
   updated_at: string;
 }
