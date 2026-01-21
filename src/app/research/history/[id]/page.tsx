@@ -24,24 +24,34 @@ function toSavedReport(dbReport: DatabaseReport): SavedReport {
 }
 
 export default async function ReportDetailPage({ params }: PageProps) {
-  const { id } = await params;
-  const supabase = await createClient();
+  try {
+    const { id } = await params;
+    const supabase = await createClient();
 
-  const { data: { user } } = await supabase.auth.getUser();
+    const { data: { user } } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect('/login');
-  }
+    if (!user) {
+      redirect('/login');
+    }
 
-  const { data: report, error } = await supabase
-    .from('reports')
-    .select('*')
-    .eq('id', id)
-    .single();
+    const { data: report, error } = await supabase
+      .from('reports')
+      .select('*')
+      .eq('id', id)
+      .single();
 
-  if (error || !report) {
+    if (error) {
+      console.error('Error fetching report:', error);
+      notFound();
+    }
+
+    if (!report) {
+      notFound();
+    }
+
+    return <ReportDetailClient report={toSavedReport(report as DatabaseReport)} />;
+  } catch (err) {
+    console.error('ReportDetailPage error:', err);
     notFound();
   }
-
-  return <ReportDetailClient report={toSavedReport(report as DatabaseReport)} />;
 }
