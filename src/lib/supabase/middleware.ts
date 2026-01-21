@@ -33,14 +33,23 @@ export async function updateSession(request: NextRequest) {
 
   // Public routes that don't require authentication
   const publicPaths = ['/login', '/signup', '/auth/callback']
+
+  // API routes that use their own authentication (not Supabase session)
+  const apiPublicPaths = ['/api/research/callback']
+
   const isPublicPath = publicPaths.some(
     (path) =>
       request.nextUrl.pathname === path ||
       request.nextUrl.pathname.startsWith(path + '/')
   )
 
-  // Redirect unauthenticated users to login (except for public paths)
-  if (!user && !isPublicPath) {
+  // Check if this is an API route with its own auth
+  const isApiPublicPath = apiPublicPaths.some(
+    (path) => request.nextUrl.pathname === path
+  )
+
+  // Redirect unauthenticated users to login (except for public paths and API routes with own auth)
+  if (!user && !isPublicPath && !isApiPublicPath) {
     const url = request.nextUrl.clone()
     url.pathname = '/login'
     return NextResponse.redirect(url)

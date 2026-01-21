@@ -31,9 +31,13 @@ export async function POST(request: Request) {
 
     // Get webhook URL from environment
     const webhookUrl = process.env.N8N_WEBHOOK_URL;
-    const callbackUrl = process.env.NEXT_PUBLIC_APP_URL
-      ? `${process.env.NEXT_PUBLIC_APP_URL}/api/research/callback`
-      : `${request.headers.get('origin') || 'http://localhost:3000'}/api/research/callback`;
+
+    // Build callback URL, ensuring no trailing slash issues
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL
+      ? process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '') // Remove trailing slash if present
+      : (request.headers.get('origin') || 'http://localhost:3000');
+    const callbackUrl = `${baseUrl}/api/research/callback`;
+
     const callbackSecret = process.env.N8N_CALLBACK_SECRET || 'default-secret-change-me';
 
     if (!webhookUrl) {
