@@ -32,10 +32,13 @@ export async function POST(request: Request) {
     // Get webhook URL from environment
     const webhookUrl = process.env.N8N_WEBHOOK_URL;
 
-    // Build callback URL, ensuring no trailing slash issues
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL
-      ? process.env.NEXT_PUBLIC_APP_URL.replace(/\/$/, '') // Remove trailing slash if present
-      : (request.headers.get('origin') || 'http://localhost:3000');
+    // Build callback URL - use server-side APP_URL or Vercel's automatic VERCEL_URL
+    // Note: NEXT_PUBLIC_* vars are client-side only and not available in API routes on Vercel
+    const baseUrl = process.env.APP_URL
+      || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : null)
+      || process.env.NEXT_PUBLIC_APP_URL?.replace(/\/$/, '')
+      || request.headers.get('origin')
+      || 'http://localhost:3000';
     const callbackUrl = `${baseUrl}/api/research/callback`;
 
     const callbackSecret = process.env.N8N_CALLBACK_SECRET || 'default-secret-change-me';
