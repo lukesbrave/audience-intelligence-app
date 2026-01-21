@@ -1,12 +1,13 @@
 'use client';
 
-import { useState, useCallback, ReactNode } from 'react';
+import { useState, useCallback, useEffect, useRef, ReactNode, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { DashboardLayout } from '@/components/layout';
-import { ResearchForm, ResearchFormData, ProgressStepper, RotatingTips, CompletionModal } from '@/components/features/research';
+import { ProgressStepper, RotatingTips, CompletionModal } from '@/components/features/research';
 import { ReportViewContainer } from '@/components/features/report/views';
-import { ResearchResponse, ResearchRequest } from '@/lib/types';
+import { ResearchResponse } from '@/lib/types';
 
-type AppState = 'form' | 'processing' | 'completing' | 'complete' | 'error';
+type AppState = 'initializing' | 'processing' | 'completing' | 'complete' | 'error';
 
 // Wrapper component that receives props from DashboardLayout and passes them to ReportViewContainer
 interface ReportWrapperProps {
@@ -56,32 +57,148 @@ function ReportWrapper({
   );
 }
 
-export default function ResearchPage() {
-  const [state, setState] = useState<AppState>('form');
+// Polling interval in milliseconds
+const POLL_INTERVAL = 3000;
+// Maximum polling time before timeout (5 minutes)
+const MAX_POLL_TIME = 5 * 60 * 1000;
+
+function ResearchPageContent() {
+  const searchParams = useSearchParams();
+  const [state, setState] = useState<AppState>('initializing');
   const [response, setResponse] = useState<ResearchResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [savedReportId, setSavedReportId] = useState<string | null>(null);
-  const [lastRequest, setLastRequest] = useState<ResearchFormData | null>(null);
   const [hasOfferData, setHasOfferData] = useState(false);
 
-  const handleSubmit = useCallback(async (formData: ResearchFormData) => {
+  // Ref to track polling state
+  const pollingRef = useRef<{
+    intervalId: NodeJS.Timeout | null;
+    startTime: number;
+    reportId: string | null;
+  }>({ intervalId: null, startTime: 0, reportId: null });
+
+  // Cleanup polling on unmount
+  useEffect(() => {
+    return () => {
+      if (pollingRef.current.intervalId) {
+        clearInterval(pollingRef.current.intervalId);
+      }
+    };
+  }, []);
+
+  // Poll for research status
+  const pollForStatus = useCallback(async (reportId: string) => {
+    try {
+      const res = await fetch(`/api/research/status/${reportId}`);
+      if (!res.ok) {
+        throw new Error('Failed to check research status');
+      }
+
+      const data = await res.json();
+
+      if (data.status === 'completed' && data.response) {
+        // Research complete - stop polling and show results
+        if (pollingRef.current.intervalId) {
+          clearInterval(pollingRef.current.intervalId);
+          pollingRef.current.intervalId = null;
+        }
+
+        // Transform the response to match expected format
+        const researchResponse: ResearchResponse = data.response;
+        setResponse(researchResponse);
+        setSavedReportId(reportId);
+        setState('completing');
+      } else if (data.status === 'error') {
+        // Research failed - stop polling and show error
+        if (pollingRef.current.intervalId) {
+          clearInterval(pollingRef.current.intervalId);
+          pollingRef.current.intervalId = null;
+        }
+        setError(data.error || 'Research failed. Please try again.');
+        setState('error');
+      } else if (data.status === 'processing' || data.status === 'pending') {
+        // Still processing - check timeout
+        const elapsed = Date.now() - pollingRef.current.startTime;
+        if (elapsed > MAX_POLL_TIME) {
+          if (pollingRef.current.intervalId) {
+            clearInterval(pollingRef.current.intervalId);
+            pollingRef.current.intervalId = null;
+          }
+          setError('Research is taking longer than expected. Please try again later.');
+          setState('error');
+        }
+        // Otherwise, keep polling (interval will call this again)
+      }
+    } catch (err) {
+      console.error('Error polling for status:', err);
+      // Don't stop polling on transient errors, but log them
+    }
+  }, []);
+
+  // Start polling for research status
+  const startPolling = useCallback((reportId: string) => {
+    // Clear any existing polling
+    if (pollingRef.current.intervalId) {
+      clearInterval(pollingRef.current.intervalId);
+    }
+
+    pollingRef.current = {
+      intervalId: null,
+      startTime: Date.now(),
+      reportId: reportId,
+    };
+
+    // Poll immediately, then at intervals
+    pollForStatus(reportId);
+    pollingRef.current.intervalId = setInterval(() => {
+      pollForStatus(reportId);
+    }, POLL_INTERVAL);
+  }, [pollForStatus]);
+
+  // Auto-trigger research when coming from onboarding
+  useEffect(() => {
+    const fromOnboarding = searchParams.get('fromOnboarding') === 'true';
+    const reportId = searchParams.get('reportId');
+
+    if (fromOnboarding && reportId) {
+      // Start research automatically
+      triggerOnboardingResearch(reportId);
+    } else {
+      // Redirect to onboarding if not coming from there
+      // Since we removed the PDF upload flow, users must go through onboarding
+      window.location.href = '/onboarding';
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  const triggerOnboardingResearch = async (reportId: string) => {
     setState('processing');
     setError(null);
-    setLastRequest(formData);
 
     try {
-      const requestBody: ResearchRequest = {
-        email: formData.email,
-        pdfBase64: formData.pdfBase64,
-        pdfFilename: formData.pdfFilename,
-        businessContext: '',
-        researchPriority: 'All Areas (Recommended)',
-      };
+      // First, fetch the report to get the audience profile
+      const reportRes = await fetch(`/api/reports/${reportId}`);
+      if (!reportRes.ok) {
+        throw new Error('Failed to fetch report data');
+      }
+      const { report } = await reportRes.json();
 
-      const res = await fetch('/api/research', {
+      // Extract the audience profile from the onboarding data
+      const onboardingData = report.response?.onboardingData;
+      if (!onboardingData?.profile) {
+        throw new Error('No audience profile found in report');
+      }
+
+      // Trigger the research API with the audience profile
+      // This now returns immediately and processes asynchronously
+      const res = await fetch('/api/research/from-onboarding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody),
+        body: JSON.stringify({
+          reportId,
+          email: report.request?.email || report.request_email,
+          audienceProfile: onboardingData.profile,
+        }),
       });
 
       if (!res.ok) {
@@ -89,18 +206,13 @@ export default function ResearchPage() {
         throw new Error(data.error || 'Research request failed');
       }
 
-      const data = await res.json();
-      setResponse(data);
-      // Report is auto-saved by the API, check for savedReportId
-      if (data.savedReportId) {
-        setSavedReportId(data.savedReportId);
-      }
-      setState('completing'); // Show completion modal first
+      // Start polling for status
+      startPolling(reportId);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unexpected error occurred');
       setState('error');
     }
-  }, []);
+  };
 
   const handleCompletionDone = useCallback(() => {
     setState('complete');
@@ -114,12 +226,8 @@ export default function ResearchPage() {
   }, []);
 
   const handleNewResearch = useCallback(() => {
-    setState('form');
-    setResponse(null);
-    setError(null);
-    setSavedReportId(null);
-    setLastRequest(null);
-    setHasOfferData(false);
+    // Redirect to onboarding to start fresh
+    window.location.href = '/onboarding';
   }, []);
 
   // Use dashboard layout when viewing completed report
@@ -144,26 +252,14 @@ export default function ResearchPage() {
     );
   }
 
-  // Full-screen dark layout for form, processing, completing, and error states (no sidebar)
+  // Full-screen dark layout for initializing, processing, completing, and error states (no sidebar)
   return (
     <div className="min-h-screen bg-[#1a2744]">
-        {state === 'form' && (
+        {state === 'initializing' && (
           <div className="py-12 px-4 sm:px-6 lg:px-8">
-            {/* Hero Section */}
-            <div className="max-w-2xl mx-auto text-center mb-10">
-              <h1 className="text-3xl md:text-4xl font-bold text-white mb-4 text-balance">
-                Your Digital Home is built.
-                <br />
-                Now let&apos;s find out who should walk through the door.
-              </h1>
-              <p className="text-lg text-slate-300 max-w-xl mx-auto">
-                Upload your Audience Profile and we&apos;ll run deep intelligence — uncovering their Urgency Gateway, mapping their language, and showing you exactly how to position your offer.
-              </p>
-            </div>
-
-            {/* Form Card */}
-            <div className="max-w-lg mx-auto">
-              <ResearchForm onSubmit={handleSubmit} darkMode={true} />
+            <div className="max-w-2xl mx-auto text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-400 mx-auto mb-4"></div>
+              <p className="text-lg text-slate-300">Preparing your research...</p>
             </div>
           </div>
         )}
@@ -240,5 +336,28 @@ export default function ResearchPage() {
           </div>
         )}
       </div>
+  );
+}
+
+// Loading fallback for Suspense
+function ResearchPageLoading() {
+  return (
+    <div className="min-h-screen bg-[#1a2744]">
+      <div className="py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-400 mx-auto mb-4"></div>
+          <p className="text-lg text-slate-300">Loading...</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Wrap the page content in Suspense for useSearchParams
+export default function ResearchPage() {
+  return (
+    <Suspense fallback={<ResearchPageLoading />}>
+      <ResearchPageContent />
+    </Suspense>
   );
 }

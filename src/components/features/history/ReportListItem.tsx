@@ -21,8 +21,8 @@ function ReportListItem({ report, onDelete }: ReportListItemProps) {
     minute: '2-digit',
   });
 
-  const painPointCount = report.response.report.audienceProfile.painPoints.length;
-  const findingsCount = report.response.report.researchFindings.length;
+  const painPointCount = report.response?.report?.audienceProfile?.painPoints?.length ?? 0;
+  const findingsCount = report.response?.report?.researchFindings?.length ?? 0;
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-4 hover:border-gray-300 transition-colors">
@@ -69,7 +69,7 @@ function ReportListItem({ report, onDelete }: ReportListItemProps) {
               </svg>
             </Link>
 
-            {report.response.googleDocUrl && (
+            {report.response?.googleDocUrl && (
               <a
                 href={report.response.googleDocUrl}
                 target="_blank"

@@ -13,7 +13,7 @@ export interface SavedReport {
     businessContext: string;
     researchPriority: string;
   };
-  response: ResearchResponse;
+  response: ResearchResponse | null;
 }
 
 interface StoredData {

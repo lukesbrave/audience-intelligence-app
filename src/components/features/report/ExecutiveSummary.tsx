@@ -25,18 +25,21 @@ function extractHeroInsight(report: FrontendReport): {
   confidence: 'high' | 'medium' | 'low';
 } {
   const { audienceProfile, researchFindings, synthesis } = report;
-  const totalSources = researchFindings.reduce((sum, phase) => sum + phase.citations.length, 0);
+  const safeFindings = researchFindings || [];
+  const safePainPoints = audienceProfile?.painPoints || [];
+  const safeGoals = audienceProfile?.goals || [];
+  const totalSources = safeFindings.reduce((sum, phase) => sum + (phase.citations?.length || 0), 0);
 
   // Determine confidence based on sources and data quality
   let confidence: 'high' | 'medium' | 'low' = 'medium';
-  if (totalSources >= 30 && audienceProfile.painPoints.length >= 3) {
+  if (totalSources >= 30 && safePainPoints.length >= 3) {
     confidence = 'high';
-  } else if (totalSources < 15 || audienceProfile.painPoints.length < 2) {
+  } else if (totalSources < 15 || safePainPoints.length < 2) {
     confidence = 'low';
   }
 
   // Find the most critical pain point
-  const criticalPainPoint = audienceProfile.painPoints.find(p => p.severity === 'critical');
+  const criticalPainPoint = safePainPoints.find(p => p.severity === 'critical');
 
   if (criticalPainPoint) {
     return {
@@ -65,7 +68,7 @@ function extractHeroInsight(report: FrontendReport): {
   }
 
   // Last resort: use the primary goal
-  const primaryGoal = audienceProfile.goals.find(g => g.priority === 'high') || audienceProfile.goals[0];
+  const primaryGoal = safeGoals.find(g => g.priority === 'high') || safeGoals[0];
   if (primaryGoal) {
     return {
       insight: `Help your audience achieve: ${primaryGoal.goal}`,
@@ -84,6 +87,9 @@ function extractHeroInsight(report: FrontendReport): {
 // Extract quick wins from marketing strategy
 function extractQuickWins(report: FrontendReport): string[] {
   const { marketingStrategy, audienceProfile } = report;
+  const safePainPoints = audienceProfile?.painPoints || [];
+  const safeGoals = audienceProfile?.goals || [];
+  const safeChannels = audienceProfile?.communicationPrefs?.channels || [];
   const wins: string[] = [];
   const skipPhrases = ['i need to', 'i cannot', 'search results', 'let me', 'available to me'];
 
@@ -118,9 +124,9 @@ function extractQuickWins(report: FrontendReport): string[] {
 
   // Fallback: generate from data
   if (wins.length < 3) {
-    const topPainPoint = audienceProfile.painPoints.find(p => p.severity === 'critical') || audienceProfile.painPoints[0];
-    const primaryGoal = audienceProfile.goals.find(g => g.priority === 'high') || audienceProfile.goals[0];
-    const topChannel = audienceProfile.communicationPrefs.channels[0];
+    const topPainPoint = safePainPoints.find(p => p.severity === 'critical') || safePainPoints[0];
+    const primaryGoal = safeGoals.find(g => g.priority === 'high') || safeGoals[0];
+    const topChannel = safeChannels[0];
 
     if (wins.length < 1 && topPainPoint) {
       wins.push(`Address "${topPainPoint.pain.toLowerCase()}" in your messaging`);
@@ -143,8 +149,11 @@ function calculateResearchScore(report: FrontendReport): {
   confidence: 'high' | 'medium' | 'low';
 } {
   const { audienceProfile, researchFindings } = report;
-  const totalSources = researchFindings.reduce((sum, phase) => sum + phase.citations.length, 0);
-  const phasesCount = researchFindings.length;
+  const safeFindings = researchFindings || [];
+  const safePainPoints = audienceProfile?.painPoints || [];
+  const safeGoals = audienceProfile?.goals || [];
+  const totalSources = safeFindings.reduce((sum, phase) => sum + (phase.citations?.length || 0), 0);
+  const phasesCount = safeFindings.length;
 
   // Calculate depth based on completeness of data
   let depthScore = 0;
@@ -156,21 +165,22 @@ function calculateResearchScore(report: FrontendReport): {
   depthScore += Math.min(30, totalSources);
 
   // Pain points (max 15 points)
-  depthScore += Math.min(15, audienceProfile.painPoints.length * 3);
+  depthScore += Math.min(15, safePainPoints.length * 3);
 
   // Goals (max 15 points)
-  depthScore += Math.min(15, audienceProfile.goals.length * 3);
+  depthScore += Math.min(15, safeGoals.length * 3);
 
   // Demographics completeness (max 10 points)
-  const demo = audienceProfile.demographics;
+  const demo = audienceProfile?.demographics || {};
   if (demo.ageRange) depthScore += 2;
   if (demo.industry) depthScore += 2;
-  if (demo.jobTitles.length > 0) depthScore += 3;
-  if (demo.locations.length > 0) depthScore += 3;
+  if ((demo.jobTitles?.length || 0) > 0) depthScore += 3;
+  if ((demo.locations?.length || 0) > 0) depthScore += 3;
 
   // Communication prefs (max 10 points)
-  if (audienceProfile.communicationPrefs.channels.length > 0) depthScore += 5;
-  if (audienceProfile.communicationPrefs.contentFormats.length > 0) depthScore += 5;
+  const commPrefs = audienceProfile?.communicationPrefs || {};
+  if ((commPrefs.channels?.length || 0) > 0) depthScore += 5;
+  if ((commPrefs.contentFormats?.length || 0) > 0) depthScore += 5;
 
   // Determine confidence
   let confidence: 'high' | 'medium' | 'low' = 'medium';
@@ -249,31 +259,50 @@ function extractTopInsights(synthesis: string): string[] {
 function ExecutiveSummary({ report, generatedAt, onNavigate }: ExecutiveSummaryProps) {
   const { audienceProfile, researchFindings } = report;
 
-  // Calculate metrics
-  const painPointsCount = audienceProfile.painPoints.length;
-  const goalsCount = audienceProfile.goals.length;
-  const phasesCount = researchFindings.length;
-  const totalSources = researchFindings.reduce((sum, phase) => sum + phase.citations.length, 0);
+  // Defensive defaults for malformed data
+  const safeAudienceProfile = {
+    painPoints: audienceProfile?.painPoints || [],
+    goals: audienceProfile?.goals || [],
+    demographics: audienceProfile?.demographics || {
+      ageRange: 'Not available',
+      industry: 'Not available',
+      incomeLevel: 'Not available',
+      jobTitles: [],
+      locations: []
+    },
+    communicationPrefs: audienceProfile?.communicationPrefs || {
+      channels: [],
+      contentFormats: [],
+      tonePreference: ''
+    }
+  };
+  const safeResearchFindings = researchFindings || [];
+
+  // Calculate metrics with safe defaults
+  const painPointsCount = safeAudienceProfile.painPoints.length;
+  const goalsCount = safeAudienceProfile.goals.length;
+  const phasesCount = safeResearchFindings.length;
+  const totalSources = safeResearchFindings.reduce((sum, phase) => sum + (phase.citations?.length || 0), 0);
 
   // Severity distribution for pain points
   const severityCounts = {
-    critical: audienceProfile.painPoints.filter(p => p.severity === 'critical').length,
-    moderate: audienceProfile.painPoints.filter(p => p.severity === 'moderate').length,
-    minor: audienceProfile.painPoints.filter(p => p.severity === 'minor').length
+    critical: safeAudienceProfile.painPoints.filter(p => p.severity === 'critical').length,
+    moderate: safeAudienceProfile.painPoints.filter(p => p.severity === 'moderate').length,
+    minor: safeAudienceProfile.painPoints.filter(p => p.severity === 'minor').length
   };
 
   // Priority distribution for goals
   const priorityCounts = {
-    high: audienceProfile.goals.filter(g => g.priority === 'high').length,
-    medium: audienceProfile.goals.filter(g => g.priority === 'medium').length,
-    low: audienceProfile.goals.filter(g => g.priority === 'low').length
+    high: safeAudienceProfile.goals.filter(g => g.priority === 'high').length,
+    medium: safeAudienceProfile.goals.filter(g => g.priority === 'medium').length,
+    low: safeAudienceProfile.goals.filter(g => g.priority === 'low').length
   };
 
   // Get top pain point (critical severity, first one)
-  const topPainPoint = audienceProfile.painPoints.find(p => p.severity === 'critical') || audienceProfile.painPoints[0];
+  const topPainPoint = safeAudienceProfile.painPoints.find(p => p.severity === 'critical') || safeAudienceProfile.painPoints[0];
 
   // Get primary goal (high priority, first one)
-  const primaryGoal = audienceProfile.goals.find(g => g.priority === 'high') || audienceProfile.goals[0];
+  const primaryGoal = safeAudienceProfile.goals.find(g => g.priority === 'high') || safeAudienceProfile.goals[0];
 
   // Extract data for new components
   const heroInsight = extractHeroInsight(report);
@@ -429,15 +458,15 @@ function ExecutiveSummary({ report, generatedAt, onNavigate }: ExecutiveSummaryP
           <h4 className="text-sm font-medium text-gray-700 mb-3">Target Audience</h4>
           <div className="flex flex-wrap gap-2">
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-              {audienceProfile.demographics.ageRange}
+              {safeAudienceProfile.demographics.ageRange}
             </span>
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-              {audienceProfile.demographics.industry}
+              {safeAudienceProfile.demographics.industry}
             </span>
             <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-700">
-              {audienceProfile.demographics.incomeLevel}
+              {safeAudienceProfile.demographics.incomeLevel}
             </span>
-            {audienceProfile.demographics.jobTitles.slice(0, 2).map((title, i) => (
+            {safeAudienceProfile.demographics.jobTitles.slice(0, 2).map((title, i) => (
               <span key={i} className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-[#BBDCEF]/30 text-[#16314C]">
                 {title}
               </span>
