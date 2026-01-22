@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { ReportDetailClient } from './ReportDetailClient';
 import { SavedReport } from '@/lib/storage';
 import { DatabaseReport } from '@/lib/supabase/types';
@@ -26,18 +26,7 @@ function toSavedReport(dbReport: DatabaseReport): SavedReport {
 export default async function ReportDetailPage({ params }: PageProps) {
   try {
     const { id } = await params;
-    console.log('[ReportDetailPage] Starting, id:', id);
-
     const supabase = await createClient();
-    console.log('[ReportDetailPage] Supabase client created');
-
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    console.log('[ReportDetailPage] Auth check - user:', user?.id, 'error:', authError?.message);
-
-    if (!user) {
-      console.log('[ReportDetailPage] No user, redirecting to login');
-      redirect('/login');
-    }
 
     const { data: report, error } = await supabase
       .from('reports')

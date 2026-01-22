@@ -15,17 +15,6 @@ export async function GET(
 ) {
   try {
     const supabase = await createClient();
-
-    // Validate authentication using Supabase
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
     const { id } = await params;
 
     // Try to get research_status columns, fall back to just response_data if migration not applied

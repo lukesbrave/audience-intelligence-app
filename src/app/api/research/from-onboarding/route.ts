@@ -8,16 +8,6 @@ export async function POST(request: Request) {
   try {
     const supabase = await createClient();
 
-    // Validate authentication using Supabase
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json(
-        { error: 'Unauthorized' },
-        { status: 401 }
-      );
-    }
-
     // Parse request body
     const body = await request.json();
     const { reportId, email, audienceProfile } = body;

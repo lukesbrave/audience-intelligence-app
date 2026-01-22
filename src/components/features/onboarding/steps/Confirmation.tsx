@@ -1,6 +1,7 @@
 'use client'
 
 interface OnboardingState {
+  email: string
   selectedPath: 'direct' | 'discovery' | null
   businessDescription: string
   idealClientDescription: string
@@ -68,6 +69,11 @@ export default function Confirmation({
       </div>
 
       <div className="bg-[#1a2744] rounded-lg p-6 mb-8 border border-white/5">
+        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
+          Delivery Email
+        </h3>
+        <p className="text-white mb-6">{state.email}</p>
+
         <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
           Your Target Audience
         </h3>

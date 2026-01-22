@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import { redirect, notFound } from 'next/navigation';
+import { notFound } from 'next/navigation';
 import { ReportPageClient } from './ReportPageClient';
 import { DatabaseReport } from '@/lib/supabase/types';
 
@@ -11,11 +11,6 @@ export default async function ReportPage({ params }: PageProps) {
   const { id } = await params;
 
   const supabase = await createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect('/login');
-  }
 
   const { data: report, error } = await supabase
     .from('reports')

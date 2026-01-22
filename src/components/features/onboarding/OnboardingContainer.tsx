@@ -11,12 +11,10 @@ import EnergyQuestions from './steps/EnergyQuestions'
 import AudienceSuggestions from './steps/AudienceSuggestions'
 import Confirmation from './steps/Confirmation'
 
-interface OnboardingContainerProps {
-  userId: string
-  userEmail: string
-}
-
 export interface OnboardingState {
+  // Email for report delivery
+  email: string
+
   selectedPath: 'direct' | 'discovery' | null
 
   // Path A (direct)
@@ -48,6 +46,7 @@ export interface OnboardingState {
 }
 
 const initialState: OnboardingState = {
+  email: '',
   selectedPath: null,
   businessDescription: '',
   idealClientDescription: '',
@@ -68,7 +67,7 @@ const initialState: OnboardingState = {
   customAudienceDescription: '',
 }
 
-export default function OnboardingContainer({ userId, userEmail }: OnboardingContainerProps) {
+export default function OnboardingContainer() {
   const [currentStep, setCurrentStep] = useState(1)
   const [state, setState] = useState<OnboardingState>(initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -131,7 +130,7 @@ export default function OnboardingContainer({ userId, userEmail }: OnboardingCon
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: userEmail,
+          email: state.email,
           name: `Research - ${new Date().toLocaleDateString()}`,
           pdfFilename: '',
           businessContext: state.selectedPath === 'direct'
@@ -157,16 +156,6 @@ export default function OnboardingContainer({ userId, userEmail }: OnboardingCon
 
       const { report } = await reportRes.json()
 
-      // Mark onboarding as complete
-      await fetch('/api/profile/complete-onboarding', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          userId,
-          onboardingPath: state.selectedPath,
-        }),
-      })
-
       // Redirect to the research page with the report ID to trigger processing
       router.push(`/research?fromOnboarding=true&reportId=${report.id}`)
       router.refresh()
@@ -178,11 +167,13 @@ export default function OnboardingContainer({ userId, userEmail }: OnboardingCon
   }
 
   const renderStep = () => {
-    // Step 1: Path selection
+    // Step 1: Email + Path selection
     if (currentStep === 1) {
       return (
         <StartingPoint
+          email={state.email}
           selectedPath={state.selectedPath}
+          onEmailChange={(email) => updateState({ email })}
           onSelect={handlePathSelect}
           onNext={handleNext}
         />

@@ -6,7 +6,8 @@ export async function updateSession(request: NextRequest) {
     request,
   })
 
-  const supabase = createServerClient(
+  // Create Supabase client for cookie management (data storage, not auth)
+  createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -27,43 +28,6 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const {
-    data: { user },
-    error: authError,
-  } = await supabase.auth.getUser()
-
-  console.log('[Middleware] Path:', request.nextUrl.pathname, '| User:', user?.id || 'none', '| Error:', authError?.message || 'none')
-
-  // Public routes that don't require authentication
-  const publicPaths = ['/login', '/signup', '/auth/callback']
-
-  // API routes that use their own authentication (not Supabase session)
-  const apiPublicPaths = ['/api/research/callback']
-
-  const isPublicPath = publicPaths.some(
-    (path) =>
-      request.nextUrl.pathname === path ||
-      request.nextUrl.pathname.startsWith(path + '/')
-  )
-
-  // Check if this is an API route with its own auth
-  const isApiPublicPath = apiPublicPaths.some(
-    (path) => request.nextUrl.pathname === path
-  )
-
-  // Redirect unauthenticated users to login (except for public paths and API routes with own auth)
-  if (!user && !isPublicPath && !isApiPublicPath) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/login'
-    return NextResponse.redirect(url)
-  }
-
-  // Redirect authenticated users away from login/signup to home
-  if (user && (request.nextUrl.pathname === '/login' || request.nextUrl.pathname === '/signup')) {
-    const url = request.nextUrl.clone()
-    url.pathname = '/'
-    return NextResponse.redirect(url)
-  }
-
+  // No auth redirects - all routes are public
   return supabaseResponse
 }
