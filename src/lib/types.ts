@@ -85,7 +85,11 @@ export interface ResearchResponse {
   success: boolean;
   message: string;
   generatedAt: string;
-  googleDocUrl: string;
+  googleDocUrl?: string;
+  gammaUrl?: string;
+  gammaEmbedUrl?: string;
+  gammaDownloadUrl?: string;
+  gammaStatus?: 'processing' | 'completed' | 'error';
   report: FrontendReport;
 }
 

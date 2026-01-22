@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { ProgressStepper, RotatingTips, CompletionModal } from '@/components/features/research';
-import { ToolkitContainer } from '@/components/features/report/toolkit/ToolkitContainer';
+import { ResultsContainer } from '@/components/features/results';
 import { ResearchResponse } from '@/lib/types';
 
 type AppState = 'initializing' | 'processing' | 'completing' | 'complete' | 'error';
@@ -168,30 +168,14 @@ function ResearchPageContent() {
     setState('complete');
   }, []);
 
-  // Reports are now auto-saved by the API, so this is a no-op
-  // but we keep the function for UI compatibility
-  const handleSave = useCallback(() => {
-    // Report was already saved by the API when research completed
-    // savedReportId is already set from the API response
-  }, []);
-
   const handleNewResearch = useCallback(() => {
     // Redirect to onboarding to start fresh
     window.location.href = '/onboarding';
   }, []);
 
-  // Use the new ToolkitContainer design when viewing completed report
-  if (state === 'complete' && response) {
-    return (
-      <div className="h-screen">
-        <ToolkitContainer
-          response={response}
-          googleDocUrl={response.googleDocUrl}
-          onSave={handleSave}
-          isSaved={!!savedReportId}
-        />
-      </div>
-    );
+  // Use the new ResultsContainer for completed research
+  if (state === 'complete' && response && savedReportId) {
+    return <ResultsContainer response={response} reportId={savedReportId} />;
   }
 
   // Full-screen dark layout for initializing, processing, completing, and error states (no sidebar)
