@@ -86,6 +86,11 @@ export interface ResearchResponse {
   message: string;
   generatedAt: string;
   googleDocUrl?: string;
+  // Presentation URLs (from Google Apps Script)
+  presentationUrl?: string;
+  presentationEmbedUrl?: string;
+  presentationExportUrl?: string;
+  // Legacy Gamma fields (deprecated)
   gammaUrl?: string;
   gammaEmbedUrl?: string;
   gammaDownloadUrl?: string;

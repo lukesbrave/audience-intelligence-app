@@ -1,6 +1,5 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
 import { ResearchResponse } from '@/lib/types';
 import { PresentationPanel } from './PresentationPanel';
 import { JsonExportPanel } from './JsonExportPanel';
@@ -11,40 +10,13 @@ interface ResultsContainerProps {
 }
 
 export function ResultsContainer({ response, reportId }: ResultsContainerProps) {
-  const [gammaStatus, setGammaStatus] = useState<'processing' | 'completed' | 'error'>(
-    response.gammaStatus || 'processing'
-  );
-  const [gammaUrl, setGammaUrl] = useState<string | undefined>(response.gammaUrl);
-  const [gammaEmbedUrl, setGammaEmbedUrl] = useState<string | undefined>(response.gammaEmbedUrl);
+  // Use the new presentation URLs from Google Apps Script (fallback to legacy Gamma URLs)
+  const presentationUrl = response.presentationUrl || response.gammaUrl;
+  const presentationEmbedUrl = response.presentationEmbedUrl || response.gammaEmbedUrl;
+  const presentationExportUrl = response.presentationExportUrl || response.gammaDownloadUrl;
 
-  // Poll for Gamma status if still processing
-  const pollForGamma = useCallback(async () => {
-    try {
-      const res = await fetch(`/api/research/status/${reportId}`);
-      if (!res.ok) return;
-
-      const data = await res.json();
-      if (data.response?.gammaStatus === 'completed' && data.response?.gammaUrl) {
-        setGammaStatus('completed');
-        setGammaUrl(data.response.gammaUrl);
-        setGammaEmbedUrl(data.response.gammaEmbedUrl);
-      }
-    } catch (error) {
-      console.error('Error polling for gamma status:', error);
-    }
-  }, [reportId]);
-
-  useEffect(() => {
-    if (gammaStatus !== 'processing') return;
-
-    // Poll every 5 seconds for Gamma completion
-    const interval = setInterval(pollForGamma, 5000);
-
-    // Also poll immediately
-    pollForGamma();
-
-    return () => clearInterval(interval);
-  }, [gammaStatus, pollForGamma]);
+  // Determine status: if we have a URL, it's completed
+  const presentationStatus: 'completed' | 'error' = presentationUrl ? 'completed' : 'error';
 
   return (
     <div className="min-h-screen bg-[#1a2744]">
@@ -71,9 +43,10 @@ export function ResultsContainer({ response, reportId }: ResultsContainerProps) 
           {/* Left Panel - Presentation */}
           <div className="order-2 lg:order-1">
             <PresentationPanel
-              gammaStatus={gammaStatus}
-              gammaUrl={gammaUrl}
-              gammaEmbedUrl={gammaEmbedUrl}
+              status={presentationStatus}
+              url={presentationUrl}
+              embedUrl={presentationEmbedUrl}
+              exportUrl={presentationExportUrl}
             />
           </div>
 
