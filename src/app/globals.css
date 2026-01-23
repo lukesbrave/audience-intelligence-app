@@ -86,6 +86,24 @@
   --color-secondary-light: var(--color-secondary-light);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Brave Brand Color System
+   * Three-color palette for proper contrast and hierarchy
+   * To revert to teal: replace brave-* with teal-* in components
+   * Original teal values: teal-500=#14b8a6, teal-600=#0d9488, teal-700=#0f766e
+   */
+
+  /* Primary - Dark navy for backgrounds and dark text on light */
+  --color-brave-primary: #16314C;
+  --color-brave-primary-light: #1e4366;
+
+  /* Accent - Light blue for highlights and subtle accents */
+  --color-brave-400: #e3f2fb;  /* Lightest - very subtle backgrounds */
+  --color-brave-500: #BBDCEF;  /* Light blue accent - highlights, pills, light bg */
+
+  /* Secondary - Teal for buttons and interactive elements (good contrast) */
+  --color-brave-600: #447487;  /* Secondary teal - buttons, interactive */
+  --color-brave-700: #365f6e;  /* Darker - hover states */
 }
 
 body {
@@ -203,6 +221,22 @@ body {
   animation: checkmarkScale 0.4s ease-out forwards;
 }
 
+/* Smooth pulse animation for progress indicators */
+@keyframes pingSlow {
+  0% {
+    transform: scale(1);
+    opacity: 0.45;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: pingSlow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
 /* Reduced motion support for vestibular disorder users */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -217,7 +251,8 @@ body {
   .animate-fadeIn,
   .animate-tip-in,
   .animate-tip-out,
-  .animate-checkmark {
+  .animate-checkmark,
+  .animate-ping-slow {
     animation: none;
     opacity: 1;
   }
