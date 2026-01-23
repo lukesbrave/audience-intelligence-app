@@ -268,6 +268,7 @@ function ResearchV2Content() {
               ratedHooks={flowState.ratedHooks}
               onComplete={handleOfferComplete}
               onBack={() => goToStep(4)}
+              onRestart={handleRestart}
             />
           )}
         </div>

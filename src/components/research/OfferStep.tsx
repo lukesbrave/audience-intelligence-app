@@ -15,6 +15,7 @@ interface OfferStepProps {
   ratedHooks: RatedHook[]
   onComplete: (offerCore: OfferCoreOutput) => void
   onBack: () => void
+  onRestart?: () => void
 }
 
 const loadingPhases = [
@@ -40,10 +41,12 @@ export function OfferStep({
   ratedHooks,
   onComplete,
   onBack,
+  onRestart,
 }: OfferStepProps) {
-  const [status, setStatus] = useState<'idle' | 'warning' | 'loading' | 'complete' | 'error'>(
+  const [status, setStatus] = useState<'idle' | 'warning' | 'loading' | 'complete' | 'error' | 'destruct-confirm' | 'destruct-countdown' | 'destruct-explode'>(
     'idle'
   )
+  const [countdown, setCountdown] = useState(3)
   const [currentPhase, setCurrentPhase] = useState(0)
   const [offerCore, setOfferCore] = useState<OfferCoreOutput | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -367,6 +370,206 @@ export function OfferStep({
     }
   }
 
+  const startDestruct = () => {
+    setStatus('destruct-confirm')
+  }
+
+  const executeDestruct = () => {
+    setStatus('destruct-countdown')
+    setCountdown(3)
+
+    // Countdown sequence
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev <= 1) {
+          clearInterval(countdownInterval)
+          // Trigger explosion
+          setTimeout(() => {
+            setStatus('destruct-explode')
+            // After explosion animation, restart
+            setTimeout(() => {
+              if (onRestart) onRestart()
+            }, 1500)
+          }, 500)
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+  }
+
+  // Generate explosion particles
+  const particles = Array.from({ length: 40 }, (_, i) => ({
+    id: i,
+    angle: (i / 40) * 360,
+    distance: 100 + Math.random() * 200,
+    size: 4 + Math.random() * 12,
+    delay: Math.random() * 0.3,
+    color: ['#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4', '#22c55e'][Math.floor(Math.random() * 5)],
+  }))
+
+  // Destruct confirmation modal
+  if (status === 'destruct-confirm') {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="bg-[#243351] rounded-xl border-2 border-red-500/50 overflow-hidden"
+        >
+          <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 px-6 py-4 border-b border-red-500/30">
+            <h2 className="text-xl font-bold text-red-400 flex items-center gap-2">
+              <span>☢️</span> Self-Destruct Sequence
+            </h2>
+          </div>
+
+          <div className="p-6 space-y-6">
+            <p className="text-gray-300 leading-relaxed">
+              You're about to <strong className="text-red-400">obliterate</strong> all your research,
+              brand angles, hooks, and offer core. This action cannot be undone.
+            </p>
+
+            <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+              <p className="text-red-300 text-sm">
+                ⚠️ All data from this session will be permanently destroyed.
+                You'll start fresh from onboarding.
+              </p>
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <button
+                onClick={() => setStatus('complete')}
+                className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 hover:bg-white/5 rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={executeDestruct}
+                className="flex-1 px-6 py-3 bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-500 hover:to-orange-500 text-white font-bold rounded-lg transition-all"
+              >
+                ☢️ Initiate Self-Destruct
+              </button>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
+  // Countdown sequence
+  if (status === 'destruct-countdown') {
+    return (
+      <div className="max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-[#243351] rounded-xl border-2 border-red-500 overflow-hidden"
+        >
+          <div className="p-12 text-center">
+            <motion.div
+              animate={{
+                scale: [1, 1.2, 1],
+                opacity: [1, 0.5, 1]
+              }}
+              transition={{ duration: 1, repeat: Infinity }}
+              className="text-red-500 text-sm uppercase tracking-widest mb-4"
+            >
+              ☢️ SELF-DESTRUCT INITIATED ☢️
+            </motion.div>
+
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={countdown}
+                initial={{ scale: 0.5, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 2, opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                className="text-9xl font-black text-red-500 my-8"
+                style={{ textShadow: '0 0 40px rgba(239, 68, 68, 0.5)' }}
+              >
+                {countdown || '💥'}
+              </motion.div>
+            </AnimatePresence>
+
+            <motion.p
+              animate={{ opacity: [0.5, 1, 0.5] }}
+              transition={{ duration: 0.5, repeat: Infinity }}
+              className="text-gray-400"
+            >
+              {countdown > 0 ? 'Preparing to obliterate research data...' : 'BOOM!'}
+            </motion.p>
+          </div>
+        </motion.div>
+      </div>
+    )
+  }
+
+  // Explosion animation
+  if (status === 'destruct-explode') {
+    return (
+      <div className="max-w-2xl mx-auto relative">
+        <motion.div
+          initial={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 0, scale: 0.8 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="bg-[#243351] rounded-xl border border-white/10 p-12 text-center relative overflow-hidden"
+        >
+          {/* Flash effect */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ duration: 0.3 }}
+            className="absolute inset-0 bg-white"
+          />
+
+          {/* Explosion particles */}
+          <div className="absolute inset-0 flex items-center justify-center overflow-visible">
+            {particles.map((particle) => (
+              <motion.div
+                key={particle.id}
+                initial={{
+                  x: 0,
+                  y: 0,
+                  opacity: 1,
+                  scale: 1
+                }}
+                animate={{
+                  x: Math.cos(particle.angle * Math.PI / 180) * particle.distance,
+                  y: Math.sin(particle.angle * Math.PI / 180) * particle.distance,
+                  opacity: 0,
+                  scale: 0.5,
+                  rotate: Math.random() * 720
+                }}
+                transition={{
+                  duration: 1.2,
+                  delay: particle.delay,
+                  ease: 'easeOut'
+                }}
+                className="absolute rounded-full"
+                style={{
+                  width: particle.size,
+                  height: particle.size,
+                  backgroundColor: particle.color,
+                  boxShadow: `0 0 ${particle.size}px ${particle.color}`
+                }}
+              />
+            ))}
+          </div>
+
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ delay: 0.2, duration: 0.3 }}
+          >
+            <div className="text-6xl mb-4">💥</div>
+            <h2 className="text-2xl font-bold text-white">Research Obliterated!</h2>
+            <p className="text-gray-400 mt-2">Starting fresh...</p>
+          </motion.div>
+        </motion.div>
+      </div>
+    )
+  }
+
   // Idle state - show the electric button
   if (status === 'idle') {
     return (
@@ -583,25 +786,43 @@ export function OfferStep({
         <p className="text-gray-400">The emotional foundation of your brand</p>
       </motion.div>
 
-      {/* Download buttons */}
+      {/* Action buttons row */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.1 }}
-        className="flex justify-end gap-3 mb-6"
+        className="flex flex-wrap items-center justify-between gap-4 mb-6"
       >
-        <button
-          onClick={() => downloadBrandPlaybook('json')}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
-        >
-          <span>📥</span> Download Playbook JSON (for AI)
-        </button>
-        <button
-          onClick={() => downloadBrandPlaybook('txt')}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
-        >
-          <span>📄</span> Download Full Playbook
-        </button>
+        {/* Start Fresh button - left side */}
+        {onRestart && (
+          <div className="flex items-center gap-3">
+            <button
+              onClick={startDestruct}
+              className="inline-flex items-center gap-2 px-4 py-2 text-sm text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-500/50 rounded-lg transition-colors"
+            >
+              <span>☢️</span> Start Fresh
+            </button>
+            <span className="text-xs text-gray-500 max-w-[200px]">
+              Save your data first!
+            </span>
+          </div>
+        )}
+
+        {/* Download buttons - right side */}
+        <div className="flex gap-3 ml-auto">
+          <button
+            onClick={() => downloadBrandPlaybook('json')}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
+          >
+            <span>📥</span> Download Playbook JSON (for AI)
+          </button>
+          <button
+            onClick={() => downloadBrandPlaybook('txt')}
+            className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
+          >
+            <span>📄</span> Download Full Playbook
+          </button>
+        </div>
       </motion.div>
 
       {offerCore && (
