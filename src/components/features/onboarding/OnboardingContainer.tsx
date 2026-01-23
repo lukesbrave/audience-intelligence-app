@@ -1,8 +1,8 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { StickyHeader } from '@/components/ui'
+import { StickyHeader, Footer } from '@/components/ui'
 import StepIndicator from './StepIndicator'
 import StartingPoint from './steps/StartingPoint'
 import DescribeAudience from './steps/DescribeAudience'
@@ -73,6 +73,11 @@ export default function OnboardingContainer() {
   const [state, setState] = useState<OnboardingState>(initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [currentStep])
 
   // Calculate total steps based on path
   const getTotalSteps = () => {
@@ -288,9 +293,9 @@ export default function OnboardingContainer() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1a2744]">
+    <div className="min-h-screen bg-[#1a2744] flex flex-col">
       <StickyHeader />
-      <div className="flex flex-col items-center py-8 px-4">
+      <div className="flex-1 flex flex-col items-center py-8 px-4">
         <div className="w-full max-w-xl">
           <StepIndicator
             currentStep={currentStep}
@@ -303,6 +308,7 @@ export default function OnboardingContainer() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   )
 }

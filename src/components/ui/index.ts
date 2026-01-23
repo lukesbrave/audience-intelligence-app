@@ -77,3 +77,5 @@ export { ConfidenceIndicator } from './ConfidenceIndicator';
 export type { ConfidenceIndicatorProps, ConfidenceLevel } from './ConfidenceIndicator';
 
 export { Logo, StickyHeader } from './Logo';
+
+export { Footer } from './Footer';

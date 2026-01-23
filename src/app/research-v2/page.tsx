@@ -10,7 +10,7 @@ import {
   PlaybookStep,
   OfferStep,
 } from '@/components/research'
-import { StickyHeader } from '@/components/ui'
+import { StickyHeader, Footer } from '@/components/ui'
 import { ResearchOutput, BrandAngle, RatedHook, OfferCoreOutput } from '@/lib/research/schemas'
 
 type Step = 1 | 2 | 3 | 4 | 5
@@ -108,6 +108,11 @@ function ResearchV2Content() {
       }
     }
   }, [searchParams])
+
+  // Scroll to top when step changes
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }, [flowState.step])
 
   const loadAudienceProfile = async (reportId: string) => {
     try {
@@ -220,9 +225,9 @@ function ResearchV2Content() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1a2744]">
+    <div className="min-h-screen bg-[#1a2744] flex flex-col">
       <StickyHeader />
-      <div className="py-8 px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 py-8 px-4 sm:px-6 lg:px-8">
         <ProgressBar currentStep={flowState.step} completedSteps={completedSteps} />
 
         <div className="mt-8">
@@ -273,6 +278,7 @@ function ResearchV2Content() {
           )}
         </div>
       </div>
+      <Footer />
     </div>
   )
 }
