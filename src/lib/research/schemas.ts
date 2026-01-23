@@ -56,9 +56,15 @@ export const CompetitiveLandscapeSchema = z.object({
   positioningOpportunities: z.array(z.string()).describe('Ways to differentiate'),
 })
 
+export const AudienceStateSchema = z.object({
+  currentState: z.string().describe('Where the audience is NOW - their current reality, struggles, and daily situation'),
+  desiredState: z.string().describe('Where they WANT to be - their ideal future, dreams, and aspirations'),
+})
+
 export const ResearchOutputSchema = z.object({
+  audienceState: AudienceStateSchema.describe('The transformation journey from current to desired state'),
   urgencyGateway: UrgencyGatewaySchema,
-  painPoints: z.array(PainPointSchema),
+  painPoints: z.array(PainPointSchema).min(5).max(8).describe('5-8 validated pain points from real conversations'),
   languageMap: LanguageMapSchema,
   congregationPoints: CongregationPointsSchema,
   competitiveLandscape: CompetitiveLandscapeSchema,
@@ -139,8 +145,8 @@ export const OfferStatementTemplateSchema = z.enum([
 export const OfferStatementSchema = z.object({
   finalStatement: z.string().describe('The complete offer statement'),
   emotionalCore: z.string().describe('The underlying emotional transformation (relief, excitement, confidence)'),
-  universalMotivatorsUsed: z.array(z.string()).describe('2-3 from: wealth, looks, health, popularity, security, inner_peace, free_time, fun'),
-  templateUsed: OfferStatementTemplateSchema.describe('Which template the AI chose'),
+  universalMotivatorsUsed: z.array(z.string()).describe('2-3 motivators from: wealth, looks, health, popularity, security, inner_peace, free_time, fun'),
+  templateUsed: z.string().describe('Which template was used: superlative_mechanism, transformation, problem_solution, identity, contrast, or result'),
 })
 
 export const ProgramNameOptionSchema = z.object({
@@ -151,10 +157,10 @@ export const ProgramNameOptionSchema = z.object({
 
 export const OfferCoreOutputSchema = z.object({
   offerStatement: OfferStatementSchema,
-  theOfferGivesYou: z.array(z.string()).min(3).max(5).describe('What they GET - tangible benefits'),
-  youCanUseItTo: z.array(z.string()).min(3).max(5).describe('Specific applications and use cases'),
-  hiddenBenefits: z.array(z.string()).min(2).max(3).describe('Unexpected secondary transformations'),
-  programNameOptions: z.array(ProgramNameOptionSchema).min(2).max(3).describe('Program name suggestions'),
+  theOfferGivesYou: z.array(z.string()).describe('3-5 tangible benefits - what they GET'),
+  youCanUseItTo: z.array(z.string()).describe('3-5 specific applications and use cases'),
+  hiddenBenefits: z.array(z.string()).describe('2-3 unexpected secondary transformations'),
+  programNameOptions: z.array(ProgramNameOptionSchema).describe('2-3 program name suggestions'),
 })
 
 export type OfferStatement = z.infer<typeof OfferStatementSchema>

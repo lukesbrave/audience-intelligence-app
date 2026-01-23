@@ -11,26 +11,32 @@ ${audienceProfile}
 
 Search the web to discover:
 
-### 1. URGENCY GATEWAY
+### 1. AUDIENCE STATE (TRANSFORMATION JOURNEY)
+Define the transformation journey for this audience:
+- **Current State**: Where are they RIGHT NOW? Paint a vivid picture of their daily reality, struggles, and frustrations. What does a typical day look like? What are they stuck with?
+- **Desired State**: Where do they WANT to be? Paint a vivid picture of their ideal future. What does success look like? What do they dream about?
+
+### 2. URGENCY GATEWAY
 Find the ONE problem that is most pressing for this audience right now - their "headache" moment.
 - What problem can't wait?
 - What have they tried that hasn't worked?
 - What quick win would give them immediate relief?
 
-### 2. PAIN POINT VALIDATION
+### 3. PAIN POINT VALIDATION (5-8 PAIN POINTS)
 Find REAL conversations where this audience discusses their frustrations:
 - Reddit threads, Quora answers, forum discussions
 - Extract exact quotes with emotional language
 - What solutions have failed them?
+- **IMPORTANT**: Identify 5-8 distinct pain points with varying severity levels
 
-### 3. THEM-CENTRIC LANGUAGE MAP
+### 4. THEM-CENTRIC LANGUAGE MAP
 Extract the exact words they use:
 - Pain phrases (how they describe frustrations)
 - Desire phrases (how they describe what they want)
 - Search phrases (what they type into Google)
 - Emotional triggers (words that resonate)
 
-### 4. CONGREGATION POINTS
+### 5. CONGREGATION POINTS
 Where does this audience gather?
 - Subreddits (with subscriber counts)
 - Facebook groups
@@ -38,7 +44,7 @@ Where does this audience gather?
 - Podcasts they listen to
 - Influencers they trust
 
-### 5. COMPETITIVE LANDSCAPE
+### 6. COMPETITIVE LANDSCAPE
 - What solutions currently target this audience?
 - What do customers complain about? (from real reviews)
 - What gaps exist in the market?
@@ -224,11 +230,12 @@ Choose the BEST template for this audience's emotional context:
 
 ## YOUR TASK
 
-1. Analyze the psychographics (urgency gateway, pain points, language map)
-2. Consider the selected brand angle(s)
-3. Look at which hooks resonated (they reveal what emotions connect)
-4. Choose the BEST template for this specific audience
-5. Generate a powerful offer statement using that template
+1. Analyze the TRANSFORMATION JOURNEY (audienceState: currentState → desiredState)
+2. Analyze the psychographics (urgency gateway, pain points, language map)
+3. Consider the selected brand angle(s)
+4. Look at which hooks resonated (they reveal what emotions connect)
+5. Choose the BEST template for this specific audience
+6. Generate a powerful offer statement that bridges their current state to their desired state
 
 ## HIDDEN BENEFITS GUIDANCE
 

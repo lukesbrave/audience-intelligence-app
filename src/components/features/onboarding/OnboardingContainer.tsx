@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { StickyHeader } from '@/components/ui'
 import StepIndicator from './StepIndicator'
 import StartingPoint from './steps/StartingPoint'
 import DescribeAudience from './steps/DescribeAudience'
@@ -100,32 +101,29 @@ export default function OnboardingContainer() {
     setIsSubmitting(true)
 
     try {
-      // Generate profile using Gemini
-      const profileRes = await fetch('/api/generate-profile', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          path: state.selectedPath,
-          data: state.selectedPath === 'direct'
-            ? {
-                businessDescription: state.businessDescription,
-                idealClientDescription: state.idealClientDescription,
-              }
-            : {
-                introspection: state.introspection,
-                selectedAudience: state.customAudienceDescription ||
-                  state.audienceSuggestions.find(s => s.id === state.selectedAudienceId)?.title,
-              }
-        }),
-      })
+      // Build audience summary from raw inputs (no Gemini call needed)
+      const selectedAudience = state.customAudienceDescription ||
+        state.audienceSuggestions.find(s => s.id === state.selectedAudienceId)?.title
 
-      if (!profileRes.ok) {
-        throw new Error('Failed to generate profile')
+      const audienceSummary = state.selectedPath === 'direct'
+        ? state.idealClientDescription
+        : selectedAudience || 'Target audience from discovery'
+
+      // Create a simple profile from raw onboarding data
+      const profile = {
+        audienceSummary,
+        rawInputs: state.selectedPath === 'direct'
+          ? {
+              businessDescription: state.businessDescription,
+              idealClientDescription: state.idealClientDescription,
+            }
+          : {
+              introspection: state.introspection,
+              selectedAudience,
+            },
       }
 
-      const { profile } = await profileRes.json()
-
-      // Create report in database
+      // Create report in database (quick operation)
       const reportRes = await fetch('/api/reports', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -144,7 +142,7 @@ export default function OnboardingContainer() {
             onboardingData: {
               path: state.selectedPath,
               profile,
-              audienceSummary: profile.audienceSummary,
+              audienceSummary,
             },
           },
         }),
@@ -156,9 +154,8 @@ export default function OnboardingContainer() {
 
       const { report } = await reportRes.json()
 
-      // Redirect to the research page with the report ID to trigger processing
-      router.push(`/research?fromOnboarding=true&reportId=${report.id}`)
-      router.refresh()
+      // Redirect immediately to research-v2 (research will start there)
+      router.push(`/research-v2?reportId=${report.id}`)
 
     } catch (error) {
       console.error('Error completing onboarding:', error)
@@ -291,16 +288,19 @@ export default function OnboardingContainer() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1a2744] flex flex-col items-center justify-center p-4">
-      <div className="w-full max-w-xl">
-        <StepIndicator
-          currentStep={currentStep}
-          totalSteps={getTotalSteps()}
-          title={getStepTitle()}
-        />
+    <div className="min-h-screen bg-[#1a2744]">
+      <StickyHeader />
+      <div className="flex flex-col items-center py-8 px-4">
+        <div className="w-full max-w-xl">
+          <StepIndicator
+            currentStep={currentStep}
+            totalSteps={getTotalSteps()}
+            title={getStepTitle()}
+          />
 
-        <div className="mt-8">
-          {renderStep()}
+          <div className="mt-8">
+            {renderStep()}
+          </div>
         </div>
       </div>
     </div>

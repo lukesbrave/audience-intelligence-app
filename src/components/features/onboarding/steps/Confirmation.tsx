@@ -57,7 +57,7 @@ export default function Confirmation({
   return (
     <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
-        <span className="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-sm rounded-full mb-3">
+        <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Ready to Launch
         </span>
         <h1 className="text-2xl font-bold text-white mb-2">
@@ -89,35 +89,35 @@ export default function Confirmation({
         )}
       </div>
 
-      <div className="bg-gradient-to-r from-teal-500/10 to-blue-500/10 rounded-lg p-6 mb-8 border border-teal-500/20">
+      <div className="bg-gradient-to-r from-[var(--color-brave-600)]/10 to-[var(--color-brave-500)]/10 rounded-lg p-6 mb-8 border border-[var(--color-brave-500)]/20">
         <h3 className="text-white font-medium mb-3">What you&apos;ll get:</h3>
         <ul className="space-y-2 text-gray-300 text-sm">
           <li className="flex items-start gap-2">
-            <svg className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Deep audience profile with demographics, pain points, and goals
           </li>
           <li className="flex items-start gap-2">
-            <svg className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Research findings from real conversations and data
           </li>
           <li className="flex items-start gap-2">
-            <svg className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Their exact language and words they use
           </li>
           <li className="flex items-start gap-2">
-            <svg className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Urgency Gateway - the #1 problem they&apos;ll pay to solve
           </li>
           <li className="flex items-start gap-2">
-            <svg className="w-5 h-5 text-teal-400 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
             </svg>
             Marketing strategy tailored to your audience
@@ -137,7 +137,7 @@ export default function Confirmation({
         <button
           onClick={onComplete}
           disabled={isSubmitting}
-          className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-8 py-3 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center gap-2">

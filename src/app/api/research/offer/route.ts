@@ -30,15 +30,18 @@ export async function POST(request: NextRequest) {
 
     // Create focused summaries for the prompt
     const researchSummary = {
+      audienceState: research.audienceState, // Current state -> Desired state transformation
       urgencyGateway: research.urgencyGateway,
       painPoints: research.painPoints.slice(0, 5),
       languageMap: research.languageMap,
     }
 
-    // Combine loved and liked hooks (loved first)
+    // Combine loved and liked hooks (loved first) with defensive handling
+    const safeLovedHooks = lovedHooks || []
+    const safeLikedHooks = likedHooks || []
     const topHooks = [
-      ...lovedHooks.map((h) => `🔥 "${h.text}" (${h.category})`),
-      ...likedHooks.slice(0, 5).map((h) => `❤️ "${h.text}" (${h.category})`),
+      ...safeLovedHooks.map((h) => `🔥 "${h.text}" (${h.category})`),
+      ...safeLikedHooks.slice(0, 5).map((h) => `❤️ "${h.text}" (${h.category})`),
     ]
 
     const prompt = getOfferCorePrompt(

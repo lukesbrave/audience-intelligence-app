@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { SwipeCard } from './SwipeCard'
 import { Hook, HookRating, RatedHook, BrandAngle, ResearchOutput } from '@/lib/research/schemas'
@@ -22,6 +22,50 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
   useEffect(() => {
     generateHooks()
   }, [])
+
+  // Swipe action handler (used by keyboard, buttons, and SwipeCard)
+  const handleSwipeAction = useCallback(
+    (rating: HookRating) => {
+      if (currentIndex >= hooks.length) return
+
+      const currentHook = hooks[currentIndex]
+      const ratedHook: RatedHook = { ...currentHook, rating }
+
+      setRatedHooks((prev) => [...prev, ratedHook])
+
+      if (currentIndex < hooks.length - 1) {
+        setCurrentIndex((prev) => prev + 1)
+      } else {
+        setStatus('complete')
+      }
+    },
+    [currentIndex, hooks]
+  )
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (status !== 'swiping') return
+
+      switch (event.key) {
+        case 'ArrowLeft':
+          event.preventDefault()
+          handleSwipeAction('skip')
+          break
+        case 'ArrowRight':
+          event.preventDefault()
+          handleSwipeAction('like')
+          break
+        case 'ArrowUp':
+          event.preventDefault()
+          handleSwipeAction('love')
+          break
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [status, handleSwipeAction])
 
   const generateHooks = async () => {
     setStatus('loading')
@@ -52,18 +96,8 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
     }
   }
 
-  const handleSwipe = (rating: HookRating) => {
-    const currentHook = hooks[currentIndex]
-    const ratedHook: RatedHook = { ...currentHook, rating }
-
-    setRatedHooks((prev) => [...prev, ratedHook])
-
-    if (currentIndex < hooks.length - 1) {
-      setCurrentIndex((prev) => prev + 1)
-    } else {
-      setStatus('complete')
-    }
-  }
+  // Alias for SwipeCard component compatibility
+  const handleSwipe = handleSwipeAction
 
   const likedHooks = ratedHooks.filter((h) => h.rating === 'like')
   const lovedHooks = ratedHooks.filter((h) => h.rating === 'love')
@@ -243,21 +277,21 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
       {/* Manual buttons */}
       <div className="flex justify-center gap-6 mt-8">
         <button
-          onClick={() => handleSwipe('skip')}
+          onClick={() => handleSwipeAction('skip')}
           className="w-16 h-16 rounded-full bg-[#243351] border border-white/10 flex items-center justify-center text-2xl hover:bg-[#2a3d5f] transition-colors"
           aria-label="Skip"
         >
           ⬅️
         </button>
         <button
-          onClick={() => handleSwipe('like')}
+          onClick={() => handleSwipeAction('like')}
           className="w-16 h-16 rounded-full bg-[var(--color-brave-600)]/20 border border-[var(--color-brave-500)]/30 flex items-center justify-center text-2xl hover:bg-[var(--color-brave-600)]/30 transition-colors"
           aria-label="Like"
         >
           ❤️
         </button>
         <button
-          onClick={() => handleSwipe('love')}
+          onClick={() => handleSwipeAction('love')}
           className="w-16 h-16 rounded-full bg-orange-600/20 border border-orange-500/30 flex items-center justify-center text-2xl hover:bg-orange-600/30 transition-colors"
           aria-label="Love"
         >

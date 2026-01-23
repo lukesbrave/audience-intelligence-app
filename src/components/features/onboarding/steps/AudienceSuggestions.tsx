@@ -30,7 +30,7 @@ export default function AudienceSuggestions({
   return (
     <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
-        <span className="inline-block px-3 py-1 bg-teal-500/20 text-teal-400 text-sm rounded-full mb-3">
+        <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Your Audience
         </span>
         <h1 className="text-2xl font-bold text-white mb-2">
@@ -48,7 +48,7 @@ export default function AudienceSuggestions({
             onClick={() => onSelect(suggestion.id)}
             className={`w-full text-left p-4 rounded-lg border-2 transition-all ${
               selectedId === suggestion.id
-                ? 'border-teal-500 bg-teal-500/10'
+                ? 'border-[var(--color-brave-500)] bg-[var(--color-brave-600)]/10'
                 : 'border-white/10 hover:border-white/20 bg-transparent'
             }`}
           >
@@ -58,7 +58,7 @@ export default function AudienceSuggestions({
                 <p className="text-gray-400 text-sm mt-1">{suggestion.description}</p>
               </div>
               {selectedId === suggestion.id && (
-                <div className="w-6 h-6 rounded-full bg-teal-500 flex items-center justify-center flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-[var(--color-brave-600)] flex items-center justify-center flex-shrink-0">
                   <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
@@ -83,8 +83,8 @@ export default function AudienceSuggestions({
           value={customDescription}
           onChange={(e) => onCustomChange(e.target.value)}
           placeholder="Describe your ideal audience in detail..."
-          className={`w-full mt-4 px-4 py-3 bg-[#1a2744] border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-teal-500 focus:ring-1 focus:ring-teal-500 resize-none ${
-            customDescription.length > 0 ? 'border-teal-500' : 'border-white/10'
+          className={`w-full mt-4 px-4 py-3 bg-[#1a2744] border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none ${
+            customDescription.length > 0 ? 'border-[var(--color-brave-500)]' : 'border-white/10'
           }`}
           rows={4}
         />
@@ -101,7 +101,7 @@ export default function AudienceSuggestions({
         <button
           onClick={onNext}
           disabled={!isValid}
-          className="px-8 py-3 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-8 py-3 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Continue
         </button>

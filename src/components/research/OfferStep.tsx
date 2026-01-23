@@ -87,7 +87,10 @@ export function OfferStep({
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to generate offer core')
+        const errorMsg = data.details
+          ? `${data.error}: ${data.details}`
+          : data.error || 'Failed to generate offer core'
+        throw new Error(errorMsg)
       }
 
       setOfferCore(data.offerCore)
@@ -100,70 +103,263 @@ export function OfferStep({
     }
   }
 
-  const downloadOfferCore = (format: 'json' | 'txt') => {
+  const downloadBrandPlaybook = (format: 'json' | 'txt') => {
     if (!offerCore) return
 
     if (format === 'json') {
+      // Comprehensive brand playbook with all research data
       const data = {
         generatedAt: new Date().toISOString(),
-        offerCore,
-        context: {
-          selectedAngles: selectedAngles.map((a) => a.name),
-          lovedHooksCount: lovedHooks.length,
-          likedHooksCount: likedHooks.length,
+        version: '1.0',
+
+        // Section 1: Audience Research
+        audienceResearch: {
+          transformationJourney: {
+            currentState: research.audienceState.currentState,
+            desiredState: research.audienceState.desiredState,
+          },
+          urgencyGateway: research.urgencyGateway,
+          painPoints: research.painPoints,
+          languageMap: research.languageMap,
+          congregationPoints: research.congregationPoints,
+          competitiveLandscape: research.competitiveLandscape,
         },
+
+        // Section 2: Brand Positioning
+        brandPositioning: {
+          selectedAngles: selectedAngles.map((angle) => ({
+            name: angle.name,
+            tagline: angle.tagline,
+            targetPain: angle.targetPain,
+            targetDesire: angle.targetDesire,
+            tone: angle.tone,
+            contentThemes: angle.contentThemes,
+          })),
+        },
+
+        // Section 3: Content Hooks
+        contentHooks: {
+          lovedHooks: lovedHooks.map((h) => ({
+            text: h.text,
+            category: h.category,
+          })),
+          likedHooks: likedHooks.map((h) => ({
+            text: h.text,
+            category: h.category,
+          })),
+          totalRated: ratedHooks.length,
+          summary: {
+            loved: lovedHooks.length,
+            liked: likedHooks.length,
+            skipped: ratedHooks.filter((h) => h.rating === 'skip').length,
+          },
+        },
+
+        // Section 4: Offer Core
+        offerCore: {
+          offerStatement: offerCore.offerStatement,
+          benefits: offerCore.theOfferGivesYou,
+          useCases: offerCore.youCanUseItTo,
+          hiddenBenefits: offerCore.hiddenBenefits,
+          programNameOptions: offerCore.programNameOptions,
+        },
+
+        // Usage instructions for AI tools
+        _instructions:
+          'Use this JSON to give AI tools (ChatGPT, Claude, etc.) full context about your brand. Paste the entire document or relevant sections when creating content, sales pages, or marketing materials.',
       }
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `offer-core-${new Date().toISOString().split('T')[0]}.json`
+      a.download = `brand-playbook-${new Date().toISOString().split('T')[0]}.json`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
       URL.revokeObjectURL(url)
     } else {
+      // Comprehensive text document
       const lines = [
-        '═══════════════════════════════════════════════════════════',
-        '                    YOUR OFFER CORE',
-        '═══════════════════════════════════════════════════════════',
+        '╔═══════════════════════════════════════════════════════════════════════════╗',
+        '║                                                                           ║',
+        '║                    YOUR COMPLETE BRAND PLAYBOOK                           ║',
+        '║                                                                           ║',
+        '╚═══════════════════════════════════════════════════════════════════════════╝',
         '',
-        'OFFER STATEMENT',
-        '───────────────',
+        '',
+        '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓',
+        '┃  PART 1: AUDIENCE RESEARCH                                               ┃',
+        '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛',
+        '',
+        '▸ THE TRANSFORMATION JOURNEY',
+        '─────────────────────────────',
+        '',
+        'WHERE THEY ARE NOW:',
+        research.audienceState.currentState,
+        '',
+        'WHERE THEY WANT TO BE:',
+        research.audienceState.desiredState,
+        '',
+        '',
+        '▸ THE #1 HEADACHE (Urgency Gateway)',
+        '────────────────────────────────────',
+        '',
+        `Problem: ${research.urgencyGateway.problem}`,
+        '',
+        'What They\'ve Tried:',
+        ...research.urgencyGateway.failedSolutions.map((s) => `  • ${s}`),
+        '',
+        `Aspirin Solution: ${research.urgencyGateway.aspirinSolution}`,
+        '',
+        '',
+        '▸ VALIDATED PAIN POINTS',
+        '────────────────────────',
+        '',
+        ...research.painPoints.flatMap((p, i) => [
+          `${i + 1}. ${p.pain} (Severity: ${p.severity})`,
+          `   Emotional Context: ${p.emotionalContext}`,
+          ...(p.realQuotes.length > 0 ? [`   Quote: "${p.realQuotes[0]}"`] : []),
+          '',
+        ]),
+        '',
+        '▸ THEIR LANGUAGE MAP',
+        '─────────────────────',
+        '',
+        'Pain Phrases (how they describe frustrations):',
+        ...research.languageMap.painPhrases.map((p) => `  • "${p}"`),
+        '',
+        'Desire Phrases (how they describe what they want):',
+        ...research.languageMap.desirePhrases.map((p) => `  • "${p}"`),
+        '',
+        'Search Phrases (what they Google):',
+        ...research.languageMap.searchPhrases.map((p) => `  • "${p}"`),
+        '',
+        'Emotional Triggers:',
+        ...research.languageMap.emotionalTriggers.map((t) => `  • ${t}`),
+        '',
+        '',
+        '▸ WHERE THEY GATHER',
+        '────────────────────',
+        '',
+        'Subreddits:',
+        ...research.congregationPoints.subreddits.map((s) => `  • r/${s.name} (${s.subscribers} members) - ${s.relevance}`),
+        '',
+        'YouTube Channels:',
+        ...research.congregationPoints.youtubeChannels.map((c) => `  • ${c.name} (${c.subscribers})`),
+        '',
+        'Podcasts:',
+        ...research.congregationPoints.podcasts.map((p) => `  • ${p}`),
+        '',
+        'Influencers:',
+        ...research.congregationPoints.influencers.map((i) => `  • ${i}`),
+        '',
+        '',
+        '▸ COMPETITIVE LANDSCAPE',
+        '─────────────────────────',
+        '',
+        'Existing Solutions:',
+        ...research.competitiveLandscape.existingSolutions.map((s) => `  • ${s.name}: ${s.positioning}`),
+        '',
+        'Market Gaps:',
+        ...research.competitiveLandscape.marketGaps.map((g) => `  • ${g}`),
+        '',
+        'Positioning Opportunities:',
+        ...research.competitiveLandscape.positioningOpportunities.map((o) => `  • ${o}`),
+        '',
+        '',
+        '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓',
+        '┃  PART 2: BRAND POSITIONING                                               ┃',
+        '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛',
+        '',
+        '▸ YOUR SELECTED BRAND ANGLES',
+        '─────────────────────────────',
+        '',
+        ...selectedAngles.flatMap((angle) => [
+          `★ ${angle.name}`,
+          `  "${angle.tagline}"`,
+          '',
+          `  Addresses: ${angle.targetPain}`,
+          `  Fulfills: ${angle.targetDesire}`,
+          `  Tone: ${angle.tone}`,
+          `  Content Themes: ${angle.contentThemes.join(', ')}`,
+          '',
+        ]),
+        '',
+        '',
+        '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓',
+        '┃  PART 3: CONTENT HOOKS                                                   ┃',
+        '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛',
+        '',
+        `You rated ${ratedHooks.length} hooks: ${lovedHooks.length} loved, ${likedHooks.length} liked`,
+        '',
+        '▸ YOUR FIRE HOOKS (Loved)',
+        '──────────────────────────',
+        '',
+        ...lovedHooks.map((h) => `🔥 "${h.text}" [${h.category}]`),
+        '',
+        '',
+        '▸ YOUR LIKED HOOKS',
+        '───────────────────',
+        '',
+        ...likedHooks.map((h) => `❤️ "${h.text}" [${h.category}]`),
+        '',
+        '',
+        '┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓',
+        '┃  PART 4: OFFER CORE                                                      ┃',
+        '┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛',
+        '',
+        '▸ YOUR OFFER STATEMENT',
+        '───────────────────────',
+        '',
         offerCore.offerStatement.finalStatement,
         '',
         `Emotional Core: ${offerCore.offerStatement.emotionalCore}`,
         `Universal Motivators: ${offerCore.offerStatement.universalMotivatorsUsed.join(', ')}`,
-        `Template Used: ${templateLabels[offerCore.offerStatement.templateUsed] || offerCore.offerStatement.templateUsed}`,
+        `Template: ${templateLabels[offerCore.offerStatement.templateUsed] || offerCore.offerStatement.templateUsed}`,
         '',
-        'THE OFFER GIVES YOU',
-        '───────────────────',
-        ...offerCore.theOfferGivesYou.map((b) => `• ${b}`),
         '',
-        'YOU CAN USE IT TO',
-        '─────────────────',
-        ...offerCore.youCanUseItTo.map((u) => `• ${u}`),
+        '▸ THE OFFER GIVES YOU',
+        '──────────────────────',
         '',
-        'HIDDEN BENEFITS',
-        '───────────────',
-        ...offerCore.hiddenBenefits.map((h) => `• ${h}`),
+        ...offerCore.theOfferGivesYou.map((b) => `  ✓ ${b}`),
         '',
-        'PROGRAM NAME OPTIONS',
+        '',
+        '▸ YOU CAN USE IT TO',
         '────────────────────',
-        ...offerCore.programNameOptions.map(
-          (p) => `• ${p.name}\n  Mechanism: ${p.uniqueMechanism}\n  Rationale: ${p.rationale}`
-        ),
         '',
-        '═══════════════════════════════════════════════════════════',
-        `Generated: ${new Date().toISOString()}`,
-        '═══════════════════════════════════════════════════════════',
+        ...offerCore.youCanUseItTo.map((u) => `  → ${u}`),
+        '',
+        '',
+        '▸ HIDDEN BENEFITS',
+        '──────────────────',
+        '',
+        ...offerCore.hiddenBenefits.map((h) => `  ★ ${h}`),
+        '',
+        '',
+        '▸ PROGRAM NAME OPTIONS',
+        '───────────────────────',
+        '',
+        ...offerCore.programNameOptions.flatMap((p) => [
+          `  ◆ ${p.name}`,
+          `    Mechanism: ${p.uniqueMechanism}`,
+          `    Why it works: ${p.rationale}`,
+          '',
+        ]),
+        '',
+        '',
+        '╔═══════════════════════════════════════════════════════════════════════════╗',
+        '║                                                                           ║',
+        `║  Generated: ${new Date().toISOString()}                        ║`,
+        '║  Use this playbook to inform all your brand content and messaging.       ║',
+        '║                                                                           ║',
+        '╚═══════════════════════════════════════════════════════════════════════════╝',
       ]
 
       const blob = new Blob([lines.join('\n')], { type: 'text/plain' })
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = `offer-core-${new Date().toISOString().split('T')[0]}.txt`
+      a.download = `brand-playbook-${new Date().toISOString().split('T')[0]}.txt`
       document.body.appendChild(a)
       a.click()
       document.body.removeChild(a)
@@ -395,16 +591,16 @@ export function OfferStep({
         className="flex justify-end gap-3 mb-6"
       >
         <button
-          onClick={() => downloadOfferCore('json')}
+          onClick={() => downloadBrandPlaybook('json')}
           className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
         >
-          <span>📥</span> Download JSON (for AI)
+          <span>📥</span> Download Playbook JSON (for AI)
         </button>
         <button
-          onClick={() => downloadOfferCore('txt')}
+          onClick={() => downloadBrandPlaybook('txt')}
           className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
         >
-          <span>📄</span> Download Document
+          <span>📄</span> Download Full Playbook
         </button>
       </motion.div>
 

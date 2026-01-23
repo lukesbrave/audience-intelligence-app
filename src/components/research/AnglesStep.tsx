@@ -112,7 +112,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <h2 className="text-2xl font-bold text-white">Your Brand Angles</h2>
+        <h2 className="text-2xl font-bold text-white">Discover Your Unique Edge</h2>
         <p className="text-gray-400 mt-2">
           {status === 'revealing'
             ? 'Unlocking your unique positions...'
@@ -154,7 +154,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
                   )}
                 </div>
 
-                <p className="text-[var(--color-brave-600)] font-medium mb-4">"{angle.tagline}"</p>
+                <p className="text-[var(--color-brave-500)] font-medium text-lg mb-4">"{angle.tagline}"</p>
 
                 <div className="space-y-3 text-sm">
                   <div className="flex items-start gap-2">
@@ -183,12 +183,12 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-xs text-gray-400 mb-2">Content themes:</p>
-                  <div className="flex flex-wrap gap-1">
+                  <p className="text-sm text-gray-400 mb-2">Content themes:</p>
+                  <div className="flex flex-wrap gap-2">
                     {angle.contentThemes.slice(0, 3).map((theme, i) => (
                       <span
                         key={i}
-                        className="bg-white/10 text-gray-300 px-2 py-0.5 rounded text-xs"
+                        className="bg-white/10 text-gray-300 px-3 py-1 rounded text-sm"
                       >
                         {theme}
                       </span>

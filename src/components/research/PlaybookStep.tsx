@@ -85,6 +85,25 @@ export function PlaybookStep({
 
   return (
     <div className="max-w-4xl mx-auto">
+      {/* Floating Action Button for Offer Core */}
+      <motion.button
+        onClick={onOfferCore}
+        initial={{ opacity: 0, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ delay: 1, type: 'spring', stiffness: 200 }}
+        className="fixed bottom-6 right-6 z-50 group"
+      >
+        {/* Pulse rings - using CSS animation for smooth looping */}
+        <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 animate-fab-pulse" />
+        <span className="absolute -inset-1 rounded-full bg-gradient-to-r from-yellow-500 to-orange-500 animate-fab-pulse-delayed" />
+
+        {/* Button */}
+        <span className="relative flex items-center gap-2 px-4 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-semibold rounded-full shadow-lg shadow-orange-500/30 hover:shadow-orange-500/50 hover:scale-105 transition-all">
+          <span className="text-xl">⚡</span>
+          <span className="hidden sm:inline">Click to go deeper</span>
+        </span>
+      </motion.button>
+
       {/* Achievement Banner */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}

@@ -237,6 +237,48 @@ body {
   animation: pingSlow 2.2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+/* Smooth pulse animation for FAB button - two staggered rings */
+@keyframes fabPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.35;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+.animate-fab-pulse {
+  animation: fabPulse 2.5s ease-out infinite;
+}
+
+.animate-fab-pulse-delayed {
+  animation: fabPulse 2.5s ease-out infinite;
+  animation-delay: 1.25s;
+}
+
+/* Smooth pulse animation for progress step indicators */
+@keyframes stepPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
+}
+
+.animate-step-pulse {
+  animation: stepPulse 2s ease-out infinite;
+}
+
+.animate-step-pulse-delayed {
+  animation: stepPulse 2s ease-out infinite;
+  animation-delay: 1s;
+}
+
 /* Reduced motion support for vestibular disorder users */
 @media (prefers-reduced-motion: reduce) {
   *,

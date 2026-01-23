@@ -53,7 +53,7 @@ Generate suggestions that connect their personal experience and strengths to aud
 Be specific and actionable - avoid generic audiences like "small business owners" unless qualified with specific circumstances.`
 
     const { object } = await generateObject({
-      model: google('gemini-2.0-flash-001'),
+      model: google('gemini-3-flash-preview'),
       schema: SuggestionsSchema,
       prompt,
     })

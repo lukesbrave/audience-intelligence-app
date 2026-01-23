@@ -33,7 +33,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
           type="email"
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
-          className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-teal-500 focus:outline-none transition-colors"
+          className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:border-[var(--color-brave-500)] focus:outline-none transition-colors"
           placeholder="you@example.com"
         />
       </div>
@@ -66,7 +66,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
       <button
         onClick={onNext}
         disabled={!canContinue}
-        className="w-full py-3 bg-teal-600 hover:bg-teal-700 text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+        className="w-full py-3 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         Continue
       </button>

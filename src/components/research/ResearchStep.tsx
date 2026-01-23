@@ -10,6 +10,7 @@ interface ResearchStepProps {
 }
 
 const discoveryPhases = [
+  { id: 'state', label: 'Mapping their transformation journey...', icon: '🗺️' },
   { id: 'urgency', label: 'Finding their #1 headache...', icon: '🔥' },
   { id: 'pain', label: 'Validating pain points...', icon: '💢' },
   { id: 'language', label: 'Mapping their language...', icon: '💬' },
@@ -23,6 +24,14 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
   const [research, setResearch] = useState<ResearchOutput | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [expandedSections, setExpandedSections] = useState<string[]>([])
+
+  // Auto-start research when component mounts
+  useEffect(() => {
+    if (status === 'idle' && audienceProfile) {
+      startResearch()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   useEffect(() => {
     if (status === 'loading') {
@@ -73,17 +82,38 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
   }
 
   if (status === 'idle') {
+    // If we have a profile, auto-start will trigger - show loading immediately
+    if (audienceProfile) {
+      return (
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+            <div className="text-center mb-8">
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+                className="inline-block text-5xl mb-4"
+              >
+                🔍
+              </motion.div>
+              <h2 className="text-xl font-semibold text-white">Starting Research...</h2>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
+    // No profile - show manual start (fallback)
     return (
       <div className="max-w-2xl mx-auto">
         <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Ready to Discover Your Audience</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">Let's Deep Dive Into Your Audience</h2>
           <p className="text-gray-400 mb-8">
             We'll search the web to find real conversations, communities, and insights about your
             target audience.
           </p>
           <button
             onClick={startResearch}
-            className="px-8 py-3 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
+            className="px-8 py-3 bg-[var(--color-brave-500)] hover:bg-[var(--color-brave-600)] text-[#1a2744] font-semibold rounded-lg transition-colors"
           >
             Start Research
           </button>
@@ -129,15 +159,15 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
                   <span className="text-2xl">{phase.icon}</span>
                   <span
                     className={`font-medium ${
-                      isActive ? 'text-[var(--color-brave-600)]' : isComplete ? 'text-[var(--color-brave-600)]' : 'text-gray-400'
+                      isActive ? 'text-[var(--color-brave-500)]' : isComplete ? 'text-[var(--color-brave-500)]' : 'text-gray-400'
                     }`}
                   >
                     {phase.label}
                   </span>
-                  {isComplete && <span className="ml-auto text-[var(--color-brave-600)]">✓</span>}
+                  {isComplete && <span className="ml-auto text-[var(--color-brave-500)]">✓</span>}
                   {isActive && (
                     <motion.span
-                      className="ml-auto text-[var(--color-brave-600)]"
+                      className="ml-auto text-[var(--color-brave-500)]"
                       animate={{ opacity: [1, 0.3, 1] }}
                       transition={{ duration: 1, repeat: Infinity }}
                     >
@@ -186,8 +216,37 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
 
       {research && (
         <>
-          {/* Urgency Gateway - Always expanded */}
+          {/* Transformation Journey - Current State vs Desired State */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <div className="bg-[#243351] rounded-xl p-6 border border-white/10">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <span>🗺️</span> The Transformation Journey
+              </h3>
+              <div className="grid gap-4 md:grid-cols-2">
+                {/* Current State */}
+                <div className="bg-gray-500/10 p-4 rounded-lg border border-gray-500/30 relative">
+                  <div className="absolute -top-3 left-4 bg-[#243351] px-2">
+                    <span className="text-sm font-medium text-gray-400">WHERE THEY ARE NOW</span>
+                  </div>
+                  <div className="pt-2">
+                    <p className="text-gray-300 leading-relaxed">{research.audienceState.currentState}</p>
+                  </div>
+                </div>
+                {/* Desired State */}
+                <div className="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/30 relative">
+                  <div className="absolute -top-3 left-4 bg-[#243351] px-2">
+                    <span className="text-sm font-medium text-emerald-400">WHERE THEY WANT TO BE</span>
+                  </div>
+                  <div className="pt-2">
+                    <p className="text-emerald-200 leading-relaxed">{research.audienceState.desiredState}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Urgency Gateway - Always expanded */}
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
             <div className="bg-[#243351] rounded-xl p-6 border border-white/10 border-l-4 border-l-red-500">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <span>🔥</span> The #1 Headache
@@ -253,7 +312,7 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
                             {research.languageMap.desirePhrases.map((phrase, i) => (
                               <span
                                 key={i}
-                                className="bg-[var(--color-brave-500)]/20 text-[var(--color-brave-600)] px-3 py-1 rounded-full text-sm border border-[var(--color-brave-500)]/30"
+                                className="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-500/30"
                               >
                                 "{phrase}"
                               </span>

@@ -10,6 +10,7 @@ import {
   PlaybookStep,
   OfferStep,
 } from '@/components/research'
+import { StickyHeader } from '@/components/ui'
 import { ResearchOutput, BrandAngle, RatedHook, OfferCoreOutput } from '@/lib/research/schemas'
 
 type Step = 1 | 2 | 3 | 4 | 5
@@ -195,8 +196,11 @@ function ResearchV2Content() {
     if (flowState.research) completed.push(1)
     if (flowState.selectedAngles.length > 0) completed.push(2)
     if (flowState.ratedHooks.length > 0) completed.push(3)
-    if (flowState.step >= 4) completed.push(4)
-    if (flowState.offerCore) completed.push(5)
+    // Playbook (4) is only completed when you've moved to Offer Core (5)
+    if (flowState.step > 4) completed.push(4)
+    // Offer Core (5) only completed after user generates it
+    // Note: offerCore starts as null and is only set after successful generation
+    if (flowState.offerCore !== null) completed.push(5)
     return completed
   })()
 
@@ -217,6 +221,7 @@ function ResearchV2Content() {
 
   return (
     <div className="min-h-screen bg-[#1a2744]">
+      <StickyHeader />
       <div className="py-8 px-4 sm:px-6 lg:px-8">
         <ProgressBar currentStep={flowState.step} completedSteps={completedSteps} />
 

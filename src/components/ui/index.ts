@@ -75,3 +75,5 @@ export type { OfferStageCardProps, OfferLevel } from './OfferStageCard';
 
 export { ConfidenceIndicator } from './ConfidenceIndicator';
 export type { ConfidenceIndicatorProps, ConfidenceLevel } from './ConfidenceIndicator';
+
+export { Logo, StickyHeader } from './Logo';

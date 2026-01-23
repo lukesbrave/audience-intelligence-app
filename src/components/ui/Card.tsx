@@ -5,6 +5,7 @@ interface CardProps {
   className?: string;
   padding?: 'none' | 'sm' | 'md' | 'lg';
   elevation?: 'none' | 'sm' | 'md' | 'lg';
+  onClick?: () => void;
 }
 
 const paddingStyles = {
@@ -21,10 +22,11 @@ const elevationStyles = {
   lg: 'shadow-lg hover:shadow-xl transition-shadow duration-200',
 };
 
-function Card({ children, className = '', padding = 'md', elevation = 'none' }: CardProps) {
+function Card({ children, className = '', padding = 'md', elevation = 'none', onClick }: CardProps) {
   return (
     <div
       className={`bg-white border border-gray-200 rounded-lg ${paddingStyles[padding]} ${elevationStyles[elevation]} ${className}`}
+      onClick={onClick}
     >
       {children}
     </div>
@@ -34,11 +36,12 @@ function Card({ children, className = '', padding = 'md', elevation = 'none' }: 
 interface CardHeaderProps {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }
 
-function CardHeader({ children, className = '' }: CardHeaderProps) {
+function CardHeader({ children, className = '', onClick }: CardHeaderProps) {
   return (
-    <div className={`mb-4 ${className}`}>
+    <div className={`mb-4 ${className}`} onClick={onClick}>
       {children}
     </div>
   );
