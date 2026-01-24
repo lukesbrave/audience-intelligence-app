@@ -167,3 +167,31 @@ export type OfferStatement = z.infer<typeof OfferStatementSchema>
 export type ProgramNameOption = z.infer<typeof ProgramNameOptionSchema>
 export type OfferCoreOutput = z.infer<typeof OfferCoreOutputSchema>
 export type OfferStatementTemplate = z.infer<typeof OfferStatementTemplateSchema>
+
+// ============================================
+// Focus Group Insights Schema
+// ============================================
+
+export const FocusGroupQuoteSchema = z.object({
+  quote: z.string().describe('Direct quote from the focus group participant'),
+  context: z.string().describe('What prompted this statement or what they were discussing'),
+  emotion: z.string().describe('The apparent emotion (frustration, excitement, hope, etc.)'),
+})
+
+export const FocusGroupPainPointSchema = z.object({
+  pain: z.string().describe('The pain point or frustration mentioned'),
+  frequency: z.enum(['mentioned_once', 'recurring', 'dominant_theme']).describe('How often this came up'),
+  exactPhrases: z.array(z.string()).describe('Exact words/phrases used to describe this pain'),
+})
+
+export const FocusGroupInsightsSchema = z.object({
+  directQuotes: z.array(FocusGroupQuoteSchema).describe('Powerful direct quotes revealing pain, desire, or emotion'),
+  painPoints: z.array(FocusGroupPainPointSchema).describe('Pain points mentioned with frequency indicators'),
+  desireStatements: z.array(z.string()).describe('What they want, hope for, or dream about - in their words'),
+  vocabularyPatterns: z.array(z.string()).describe('Distinctive words, phrases, jargon, or slang they use'),
+  urgencyIndicators: z.array(z.string()).describe('Problems that seemed most pressing or generated most energy'),
+})
+
+export type FocusGroupQuote = z.infer<typeof FocusGroupQuoteSchema>
+export type FocusGroupPainPoint = z.infer<typeof FocusGroupPainPointSchema>
+export type FocusGroupInsights = z.infer<typeof FocusGroupInsightsSchema>

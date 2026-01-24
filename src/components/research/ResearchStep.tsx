@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ResearchOutput } from '@/lib/research/schemas'
+import { ResearchOutput, FocusGroupInsights } from '@/lib/research/schemas'
 
 interface ResearchStepProps {
   audienceProfile: Record<string, unknown>
+  focusGroupInsights?: FocusGroupInsights | null
   onComplete: (research: ResearchOutput) => void
 }
 
@@ -18,7 +19,7 @@ const discoveryPhases = [
   { id: 'competitors', label: 'Analyzing the landscape...', icon: '🎯' },
 ]
 
-export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps) {
+export function ResearchStep({ audienceProfile, focusGroupInsights, onComplete }: ResearchStepProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'complete' | 'error'>('idle')
   const [currentPhase, setCurrentPhase] = useState(0)
   const [research, setResearch] = useState<ResearchOutput | null>(null)
@@ -57,7 +58,10 @@ export function ResearchStep({ audienceProfile, onComplete }: ResearchStepProps)
       const response = await fetch('/api/research/direct', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ audienceProfile }),
+        body: JSON.stringify({
+          audienceProfile,
+          focusGroupInsights: focusGroupInsights || undefined,
+        }),
       })
 
       const data = await response.json()

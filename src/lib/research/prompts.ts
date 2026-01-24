@@ -1,8 +1,32 @@
 // Prompts for the Gamified Audience Intelligence Experience
 
-export function getResearchPrompt(audienceProfile: string): string {
-  return `You are a deep audience research specialist. Your job is to find REAL, current data about a target audience using web search.
+export function getResearchPrompt(
+  audienceProfile: string,
+  focusGroupData?: string
+): string {
+  const focusGroupSection = focusGroupData
+    ? `
+## FOCUS GROUP DATA (DIRECT CUSTOMER CONVERSATIONS)
 
+The following insights come from real focus group sessions with actual target customers.
+**PRIORITIZE this data over web search results** - these are verified quotes and patterns from real people.
+
+${focusGroupData}
+
+IMPORTANT INSTRUCTIONS FOR FOCUS GROUP DATA:
+- Use the exact language and phrases from focus groups in your output
+- When you find web results, validate them against these focus group insights
+- Direct quotes from focus groups should be included in the realQuotes arrays
+- Pain points mentioned frequently in focus groups should be marked as "critical" severity
+- The vocabulary patterns should heavily influence your languageMap output
+
+---
+
+`
+    : ''
+
+  return `You are a deep audience research specialist. Your job is to find REAL, current data about a target audience using web search.
+${focusGroupSection}
 ## TARGET AUDIENCE PROFILE
 
 ${audienceProfile}
