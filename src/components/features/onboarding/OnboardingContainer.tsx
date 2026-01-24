@@ -11,6 +11,7 @@ import StrengthsQuestions from './steps/StrengthsQuestions'
 import EnergyQuestions from './steps/EnergyQuestions'
 import AudienceSuggestions from './steps/AudienceSuggestions'
 import Confirmation from './steps/Confirmation'
+import { FocusGroupInsights } from '@/lib/research/schemas'
 
 export interface OnboardingState {
   // Email for report delivery
@@ -21,6 +22,7 @@ export interface OnboardingState {
   // Path A (direct)
   businessDescription: string
   idealClientDescription: string
+  focusGroupInsights: FocusGroupInsights | null
 
   // Path B (discovery)
   introspection: {
@@ -51,6 +53,7 @@ const initialState: OnboardingState = {
   selectedPath: null,
   businessDescription: '',
   idealClientDescription: '',
+  focusGroupInsights: null,
   introspection: {
     biggestChallenge: '',
     biggestTrauma: '',
@@ -148,6 +151,7 @@ export default function OnboardingContainer() {
               path: state.selectedPath,
               profile,
               audienceSummary,
+              focusGroupInsights: state.focusGroupInsights,
             },
           },
         }),
@@ -189,6 +193,7 @@ export default function OnboardingContainer() {
           <DescribeAudience
             businessDescription={state.businessDescription}
             idealClientDescription={state.idealClientDescription}
+            focusGroupInsights={state.focusGroupInsights}
             onUpdate={(updates) => updateState(updates)}
             onBack={handleBack}
             onNext={handleNext}

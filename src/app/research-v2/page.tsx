@@ -9,7 +9,6 @@ import {
   HooksStep,
   PlaybookStep,
   OfferStep,
-  FocusGroupUpload,
 } from '@/components/research'
 import { StickyHeader, Footer } from '@/components/ui'
 import { ResearchOutput, BrandAngle, RatedHook, OfferCoreOutput, FocusGroupInsights } from '@/lib/research/schemas'
@@ -62,9 +61,7 @@ const TEST_PROFILE = {
 interface FlowState {
   step: Step
   audienceProfile: Record<string, unknown> | null
-  onboardingPath: 'direct' | 'discovery' | null
   focusGroupInsights: FocusGroupInsights | null
-  focusGroupDecided: boolean
   research: ResearchOutput | null
   selectedAngles: BrandAngle[]
   ratedHooks: RatedHook[]
@@ -76,9 +73,7 @@ function ResearchV2Content() {
   const [flowState, setFlowState] = useState<FlowState>({
     step: 1,
     audienceProfile: null,
-    onboardingPath: null,
     focusGroupInsights: null,
-    focusGroupDecided: false,
     research: null,
     selectedAngles: [],
     ratedHooks: [],
@@ -92,11 +87,10 @@ function ResearchV2Content() {
     const testMode = searchParams.get('test') === 'true'
 
     if (testMode) {
-      // Use sample profile for quick testing - treat as direct path to test focus group feature
+      // Use sample profile for quick testing
       setFlowState((prev) => ({
         ...prev,
         audienceProfile: TEST_PROFILE,
-        onboardingPath: 'direct',
       }))
       setLoading(false)
     } else if (reportId) {
@@ -108,7 +102,6 @@ function ResearchV2Content() {
         setFlowState((prev) => ({
           ...prev,
           audienceProfile: JSON.parse(savedProfile),
-          onboardingPath: 'direct', // Treat localStorage testing as direct path
         }))
         setLoading(false)
       } else {
@@ -143,15 +136,13 @@ function ResearchV2Content() {
         throw new Error('No profile found in report')
       }
 
-      // Extract the onboarding path to determine if focus group option should show
-      const path = report.response?.onboardingData?.path as 'direct' | 'discovery' | null
+      // Extract focus group insights if they were uploaded during onboarding
+      const focusGroupInsights = report.response?.onboardingData?.focusGroupInsights || null
 
       setFlowState((prev) => ({
         ...prev,
         audienceProfile: profile,
-        onboardingPath: path,
-        // Discovery path users skip focus group - they don't have audience data yet
-        focusGroupDecided: path === 'discovery' ? true : false,
+        focusGroupInsights,
       }))
     } catch (err) {
       console.error('Error loading profile:', err)
@@ -246,25 +237,7 @@ function ResearchV2Content() {
         <ProgressBar currentStep={flowState.step} completedSteps={completedSteps} />
 
         <div className="mt-8">
-          {flowState.step === 1 && !flowState.focusGroupDecided && flowState.onboardingPath === 'direct' && (
-            <FocusGroupUpload
-              onInsightsReady={(insights) => {
-                setFlowState((prev) => ({
-                  ...prev,
-                  focusGroupInsights: insights,
-                  focusGroupDecided: true,
-                }))
-              }}
-              onSkip={() => {
-                setFlowState((prev) => ({
-                  ...prev,
-                  focusGroupDecided: true,
-                }))
-              }}
-            />
-          )}
-
-          {flowState.step === 1 && flowState.focusGroupDecided && (
+          {flowState.step === 1 && (
             <ResearchStep
               audienceProfile={flowState.audienceProfile}
               focusGroupInsights={flowState.focusGroupInsights}
