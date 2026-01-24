@@ -29,8 +29,12 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
     setTimeout(() => setPhase('laser'), 800)
   }
 
+  const handleBack = () => {
+    setPhase('sunshine')
+  }
+
   return (
-    <div className="min-h-[80vh] flex flex-col items-center justify-center px-4">
+    <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
       <AnimatePresence mode="wait">
         {phase === 'sunshine' && (
           <motion.div
@@ -40,13 +44,16 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             exit={{ opacity: 0, scale: 0.95 }}
             className="text-center max-w-2xl"
           >
-            {/* Sunshine Icon */}
+            {/* Sunshine Icon - smoother animation */}
             <motion.div
               animate={{
-                rotate: [0, 5, -5, 0],
-                scale: [1, 1.05, 1]
+                scale: [1, 1.03, 1],
               }}
-              transition={{ duration: 3, repeat: Infinity }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: 'easeInOut'
+              }}
               className="text-8xl mb-8"
             >
               ☀️
@@ -62,7 +69,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               Reaches no one. Converts nothing.
             </p>
 
-            {/* Problem List */}
+            {/* Problem List - improved legibility */}
             <div className="space-y-4 mb-12">
               {sunshineProblems.map((problem, i) => (
                 <motion.div
@@ -70,10 +77,10 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.5 + i * 0.15 }}
-                  className="flex items-center justify-center gap-3 text-gray-500"
+                  className="flex items-center justify-center gap-3"
                 >
-                  <span className="text-yellow-500/50">✗</span>
-                  <span className="italic">{problem.before}</span>
+                  <span className="text-yellow-500">✗</span>
+                  <span className="italic text-gray-300">{problem.before}</span>
                 </motion.div>
               ))}
             </div>
@@ -95,7 +102,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="text-center"
+            className="text-center relative"
           >
             <motion.div
               animate={{
@@ -125,7 +132,19 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl"
           >
-            {/* Laser Icon */}
+            {/* Back button */}
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              onClick={handleBack}
+              className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center gap-2 mx-auto"
+            >
+              <span>←</span>
+              <span className="text-sm">Back</span>
+            </motion.button>
+
+            {/* Laser Icon - smoother animation */}
             <motion.div
               initial={{ scale: 0 }}
               animate={{ scale: 1 }}
@@ -135,17 +154,25 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               <motion.div
                 animate={{
                   boxShadow: [
-                    '0 0 20px rgba(var(--color-brave-rgb), 0.3)',
-                    '0 0 60px rgba(var(--color-brave-rgb), 0.6)',
-                    '0 0 20px rgba(var(--color-brave-rgb), 0.3)'
+                    '0 0 20px rgba(99, 102, 241, 0.3)',
+                    '0 0 40px rgba(99, 102, 241, 0.5)',
+                    '0 0 20px rgba(99, 102, 241, 0.3)'
                   ]
                 }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: 'easeInOut'
+                }}
                 className="w-20 h-20 mx-auto bg-gradient-to-br from-[var(--color-brave-400)] to-[var(--color-brave-600)] rounded-full flex items-center justify-center"
               >
                 <motion.div
                   animate={{ rotate: 360 }}
-                  transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
+                  transition={{
+                    duration: 20,
+                    repeat: Infinity,
+                    ease: 'linear'
+                  }}
                   className="text-4xl"
                 >
                   🎯
@@ -195,14 +222,14 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                     </div>
                     <div>
                       <p className="text-white font-medium">{item.after}</p>
-                      <p className="text-gray-500 text-sm line-through">{item.before}</p>
+                      <p className="text-gray-400 text-sm line-through">{item.before}</p>
                     </div>
                   </div>
                 </motion.div>
               ))}
             </motion.div>
 
-            {/* What You Get */}
+            {/* What You Get - improved legibility */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -218,11 +245,11 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 + i * 0.1 }}
                     whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-[#1a2744] p-4 rounded-xl border border-white/10 text-center"
+                    className="bg-[#243351] p-4 rounded-xl border border-white/10 text-center"
                   >
                     <div className="text-3xl mb-2">{outcome.icon}</div>
                     <p className="text-white font-medium text-sm mb-1">{outcome.label}</p>
-                    <p className="text-gray-500 text-xs">{outcome.desc}</p>
+                    <p className="text-gray-300 text-xs">{outcome.desc}</p>
                   </motion.div>
                 ))}
               </div>
@@ -247,8 +274,12 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               <span className="relative flex items-center gap-3">
                 <span>Activate Laser Mode</span>
                 <motion.span
-                  animate={{ x: [0, 5, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    ease: 'easeInOut'
+                  }}
                 >
                   ⚡
                 </motion.span>
@@ -259,7 +290,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.4 }}
-              className="text-gray-500 text-sm mt-6"
+              className="text-gray-400 text-sm mt-6"
             >
               More leads. More conversions. More growth.
             </motion.p>
