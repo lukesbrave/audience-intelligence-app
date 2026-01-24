@@ -26,10 +26,10 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           ⚡
         </div>
 
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-          Start Marketing Like a
+        <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
+          Start Marketing
           <span className="block bg-gradient-to-r from-[var(--color-brave-400)] to-[var(--color-brave-600)] bg-clip-text text-transparent mt-2">
-            Laser Beam
+            Like a Laser Beam
           </span>
         </h1>
 

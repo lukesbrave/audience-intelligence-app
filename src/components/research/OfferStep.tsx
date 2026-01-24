@@ -51,6 +51,21 @@ export function OfferStep({
   const [offerCore, setOfferCore] = useState<OfferCoreOutput | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  // Editable state for offer core fields
+  const [editingField, setEditingField] = useState<string | null>(null)
+  const [editedOfferStatement, setEditedOfferStatement] = useState('')
+  const [editedBenefits, setEditedBenefits] = useState<string[]>([])
+  const [editedUseCases, setEditedUseCases] = useState<string[]>([])
+  const [editedHiddenBenefits, setEditedHiddenBenefits] = useState<string[]>([])
+
+  // Initialize edited values when offerCore is set
+  const initializeEditableFields = (core: OfferCoreOutput) => {
+    setEditedOfferStatement(core.offerStatement.finalStatement)
+    setEditedBenefits([...core.theOfferGivesYou])
+    setEditedUseCases([...core.youCanUseItTo])
+    setEditedHiddenBenefits([...core.hiddenBenefits])
+  }
+
   const likedHooks = ratedHooks.filter((h) => h.rating === 'like')
   const lovedHooks = ratedHooks.filter((h) => h.rating === 'love')
 
@@ -97,6 +112,7 @@ export function OfferStep({
       }
 
       setOfferCore(data.offerCore)
+      initializeEditableFields(data.offerCore)
       onComplete(data.offerCore)
       setStatus('complete')
     } catch (err) {
@@ -158,12 +174,15 @@ export function OfferStep({
           },
         },
 
-        // Section 4: Offer Core
+        // Section 4: Offer Core (with user edits)
         offerCore: {
-          offerStatement: offerCore.offerStatement,
-          benefits: offerCore.theOfferGivesYou,
-          useCases: offerCore.youCanUseItTo,
-          hiddenBenefits: offerCore.hiddenBenefits,
+          offerStatement: {
+            ...offerCore.offerStatement,
+            finalStatement: editedOfferStatement || offerCore.offerStatement.finalStatement,
+          },
+          benefits: editedBenefits.length > 0 ? editedBenefits : offerCore.theOfferGivesYou,
+          useCases: editedUseCases.length > 0 ? editedUseCases : offerCore.youCanUseItTo,
+          hiddenBenefits: editedHiddenBenefits.length > 0 ? editedHiddenBenefits : offerCore.hiddenBenefits,
           programNameOptions: offerCore.programNameOptions,
         },
 
@@ -314,7 +333,7 @@ export function OfferStep({
         '▸ YOUR OFFER STATEMENT',
         '───────────────────────',
         '',
-        offerCore.offerStatement.finalStatement,
+        editedOfferStatement || offerCore.offerStatement.finalStatement,
         '',
         `Emotional Core: ${offerCore.offerStatement.emotionalCore}`,
         `Universal Motivators: ${offerCore.offerStatement.universalMotivatorsUsed.join(', ')}`,
@@ -324,19 +343,19 @@ export function OfferStep({
         '▸ THE OFFER GIVES YOU',
         '──────────────────────',
         '',
-        ...offerCore.theOfferGivesYou.map((b) => `  ✓ ${b}`),
+        ...(editedBenefits.length > 0 ? editedBenefits : offerCore.theOfferGivesYou).map((b) => `  ✓ ${b}`),
         '',
         '',
         '▸ YOU CAN USE IT TO',
         '────────────────────',
         '',
-        ...offerCore.youCanUseItTo.map((u) => `  → ${u}`),
+        ...(editedUseCases.length > 0 ? editedUseCases : offerCore.youCanUseItTo).map((u) => `  → ${u}`),
         '',
         '',
         '▸ HIDDEN BENEFITS',
         '──────────────────',
         '',
-        ...offerCore.hiddenBenefits.map((h) => `  ★ ${h}`),
+        ...(editedHiddenBenefits.length > 0 ? editedHiddenBenefits : offerCore.hiddenBenefits).map((h) => `  ★ ${h}`),
         '',
         '',
         '▸ PROGRAM NAME OPTIONS',
@@ -843,9 +862,44 @@ export function OfferStep({
               </span>
             </div>
             <div className="p-6">
-              <p className="text-xl text-white font-medium leading-relaxed">
-                "{offerCore.offerStatement.finalStatement}"
-              </p>
+              {editingField === 'offerStatement' ? (
+                <div className="space-y-3">
+                  <textarea
+                    value={editedOfferStatement}
+                    onChange={(e) => setEditedOfferStatement(e.target.value)}
+                    className="w-full p-4 bg-[#1a2744] border border-yellow-500/30 rounded-lg text-white text-xl font-medium leading-relaxed resize-none focus:outline-none focus:border-yellow-500"
+                    rows={4}
+                    autoFocus
+                  />
+                  <div className="flex gap-2 justify-end">
+                    <button
+                      onClick={() => {
+                        setEditedOfferStatement(offerCore.offerStatement.finalStatement)
+                        setEditingField(null)
+                      }}
+                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => setEditingField(null)}
+                      className="px-4 py-2 bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30 rounded-lg transition-colors"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  onClick={() => setEditingField('offerStatement')}
+                  className="group cursor-pointer"
+                >
+                  <p className="text-xl text-white font-medium leading-relaxed group-hover:bg-white/5 p-2 -m-2 rounded-lg transition-colors">
+                    "{editedOfferStatement || offerCore.offerStatement.finalStatement}"
+                    <span className="ml-2 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity text-sm">✏️ Click to edit</span>
+                  </p>
+                </div>
+              )}
               <div className="mt-6 grid md:grid-cols-2 gap-4">
                 <div className="bg-black/20 p-4 rounded-lg">
                   <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">
@@ -882,17 +936,74 @@ export function OfferStep({
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🎁</span>
               <h3 className="text-lg font-semibold text-white">The Offer Gives You</h3>
+              {editingField !== 'benefits' && (
+                <button
+                  onClick={() => setEditingField('benefits')}
+                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                >
+                  ✏️ Edit
+                </button>
+              )}
             </div>
             <div className="p-6 space-y-3">
-              {offerCore.theOfferGivesYou.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
-                >
-                  <span className="text-green-400 mt-0.5">✓</span>
-                  <p className="text-white">{benefit}</p>
+              {editingField === 'benefits' ? (
+                <div className="space-y-3">
+                  {editedBenefits.map((benefit, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <span className="text-green-400 mt-3">✓</span>
+                      <input
+                        type="text"
+                        value={benefit}
+                        onChange={(e) => {
+                          const newBenefits = [...editedBenefits]
+                          newBenefits[i] = e.target.value
+                          setEditedBenefits(newBenefits)
+                        }}
+                        className="flex-1 p-3 bg-[#1a2744] border border-white/20 rounded-lg text-white focus:outline-none focus:border-green-500/50"
+                      />
+                      <button
+                        onClick={() => setEditedBenefits(editedBenefits.filter((_, idx) => idx !== i))}
+                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => setEditedBenefits([...editedBenefits, ''])}
+                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-gray-400 hover:text-white hover:border-white/40 transition-colors"
+                  >
+                    + Add benefit
+                  </button>
+                  <div className="flex gap-2 justify-end pt-2">
+                    <button
+                      onClick={() => {
+                        setEditedBenefits([...offerCore.theOfferGivesYou])
+                        setEditingField(null)
+                      }}
+                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => setEditingField(null)}
+                      className="px-4 py-2 bg-green-500/20 text-green-400 hover:bg-green-500/30 rounded-lg transition-colors"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
-              ))}
+              ) : (
+                (editedBenefits.length > 0 ? editedBenefits : offerCore.theOfferGivesYou).map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
+                  >
+                    <span className="text-green-400 mt-0.5">✓</span>
+                    <p className="text-white">{benefit}</p>
+                  </div>
+                ))
+              )}
             </div>
           </motion.div>
 
@@ -906,17 +1017,74 @@ export function OfferStep({
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🚀</span>
               <h3 className="text-lg font-semibold text-white">You Can Use It To</h3>
+              {editingField !== 'useCases' && (
+                <button
+                  onClick={() => setEditingField('useCases')}
+                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                >
+                  ✏️ Edit
+                </button>
+              )}
             </div>
             <div className="p-6 space-y-3">
-              {offerCore.youCanUseItTo.map((useCase, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
-                >
-                  <span className="text-[var(--color-brave-500)] mt-0.5">→</span>
-                  <p className="text-white">{useCase}</p>
+              {editingField === 'useCases' ? (
+                <div className="space-y-3">
+                  {editedUseCases.map((useCase, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <span className="text-[var(--color-brave-500)] mt-3">→</span>
+                      <input
+                        type="text"
+                        value={useCase}
+                        onChange={(e) => {
+                          const newUseCases = [...editedUseCases]
+                          newUseCases[i] = e.target.value
+                          setEditedUseCases(newUseCases)
+                        }}
+                        className="flex-1 p-3 bg-[#1a2744] border border-white/20 rounded-lg text-white focus:outline-none focus:border-[var(--color-brave-500)]/50"
+                      />
+                      <button
+                        onClick={() => setEditedUseCases(editedUseCases.filter((_, idx) => idx !== i))}
+                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => setEditedUseCases([...editedUseCases, ''])}
+                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-gray-400 hover:text-white hover:border-white/40 transition-colors"
+                  >
+                    + Add use case
+                  </button>
+                  <div className="flex gap-2 justify-end pt-2">
+                    <button
+                      onClick={() => {
+                        setEditedUseCases([...offerCore.youCanUseItTo])
+                        setEditingField(null)
+                      }}
+                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => setEditingField(null)}
+                      className="px-4 py-2 bg-[var(--color-brave-500)]/20 text-[var(--color-brave-500)] hover:bg-[var(--color-brave-500)]/30 rounded-lg transition-colors"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
-              ))}
+              ) : (
+                (editedUseCases.length > 0 ? editedUseCases : offerCore.youCanUseItTo).map((useCase, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
+                  >
+                    <span className="text-[var(--color-brave-500)] mt-0.5">→</span>
+                    <p className="text-white">{useCase}</p>
+                  </div>
+                ))
+              )}
             </div>
           </motion.div>
 
@@ -930,16 +1098,72 @@ export function OfferStep({
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">💎</span>
               <h3 className="text-lg font-semibold text-white">Hidden Benefits</h3>
+              {editingField !== 'hiddenBenefits' && (
+                <button
+                  onClick={() => setEditingField('hiddenBenefits')}
+                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                >
+                  ✏️ Edit
+                </button>
+              )}
             </div>
             <div className="p-6 space-y-3">
-              {offerCore.hiddenBenefits.map((benefit, i) => (
-                <div
-                  key={i}
-                  className="flex items-start gap-3 p-3 bg-purple-500/10 rounded-lg border-l-4 border-l-purple-500"
-                >
-                  <p className="text-white">{benefit}</p>
+              {editingField === 'hiddenBenefits' ? (
+                <div className="space-y-3">
+                  {editedHiddenBenefits.map((benefit, i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <input
+                        type="text"
+                        value={benefit}
+                        onChange={(e) => {
+                          const newBenefits = [...editedHiddenBenefits]
+                          newBenefits[i] = e.target.value
+                          setEditedHiddenBenefits(newBenefits)
+                        }}
+                        className="flex-1 p-3 bg-purple-500/10 border border-purple-500/30 rounded-lg text-white focus:outline-none focus:border-purple-500/50"
+                      />
+                      <button
+                        onClick={() => setEditedHiddenBenefits(editedHiddenBenefits.filter((_, idx) => idx !== i))}
+                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                      >
+                        ×
+                      </button>
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => setEditedHiddenBenefits([...editedHiddenBenefits, ''])}
+                    className="w-full p-3 border border-dashed border-purple-500/30 rounded-lg text-gray-400 hover:text-white hover:border-purple-500/50 transition-colors"
+                  >
+                    + Add hidden benefit
+                  </button>
+                  <div className="flex gap-2 justify-end pt-2">
+                    <button
+                      onClick={() => {
+                        setEditedHiddenBenefits([...offerCore.hiddenBenefits])
+                        setEditingField(null)
+                      }}
+                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => setEditingField(null)}
+                      className="px-4 py-2 bg-purple-500/20 text-purple-400 hover:bg-purple-500/30 rounded-lg transition-colors"
+                    >
+                      Save
+                    </button>
+                  </div>
                 </div>
-              ))}
+              ) : (
+                (editedHiddenBenefits.length > 0 ? editedHiddenBenefits : offerCore.hiddenBenefits).map((benefit, i) => (
+                  <div
+                    key={i}
+                    className="flex items-start gap-3 p-3 bg-purple-500/10 rounded-lg border-l-4 border-l-purple-500"
+                  >
+                    <p className="text-white">{benefit}</p>
+                  </div>
+                ))
+              )}
             </div>
           </motion.div>
 
