@@ -69,8 +69,48 @@ interface FlowState {
   offerCore: OfferCoreOutput | null
 }
 
+// Helper to get storage key based on report ID
+const getStorageKey = (reportId: string | null) => {
+  return reportId ? `researchFlow_${reportId}` : 'researchFlow_test'
+}
+
+// Helper to save flow state to localStorage
+const saveFlowState = (reportId: string | null, state: FlowState) => {
+  try {
+    const key = getStorageKey(reportId)
+    localStorage.setItem(key, JSON.stringify(state))
+  } catch (e) {
+    console.warn('Failed to save flow state to localStorage:', e)
+  }
+}
+
+// Helper to load flow state from localStorage
+const loadFlowState = (reportId: string | null): FlowState | null => {
+  try {
+    const key = getStorageKey(reportId)
+    const saved = localStorage.getItem(key)
+    if (saved) {
+      return JSON.parse(saved) as FlowState
+    }
+  } catch (e) {
+    console.warn('Failed to load flow state from localStorage:', e)
+  }
+  return null
+}
+
+// Helper to clear flow state from localStorage
+const clearFlowState = (reportId: string | null) => {
+  try {
+    const key = getStorageKey(reportId)
+    localStorage.removeItem(key)
+  } catch (e) {
+    console.warn('Failed to clear flow state from localStorage:', e)
+  }
+}
+
 function ResearchV2Content() {
   const searchParams = useSearchParams()
+  const reportId = searchParams.get('reportId')
   const [flowState, setFlowState] = useState<FlowState>({
     step: 1,
     audienceProfile: null,
@@ -82,36 +122,67 @@ function ResearchV2Content() {
     offerCore: null,
   })
   const [loading, setLoading] = useState(true)
+  const [initialized, setInitialized] = useState(false)
 
   // Load audience profile from report ID, test mode, or redirect to onboarding
   useEffect(() => {
-    const reportId = searchParams.get('reportId')
     const testMode = searchParams.get('test') === 'true'
+
+    // First, try to restore saved flow state
+    const savedFlowState = loadFlowState(reportId)
 
     if (testMode) {
       // Use sample profile for quick testing
-      setFlowState((prev) => ({
-        ...prev,
-        audienceProfile: TEST_PROFILE,
-      }))
-      setLoading(false)
+      if (savedFlowState && savedFlowState.audienceProfile) {
+        // Restore full saved state in test mode
+        setFlowState(savedFlowState)
+        setInitialized(true)
+        setLoading(false)
+      } else {
+        setFlowState((prev) => ({
+          ...prev,
+          audienceProfile: TEST_PROFILE,
+        }))
+        setInitialized(true)
+        setLoading(false)
+      }
     } else if (reportId) {
-      loadAudienceProfile(reportId)
+      if (savedFlowState && savedFlowState.audienceProfile) {
+        // Restore saved state - user is resuming their session
+        setFlowState(savedFlowState)
+        setInitialized(true)
+        setLoading(false)
+      } else {
+        // Fresh start - load from report
+        loadAudienceProfile(reportId)
+      }
     } else {
       // Check if we have a profile in localStorage (for direct testing)
       const savedProfile = localStorage.getItem('testAudienceProfile')
       if (savedProfile) {
-        setFlowState((prev) => ({
-          ...prev,
-          audienceProfile: JSON.parse(savedProfile),
-        }))
+        if (savedFlowState && savedFlowState.audienceProfile) {
+          setFlowState(savedFlowState)
+        } else {
+          setFlowState((prev) => ({
+            ...prev,
+            audienceProfile: JSON.parse(savedProfile),
+          }))
+        }
+        setInitialized(true)
         setLoading(false)
       } else {
         // Redirect to onboarding
         window.location.href = '/onboarding?v2=true'
       }
     }
-  }, [searchParams])
+  }, [searchParams, reportId])
+
+  // Save flow state to localStorage whenever it changes (after initialization)
+  useEffect(() => {
+    if (initialized && flowState.audienceProfile) {
+      saveFlowState(reportId, flowState)
+    }
+  }, [flowState, reportId, initialized])
 
   // Scroll to top when step changes
   useEffect(() => {
@@ -148,6 +219,7 @@ function ResearchV2Content() {
         focusGroupInsights,
         focusGroupBusinessContext,
       }))
+      setInitialized(true)
     } catch (err) {
       console.error('Error loading profile:', err)
       window.location.href = '/onboarding?v2=true'
@@ -203,6 +275,7 @@ function ResearchV2Content() {
 
   const handleRestart = () => {
     localStorage.removeItem('testAudienceProfile')
+    clearFlowState(reportId)
     window.location.href = '/onboarding?v2=true'
   }
 
