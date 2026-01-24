@@ -23,6 +23,7 @@ export interface OnboardingState {
   businessDescription: string
   idealClientDescription: string
   focusGroupInsights: FocusGroupInsights | null
+  focusGroupBusinessContext: string
 
   // Path B (discovery)
   introspection: {
@@ -54,6 +55,7 @@ const initialState: OnboardingState = {
   businessDescription: '',
   idealClientDescription: '',
   focusGroupInsights: null,
+  focusGroupBusinessContext: '',
   introspection: {
     biggestChallenge: '',
     biggestTrauma: '',
@@ -152,6 +154,7 @@ export default function OnboardingContainer() {
               profile,
               audienceSummary,
               focusGroupInsights: state.focusGroupInsights,
+              focusGroupBusinessContext: state.focusGroupBusinessContext,
             },
           },
         }),
@@ -194,6 +197,7 @@ export default function OnboardingContainer() {
             businessDescription={state.businessDescription}
             idealClientDescription={state.idealClientDescription}
             focusGroupInsights={state.focusGroupInsights}
+            focusGroupBusinessContext={state.focusGroupBusinessContext}
             onUpdate={(updates) => updateState(updates)}
             onBack={handleBack}
             onNext={handleNext}

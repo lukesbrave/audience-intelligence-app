@@ -2,8 +2,23 @@
 
 export function getResearchPrompt(
   audienceProfile: string,
-  focusGroupData?: string
+  focusGroupData?: string,
+  businessContext?: string
 ): string {
+  const businessContextSection = businessContext
+    ? `
+## BUSINESS CONTEXT
+
+The person conducting this research runs the following business:
+${businessContext}
+
+Use this context to understand what type of solution/offer they provide and how it relates to the target audience.
+
+---
+
+`
+    : ''
+
   const focusGroupSection = focusGroupData
     ? `
 ## FOCUS GROUP DATA (DIRECT CUSTOMER CONVERSATIONS)
@@ -26,7 +41,7 @@ IMPORTANT INSTRUCTIONS FOR FOCUS GROUP DATA:
     : ''
 
   return `You are a deep audience research specialist. Your job is to find REAL, current data about a target audience using web search.
-${focusGroupSection}
+${businessContextSection}${focusGroupSection}
 ## TARGET AUDIENCE PROFILE
 
 ${audienceProfile}

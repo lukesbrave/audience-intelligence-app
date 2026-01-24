@@ -9,10 +9,12 @@ interface DescribeAudienceProps {
   businessDescription: string
   idealClientDescription: string
   focusGroupInsights: FocusGroupInsights | null
+  focusGroupBusinessContext: string
   onUpdate: (updates: {
     businessDescription?: string
     idealClientDescription?: string
     focusGroupInsights?: FocusGroupInsights | null
+    focusGroupBusinessContext?: string
   }) => void
   onBack: () => void
   onNext: () => void
@@ -38,6 +40,7 @@ export default function DescribeAudience({
   businessDescription,
   idealClientDescription,
   focusGroupInsights,
+  focusGroupBusinessContext,
   onUpdate,
   onBack,
   onNext
@@ -47,7 +50,7 @@ export default function DescribeAudience({
   const [error, setError] = useState<string | null>(null)
   const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [localInsights, setLocalInsights] = useState<FocusGroupInsights | null>(focusGroupInsights)
-  const [uploadBusinessContext, setUploadBusinessContext] = useState('')
+  const [uploadBusinessContext, setUploadBusinessContext] = useState(focusGroupBusinessContext || '')
 
   // Validation for manual tab
   const isManualValid = businessDescription.length >= 20 && idealClientDescription.length >= 20
@@ -117,7 +120,8 @@ export default function DescribeAudience({
   const handleNext = () => {
     if (activeTab === 'upload' && localInsights) {
       // When using focus group data, generate descriptions from insights
-      const generatedBusiness = `Business helping people with: ${localInsights.painPoints.slice(0, 3).map(p => p.pain).join(', ')}`
+      // Use the business context they provided, or generate from pain points
+      const generatedBusiness = uploadBusinessContext || `Business helping people with: ${localInsights.painPoints.slice(0, 3).map(p => p.pain).join(', ')}`
       const generatedClient = localInsights.directQuotes.length > 0
         ? `People who say things like: "${localInsights.directQuotes[0].quote}" - experiencing ${localInsights.painPoints[0]?.pain || 'various challenges'}`
         : `Target audience identified through focus group research with ${localInsights.painPoints.length} pain points and ${localInsights.vocabularyPatterns.length} vocabulary patterns identified.`
@@ -126,10 +130,11 @@ export default function DescribeAudience({
         businessDescription: generatedBusiness,
         idealClientDescription: generatedClient,
         focusGroupInsights: localInsights,
+        focusGroupBusinessContext: uploadBusinessContext,
       })
     } else {
       // Manual path - clear any focus group data
-      onUpdate({ focusGroupInsights: null })
+      onUpdate({ focusGroupInsights: null, focusGroupBusinessContext: '' })
     }
     onNext()
   }

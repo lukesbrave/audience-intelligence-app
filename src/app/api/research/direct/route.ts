@@ -44,7 +44,7 @@ function formatFocusGroupData(insights: FocusGroupInsights): string {
 
 export async function POST(request: NextRequest) {
   try {
-    const { audienceProfile, focusGroupInsights } = await request.json()
+    const { audienceProfile, focusGroupInsights, businessContext } = await request.json()
 
     if (!audienceProfile) {
       return NextResponse.json(
@@ -62,7 +62,8 @@ export async function POST(request: NextRequest) {
       typeof audienceProfile === 'string'
         ? audienceProfile
         : JSON.stringify(audienceProfile, null, 2),
-      focusGroupData
+      focusGroupData,
+      businessContext
     )
 
     // Use Gemini 2.5 Flash Preview for faster response

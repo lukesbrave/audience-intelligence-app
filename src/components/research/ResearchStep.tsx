@@ -7,6 +7,7 @@ import { ResearchOutput, FocusGroupInsights } from '@/lib/research/schemas'
 interface ResearchStepProps {
   audienceProfile: Record<string, unknown>
   focusGroupInsights?: FocusGroupInsights | null
+  businessContext?: string | null
   onComplete: (research: ResearchOutput) => void
 }
 
@@ -19,7 +20,7 @@ const discoveryPhases = [
   { id: 'competitors', label: 'Analyzing the landscape...', icon: '🎯' },
 ]
 
-export function ResearchStep({ audienceProfile, focusGroupInsights, onComplete }: ResearchStepProps) {
+export function ResearchStep({ audienceProfile, focusGroupInsights, businessContext, onComplete }: ResearchStepProps) {
   const [status, setStatus] = useState<'idle' | 'loading' | 'complete' | 'error'>('idle')
   const [currentPhase, setCurrentPhase] = useState(0)
   const [research, setResearch] = useState<ResearchOutput | null>(null)
@@ -61,6 +62,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, onComplete }
         body: JSON.stringify({
           audienceProfile,
           focusGroupInsights: focusGroupInsights || undefined,
+          businessContext: businessContext || undefined,
         }),
       })
 

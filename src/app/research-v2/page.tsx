@@ -62,6 +62,7 @@ interface FlowState {
   step: Step
   audienceProfile: Record<string, unknown> | null
   focusGroupInsights: FocusGroupInsights | null
+  focusGroupBusinessContext: string | null
   research: ResearchOutput | null
   selectedAngles: BrandAngle[]
   ratedHooks: RatedHook[]
@@ -74,6 +75,7 @@ function ResearchV2Content() {
     step: 1,
     audienceProfile: null,
     focusGroupInsights: null,
+    focusGroupBusinessContext: null,
     research: null,
     selectedAngles: [],
     ratedHooks: [],
@@ -138,11 +140,13 @@ function ResearchV2Content() {
 
       // Extract focus group insights if they were uploaded during onboarding
       const focusGroupInsights = report.response?.onboardingData?.focusGroupInsights || null
+      const focusGroupBusinessContext = report.response?.onboardingData?.focusGroupBusinessContext || null
 
       setFlowState((prev) => ({
         ...prev,
         audienceProfile: profile,
         focusGroupInsights,
+        focusGroupBusinessContext,
       }))
     } catch (err) {
       console.error('Error loading profile:', err)
@@ -241,6 +245,7 @@ function ResearchV2Content() {
             <ResearchStep
               audienceProfile={flowState.audienceProfile}
               focusGroupInsights={flowState.focusGroupInsights}
+              businessContext={flowState.focusGroupBusinessContext}
               onComplete={handleResearchComplete}
             />
           )}
