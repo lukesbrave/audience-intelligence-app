@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface LaserIntroProps {
@@ -24,14 +24,29 @@ const outcomes = [
 export default function LaserIntro({ onStart }: LaserIntroProps) {
   const [phase, setPhase] = useState<'sunshine' | 'transition' | 'laser'>('sunshine')
 
-  const handleTransition = () => {
+  const handleTransition = useCallback(() => {
     setPhase('transition')
+    // Push state so browser back button works
+    window.history.pushState({ phase: 'laser' }, '', window.location.pathname)
     setTimeout(() => setPhase('laser'), 800)
-  }
+  }, [])
 
-  const handleBack = () => {
+  const handleBack = useCallback(() => {
     setPhase('sunshine')
-  }
+  }, [])
+
+  // Listen for browser back button
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      // If we're on the laser phase and user clicks back, go to sunshine
+      if (phase === 'laser') {
+        setPhase('sunshine')
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [phase])
 
   return (
     <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 py-12">
@@ -132,18 +147,6 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl"
           >
-            {/* Back button */}
-            <motion.button
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.3 }}
-              onClick={handleBack}
-              className="mb-6 text-gray-400 hover:text-white transition-colors flex items-center gap-2 mx-auto"
-            >
-              <span>←</span>
-              <span className="text-sm">Back</span>
-            </motion.button>
-
             {/* Laser Icon - smoother animation */}
             <motion.div
               initial={{ scale: 0 }}
@@ -229,7 +232,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               ))}
             </motion.div>
 
-            {/* What You Get - improved legibility */}
+            {/* What You Get - smooth hover animation */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -244,8 +247,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.8 + i * 0.1 }}
-                    whileHover={{ scale: 1.05, y: -5 }}
-                    className="bg-[#243351] p-4 rounded-xl border border-white/10 text-center"
+                    className="bg-[#243351] p-4 rounded-xl border border-white/10 text-center cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:bg-[#2a3d5f] hover:border-[var(--color-brave-500)]/30 hover:shadow-lg hover:shadow-[var(--color-brave-500)]/10"
                   >
                     <div className="text-3xl mb-2">{outcome.icon}</div>
                     <p className="text-white font-medium text-sm mb-1">{outcome.label}</p>
@@ -255,23 +257,15 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               </div>
             </motion.div>
 
-            {/* CTA */}
+            {/* CTA - Fixed gradient and hover state */}
             <motion.button
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 1.2, type: 'spring' }}
               onClick={onStart}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-10 py-5 bg-gradient-to-r from-[var(--color-brave-500)] to-[var(--color-brave-700)] text-white font-bold text-xl rounded-xl shadow-lg shadow-[var(--color-brave-500)]/30 hover:shadow-[var(--color-brave-500)]/50 transition-all relative overflow-hidden group"
+              className="px-10 py-5 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-500)] text-white font-bold text-xl rounded-xl shadow-lg shadow-[var(--color-brave-500)]/30 hover:shadow-[var(--color-brave-500)]/50 transition-all duration-200 ease-out hover:scale-105 active:scale-98"
             >
-              <motion.span
-                className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                initial={{ x: '-100%' }}
-                whileHover={{ x: '100%' }}
-                transition={{ duration: 0.6 }}
-              />
-              <span className="relative flex items-center gap-3">
+              <span className="flex items-center gap-3">
                 <span>Activate Laser Mode</span>
                 <motion.span
                   animate={{ x: [0, 3, 0] }}
