@@ -44,7 +44,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           transition={{ delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="text-lg font-semibold text-white mb-6">What you&apos;ll walk away with:</h3>
+          <h3 className="text-sm font-normal text-gray-500 mb-6 uppercase tracking-wider">What you&apos;ll walk away with</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {outcomes.map((outcome, i) => (
               <motion.div
@@ -55,7 +55,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                 className="bg-[#1e3a5f] p-4 rounded-xl border border-[var(--color-brave-500)]/30 text-center cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:bg-[#254a73] hover:border-[var(--color-brave-500)]/60 hover:shadow-lg hover:shadow-[var(--color-brave-500)]/20"
               >
                 <div className="text-3xl mb-2">{outcome.icon}</div>
-                <p className="text-white font-medium text-sm mb-1">{outcome.label}</p>
+                <p className="text-white font-bold text-base mb-1">{outcome.label}</p>
                 <p className="text-gray-300 text-xs">{outcome.desc}</p>
               </motion.div>
             ))}
