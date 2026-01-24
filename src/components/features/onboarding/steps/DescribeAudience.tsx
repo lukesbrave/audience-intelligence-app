@@ -201,7 +201,7 @@ export default function DescribeAudience({
               {/* Optional business context */}
               <div>
                 <label className="block text-sm font-medium text-white mb-2">
-                  Briefly, what do you do? <span className="text-gray-500 font-normal">(optional)</span>
+                  Briefly, what do you do?
                 </label>
                 <input
                   type="text"
@@ -210,7 +210,7 @@ export default function DescribeAudience({
                   placeholder="e.g., I help entrepreneurs scale their coaching business"
                   className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)]"
                 />
-                <p className="text-gray-500 text-sm mt-1">
+                <p className="text-gray-400 text-sm mt-1">
                   This helps us better understand your transcriptions
                 </p>
               </div>
