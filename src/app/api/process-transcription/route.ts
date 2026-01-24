@@ -57,26 +57,44 @@ Which problems seemed most pressing?
 
 export async function POST(request: NextRequest) {
   try {
-    const { transcription, fileContent, businessContext } = await request.json()
+    const { transcription, fileContent, fileContents, businessContext } = await request.json()
 
-    // Accept either raw transcription text or base64 file content
-    const content = transcription || fileContent
+    let textContent: string
 
-    if (!content) {
-      return NextResponse.json(
-        { error: 'Transcription content is required' },
-        { status: 400 }
-      )
-    }
+    // Handle multiple files (new format)
+    if (fileContents && Array.isArray(fileContents) && fileContents.length > 0) {
+      const decodedContents = fileContents.map((fc: string) => {
+        if (fc.startsWith('data:')) {
+          // Handle data URL format
+          const base64Content = fc.split(',')[1]
+          return Buffer.from(base64Content, 'base64').toString('utf-8')
+        } else if (isBase64(fc)) {
+          return Buffer.from(fc, 'base64').toString('utf-8')
+        }
+        return fc
+      })
+      // Combine all transcriptions with clear separators
+      textContent = decodedContents.join('\n\n--- NEW TRANSCRIPTION ---\n\n')
+    } else {
+      // Accept either raw transcription text or base64 file content (legacy support)
+      const content = transcription || fileContent
 
-    // If it's base64 encoded, decode it
-    let textContent = content
-    if (content.startsWith('data:')) {
-      // Handle data URL format (e.g., from file upload)
-      const base64Content = content.split(',')[1]
-      textContent = Buffer.from(base64Content, 'base64').toString('utf-8')
-    } else if (isBase64(content)) {
-      textContent = Buffer.from(content, 'base64').toString('utf-8')
+      if (!content) {
+        return NextResponse.json(
+          { error: 'Transcription content is required' },
+          { status: 400 }
+        )
+      }
+
+      // If it's base64 encoded, decode it
+      textContent = content
+      if (content.startsWith('data:')) {
+        // Handle data URL format (e.g., from file upload)
+        const base64Content = content.split(',')[1]
+        textContent = Buffer.from(base64Content, 'base64').toString('utf-8')
+      } else if (isBase64(content)) {
+        textContent = Buffer.from(content, 'base64').toString('utf-8')
+      }
     }
 
     // Build business context section if provided

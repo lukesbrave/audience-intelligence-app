@@ -18,8 +18,21 @@ interface DescribeAudienceProps {
   onNext: () => void
 }
 
+interface UploadedFile {
+  id: string
+  name: string
+  size: number
+  base64: string
+}
+
 type Tab = 'manual' | 'upload'
 type UploadStatus = 'idle' | 'processing' | 'review' | 'error'
+
+function formatFileSize(bytes: number): string {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`
+}
 
 export default function DescribeAudience({
   businessDescription,
@@ -32,7 +45,7 @@ export default function DescribeAudience({
   const [activeTab, setActiveTab] = useState<Tab>(focusGroupInsights ? 'upload' : 'manual')
   const [uploadStatus, setUploadStatus] = useState<UploadStatus>(focusGroupInsights ? 'review' : 'idle')
   const [error, setError] = useState<string | null>(null)
-  const [currentFile, setCurrentFile] = useState<{ name: string; size: number } | null>(null)
+  const [uploadedFiles, setUploadedFiles] = useState<UploadedFile[]>([])
   const [localInsights, setLocalInsights] = useState<FocusGroupInsights | null>(focusGroupInsights)
   const [uploadBusinessContext, setUploadBusinessContext] = useState('')
 
@@ -42,8 +55,26 @@ export default function DescribeAudience({
   // Validation for upload tab
   const isUploadValid = localInsights !== null && uploadStatus === 'review'
 
-  const handleFileSelect = useCallback(async (file: File, base64: string) => {
-    setCurrentFile({ name: file.name, size: file.size })
+  // Add file to list (don't process yet)
+  const handleFileSelect = useCallback((file: File, base64: string) => {
+    const newFile: UploadedFile = {
+      id: crypto.randomUUID(),
+      name: file.name,
+      size: file.size,
+      base64,
+    }
+    setUploadedFiles(prev => [...prev, newFile])
+  }, [])
+
+  // Remove file from list
+  const handleRemoveFile = (id: string) => {
+    setUploadedFiles(prev => prev.filter(f => f.id !== id))
+  }
+
+  // Process all files
+  const handleProcessFiles = async () => {
+    if (uploadedFiles.length === 0) return
+
     setUploadStatus('processing')
     setError(null)
 
@@ -52,7 +83,7 @@ export default function DescribeAudience({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          fileContent: base64,
+          fileContents: uploadedFiles.map(f => f.base64),
           businessContext: uploadBusinessContext || undefined,
         }),
       })
@@ -60,7 +91,7 @@ export default function DescribeAudience({
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to process transcription')
+        throw new Error(data.error || 'Failed to process transcriptions')
       }
 
       setLocalInsights(data.insights)
@@ -69,10 +100,10 @@ export default function DescribeAudience({
       setError(err instanceof Error ? err.message : 'Unknown error')
       setUploadStatus('error')
     }
-  }, [uploadBusinessContext])
+  }
 
   const handleClear = () => {
-    setCurrentFile(null)
+    setUploadedFiles([])
     setUploadStatus('idle')
     setError(null)
     setLocalInsights(null)
@@ -81,7 +112,6 @@ export default function DescribeAudience({
 
   const handleError = (message: string) => {
     setError(message)
-    setUploadStatus('error')
   }
 
   const handleNext = () => {
@@ -109,7 +139,7 @@ export default function DescribeAudience({
     // Reset upload state when switching to upload tab
     if (tab === 'upload' && !localInsights) {
       setUploadStatus('idle')
-      setCurrentFile(null)
+      setUploadedFiles([])
       setError(null)
     }
   }
@@ -215,17 +245,85 @@ export default function DescribeAudience({
                 </p>
               </div>
 
+              {/* Uploaded files list */}
+              {uploadedFiles.length > 0 && (
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-white mb-2">
+                    Uploaded Files ({uploadedFiles.length})
+                  </label>
+                  {uploadedFiles.map(file => (
+                    <div
+                      key={file.id}
+                      className="flex items-center justify-between bg-[#1a2744] p-3 rounded-lg border border-white/10"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 bg-[var(--color-brave-500)]/20 rounded-lg flex items-center justify-center">
+                          <svg
+                            className="w-5 h-5 text-[var(--color-brave-400)]"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            />
+                          </svg>
+                        </div>
+                        <div>
+                          <p className="text-white text-sm font-medium">{file.name}</p>
+                          <p className="text-gray-400 text-xs">{formatFileSize(file.size)}</p>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleRemoveFile(file.id)}
+                        className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+                        aria-label="Remove file"
+                      >
+                        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <FileUpload
                 accept=".txt,.pdf,.json"
                 maxSizeMB={25}
                 variant="dark"
                 onFileSelect={handleFileSelect}
                 onError={handleError}
-                onClear={handleClear}
-                currentFile={currentFile}
-                label="Upload Transcription"
-                hint="Drag and drop your focus group transcription file"
+                onClear={() => {}}
+                currentFile={null}
+                label={uploadedFiles.length > 0 ? 'Add Another Transcription' : 'Upload Transcription'}
+                hint={uploadedFiles.length > 0 ? 'Add more focus group transcriptions' : 'Drag and drop your focus group transcription file'}
               />
+
+              {error && (
+                <p className="text-red-400 text-sm">{error}</p>
+              )}
+
+              {/* Process button */}
+              {uploadedFiles.length > 0 && (
+                <button
+                  onClick={handleProcessFiles}
+                  className="w-full py-3 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors flex items-center justify-center gap-2"
+                >
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                  Process {uploadedFiles.length} Transcription{uploadedFiles.length > 1 ? 's' : ''}
+                </button>
+              )}
             </div>
           )}
 
@@ -239,7 +337,7 @@ export default function DescribeAudience({
                 🔬
               </motion.div>
               <h3 className="text-xl font-semibold text-white mb-2">
-                Processing Transcription
+                Processing {uploadedFiles.length} Transcription{uploadedFiles.length > 1 ? 's' : ''}
               </h3>
               <p className="text-gray-400">
                 Extracting insights from your focus group data...
@@ -363,7 +461,7 @@ export default function DescribeAudience({
                 onClick={handleClear}
                 className="text-gray-400 hover:text-white text-sm transition-colors"
               >
-                Upload a different file
+                Start over with different files
               </button>
             </div>
           )}
