@@ -31,13 +31,9 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
     setTimeout(() => setPhase('laser'), 800)
   }, [])
 
-  const handleBack = useCallback(() => {
-    setPhase('sunshine')
-  }, [])
-
   // Listen for browser back button
   useEffect(() => {
-    const handlePopState = (event: PopStateEvent) => {
+    const handlePopState = () => {
       // If we're on the laser phase and user clicks back, go to sunshine
       if (phase === 'laser') {
         setPhase('sunshine')
@@ -59,20 +55,10 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             exit={{ opacity: 0, scale: 0.95 }}
             className="text-center max-w-2xl"
           >
-            {/* Sunshine Icon - smoother animation */}
-            <motion.div
-              animate={{
-                scale: [1, 1.03, 1],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: 'easeInOut'
-              }}
-              className="text-8xl mb-8"
-            >
+            {/* Sunshine Icon - static */}
+            <div className="text-8xl mb-8">
               ☀️
-            </motion.div>
+            </div>
 
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
               Stop Marketing Like a
@@ -84,7 +70,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               Reaches no one. Converts nothing.
             </p>
 
-            {/* Problem List - improved legibility */}
+            {/* Problem List */}
             <div className="space-y-4 mb-12">
               {sunshineProblems.map((problem, i) => (
                 <motion.div
@@ -147,41 +133,10 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl"
           >
-            {/* Laser Icon - smoother animation */}
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', bounce: 0.5 }}
-              className="relative mb-8"
-            >
-              <motion.div
-                animate={{
-                  boxShadow: [
-                    '0 0 20px rgba(99, 102, 241, 0.3)',
-                    '0 0 40px rgba(99, 102, 241, 0.5)',
-                    '0 0 20px rgba(99, 102, 241, 0.3)'
-                  ]
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: 'easeInOut'
-                }}
-                className="w-20 h-20 mx-auto bg-gradient-to-br from-[var(--color-brave-400)] to-[var(--color-brave-600)] rounded-full flex items-center justify-center"
-              >
-                <motion.div
-                  animate={{ rotate: 360 }}
-                  transition={{
-                    duration: 20,
-                    repeat: Infinity,
-                    ease: 'linear'
-                  }}
-                  className="text-4xl"
-                >
-                  🎯
-                </motion.div>
-              </motion.div>
-            </motion.div>
+            {/* Lightning bolt icon - static, no gradient circle */}
+            <div className="text-8xl mb-8">
+              ⚡
+            </div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
@@ -257,7 +212,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               </div>
             </motion.div>
 
-            {/* CTA - Fixed gradient and hover state */}
+            {/* CTA */}
             <motion.button
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -267,16 +222,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
             >
               <span className="flex items-center gap-3">
                 <span>Activate Laser Mode</span>
-                <motion.span
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: 'easeInOut'
-                  }}
-                >
-                  ⚡
-                </motion.span>
+                <span>⚡</span>
               </span>
             </motion.button>
 
