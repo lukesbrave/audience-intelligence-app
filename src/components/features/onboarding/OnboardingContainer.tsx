@@ -321,13 +321,16 @@ export default function OnboardingContainer() {
       <StickyHeader />
       <div className="flex-1 flex flex-col items-center py-8 px-4">
         <div className="w-full max-w-xl">
-          <StepIndicator
-            currentStep={currentStep}
-            totalSteps={getTotalSteps()}
-            title={getStepTitle()}
-          />
+          {/* Only show step indicator after the first step */}
+          {currentStep > 1 && (
+            <StepIndicator
+              currentStep={currentStep - 1}
+              totalSteps={getTotalSteps() - 1}
+              title={getStepTitle()}
+            />
+          )}
 
-          <div className="mt-8">
+          <div className={currentStep > 1 ? 'mt-8' : ''}>
             {renderStep()}
           </div>
         </div>
