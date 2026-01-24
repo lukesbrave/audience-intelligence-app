@@ -8,7 +8,7 @@ export const maxDuration = 120 // Allow up to 2 minutes for processing
 const PROCESSING_PROMPT = `You are analyzing focus group transcription(s) from conversations with a business's target customers.
 
 Your job is to extract meaningful insights that will supercharge audience research.
-
+{{BUSINESS_CONTEXT}}
 ## TRANSCRIPTION CONTENT
 
 {{TRANSCRIPTION}}
@@ -57,7 +57,7 @@ Which problems seemed most pressing?
 
 export async function POST(request: NextRequest) {
   try {
-    const { transcription, fileContent } = await request.json()
+    const { transcription, fileContent, businessContext } = await request.json()
 
     // Accept either raw transcription text or base64 file content
     const content = transcription || fileContent
@@ -79,7 +79,21 @@ export async function POST(request: NextRequest) {
       textContent = Buffer.from(content, 'base64').toString('utf-8')
     }
 
-    const prompt = PROCESSING_PROMPT.replace('{{TRANSCRIPTION}}', textContent)
+    // Build business context section if provided
+    const businessContextSection = businessContext
+      ? `
+## BUSINESS CONTEXT
+
+The person running these focus groups does the following:
+${businessContext}
+
+Use this context to better understand the audience and their relationship to this business.
+`
+      : ''
+
+    const prompt = PROCESSING_PROMPT
+      .replace('{{BUSINESS_CONTEXT}}', businessContextSection)
+      .replace('{{TRANSCRIPTION}}', textContent)
 
     const { object } = await generateObject({
       model: google('gemini-2.0-flash'),

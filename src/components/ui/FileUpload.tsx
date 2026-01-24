@@ -14,6 +14,7 @@ interface FileUploadProps {
   error?: string;
   required?: boolean;
   disabled?: boolean;
+  variant?: 'light' | 'dark';
 }
 
 function formatFileSize(bytes: number): string {
@@ -34,7 +35,9 @@ function FileUpload({
   error,
   required = false,
   disabled = false,
+  variant = 'light',
 }: FileUploadProps) {
+  const isDark = variant === 'dark';
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -143,7 +146,7 @@ function FileUpload({
   return (
     <div className="w-full">
       {label && (
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label className={`block text-sm font-medium mb-1.5 ${isDark ? 'text-white' : 'text-gray-700'}`}>
           {label}
           {required && (
             <span className="text-red-500 ml-0.5" aria-hidden="true">
@@ -232,12 +235,18 @@ function FileUpload({
             relative border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
             transition-colors focus-ring
             ${disabled
-              ? 'border-gray-200 bg-gray-50 cursor-not-allowed'
+              ? isDark
+                ? 'border-white/10 bg-white/5 cursor-not-allowed'
+                : 'border-gray-200 bg-gray-50 cursor-not-allowed'
               : isDragging
-                ? 'border-[#16314C] bg-[#BBDCEF]/20'
+                ? isDark
+                  ? 'border-[var(--color-brave-500)] bg-[var(--color-brave-500)]/20'
+                  : 'border-[#16314C] bg-[#BBDCEF]/20'
                 : error
                   ? 'border-red-300 hover:border-red-400 bg-red-50/50'
-                  : 'border-gray-300 hover:border-[#16314C] hover:bg-gray-50'
+                  : isDark
+                    ? 'border-white/20 hover:border-[var(--color-brave-500)] bg-[#1a2744] hover:bg-[#1a2744]/80'
+                    : 'border-gray-300 hover:border-[#16314C] hover:bg-gray-50'
             }
           `}
         >
@@ -245,11 +254,18 @@ function FileUpload({
             <div
               className={`
                 w-12 h-12 rounded-full flex items-center justify-center
-                ${disabled ? 'bg-gray-100' : 'bg-[#BBDCEF]/50'}
+                ${disabled
+                  ? isDark ? 'bg-white/10' : 'bg-gray-100'
+                  : isDark ? 'bg-[var(--color-brave-500)]/20' : 'bg-[#BBDCEF]/50'
+                }
               `}
             >
               <svg
-                className={`w-6 h-6 ${disabled ? 'text-gray-400' : 'text-[#16314C]'}`}
+                className={`w-6 h-6 ${
+                  disabled
+                    ? isDark ? 'text-gray-500' : 'text-gray-400'
+                    : isDark ? 'text-[var(--color-brave-400)]' : 'text-[#16314C]'
+                }`}
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -263,12 +279,14 @@ function FileUpload({
               </svg>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-700">
-                <span className="text-[#16314C]">Click to upload</span> or drag
-                and drop
+              <p className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                <span className={isDark ? 'text-[var(--color-brave-400)]' : 'text-[#16314C]'}>
+                  Click to upload
+                </span>{' '}
+                or drag and drop
               </p>
-              <p className="text-xs text-gray-500 mt-1">
-                PDF up to {maxSizeMB}MB
+              <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                {accept.replace(/\./g, '').toUpperCase()} up to {maxSizeMB}MB
               </p>
             </div>
           </div>
@@ -276,12 +294,12 @@ function FileUpload({
       )}
 
       {error && (
-        <p id="file-error" role="alert" className="mt-1.5 text-sm text-red-600">
+        <p id="file-error" role="alert" className={`mt-1.5 text-sm ${isDark ? 'text-red-400' : 'text-red-600'}`}>
           {error}
         </p>
       )}
       {hint && !error && (
-        <p id="file-hint" className="mt-1.5 text-sm text-gray-500">
+        <p id="file-hint" className={`mt-1.5 text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
           {hint}
         </p>
       )}
