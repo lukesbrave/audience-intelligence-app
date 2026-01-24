@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { StickyHeader, Footer } from '@/components/ui'
 import StepIndicator from './StepIndicator'
+import LaserIntro from './steps/LaserIntro'
 import StartingPoint from './steps/StartingPoint'
 import DescribeAudience from './steps/DescribeAudience'
 import StoryQuestions from './steps/StoryQuestions'
@@ -74,6 +75,7 @@ const initialState: OnboardingState = {
 }
 
 export default function OnboardingContainer() {
+  const [showIntro, setShowIntro] = useState(true)
   const [currentStep, setCurrentStep] = useState(1)
   const [state, setState] = useState<OnboardingState>(initialState)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -299,6 +301,19 @@ export default function OnboardingContainer() {
       if (currentStep === 6) return 'Ready to Launch'
     }
     return 'Onboarding'
+  }
+
+  // Show the intro screen first
+  if (showIntro) {
+    return (
+      <div className="min-h-screen bg-[#1a2744] flex flex-col">
+        <StickyHeader />
+        <div className="flex-1">
+          <LaserIntro onStart={() => setShowIntro(false)} />
+        </div>
+        <Footer />
+      </div>
+    )
   }
 
   return (
