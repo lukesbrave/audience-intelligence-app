@@ -72,7 +72,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
                 animate={{ scale: 1 }}
                 className="absolute top-4 right-4 w-6 h-6 bg-[var(--color-brave-500)] rounded-full flex items-center justify-center"
               >
-                <span className="text-white text-sm">✓</span>
+                <span className="text-[#1a2744] text-sm font-bold">✓</span>
               </motion.div>
             )}
 
@@ -101,7 +101,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
                 animate={{ scale: 1 }}
                 className="absolute top-4 right-4 w-6 h-6 bg-[var(--color-brave-500)] rounded-full flex items-center justify-center"
               >
-                <span className="text-white text-sm">✓</span>
+                <span className="text-[#1a2744] text-sm font-bold">✓</span>
               </motion.div>
             )}
 
