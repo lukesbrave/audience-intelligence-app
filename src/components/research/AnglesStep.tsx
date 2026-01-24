@@ -67,6 +67,13 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
     })
   }
 
+  const handleRegenerate = () => {
+    setAngles([])
+    setRevealedCount(0)
+    setSelectedAngles([])
+    generateAngles()
+  }
+
   const isSelected = (angle: BrandAngle) => selectedAngles.some((a) => a.name === angle.name)
 
   if (status === 'loading') {
@@ -112,7 +119,33 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-8"
       >
-        <h2 className="text-2xl font-bold text-white">Discover Your Unique Edge</h2>
+        <div className="flex items-center justify-center gap-3">
+          <h2 className="text-2xl font-bold text-white">Discover Your Unique Edge</h2>
+          {status === 'complete' && (
+            <button
+              onClick={handleRegenerate}
+              className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+              title="Generate new angles"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                <path d="M3 3v5h5" />
+                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                <path d="M16 16h5v5" />
+              </svg>
+            </button>
+          )}
+        </div>
         <p className="text-gray-400 mt-2">
           {status === 'revealing'
             ? 'Unlocking your unique positions...'
