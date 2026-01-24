@@ -8,12 +8,12 @@ interface LogoProps {
   className?: string
 }
 
-// Logo dimensions: 700x191 (aspect ratio ~3.66:1)
+// Logo dimensions: 700x185 (aspect ratio ~3.78:1)
 // Need larger sizes to show the subheadline clearly
 const sizeConfig = {
-  sm: { height: 40, width: 147 },
-  md: { height: 52, width: 190 },
-  lg: { height: 64, width: 234 },
+  sm: { height: 40, width: 151 },
+  md: { height: 52, width: 197 },
+  lg: { height: 64, width: 242 },
 }
 
 export function Logo({ size = 'md', className = '' }: LogoProps) {
