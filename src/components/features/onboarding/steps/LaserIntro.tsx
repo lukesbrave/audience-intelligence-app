@@ -7,10 +7,10 @@ interface LaserIntroProps {
 }
 
 const outcomes = [
-  { icon: '🔍', label: 'Deep Audience Research', desc: 'Where they hang out & what keeps them up at night' },
-  { icon: '🎯', label: 'Your Brand Angle', desc: 'Positioning that makes you unforgettable' },
-  { icon: '🎣', label: '50 Scroll-Stopping Hooks', desc: 'Rated by you, ready to use' },
-  { icon: '💰', label: 'Your Offer Core', desc: 'The emotional foundation that converts' },
+  { icon: '🔍', label: 'Audience Truth', desc: 'Where your audience actually spends attention, what they care about right now, and what\'s quietly driving their decisions.' },
+  { icon: '🎯', label: 'Your Strategic Angle', desc: 'The positioning that makes your message land, stand out, and actually stick.' },
+  { icon: '🎣', label: 'Demand Triggers', desc: 'Proven ways into attention, ranked, refined, and ready to deploy when it actually matters.' },
+  { icon: '💰', label: 'What Makes Them Say Yes', desc: 'The real emotional drivers behind action, so your offer connects before it convinces.' },
 ]
 
 export default function LaserIntro({ onStart }: LaserIntroProps) {
