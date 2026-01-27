@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ResearchOutput, FocusGroupInsights } from '@/lib/research/schemas'
+import { ResearchOutput, FocusGroupInsights, MarketingRecommendation } from '@/lib/research/schemas'
 
 interface ResearchStepProps {
   audienceProfile: Record<string, unknown>
@@ -273,6 +273,102 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
             </div>
           </motion.div>
 
+          {/* Marketing Recommendation - Prominent Card */}
+          {research.marketingRecommendation && (
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
+              <div className="bg-gradient-to-br from-[#243351] to-[#1a2744] rounded-xl p-6 border-2 border-[var(--color-brave-500)]/50">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 bg-[var(--color-brave-500)]/20 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl">🎯</span>
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-white">Recommended Marketing Focus</h3>
+                    <p className="text-sm text-gray-400">Where to reach your audience</p>
+                  </div>
+                </div>
+
+                {/* Primary Platform - Highlighted */}
+                <div className="bg-[var(--color-brave-500)]/10 rounded-lg p-4 border border-[var(--color-brave-500)]/30 mb-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-[var(--color-brave-500)] uppercase tracking-wide">
+                      Primary Platform
+                    </span>
+                    <span className="px-2 py-0.5 bg-[var(--color-brave-500)]/20 text-[var(--color-brave-500)] text-xs font-medium rounded">
+                      FOCUS HERE FIRST
+                    </span>
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2">
+                    {research.marketingRecommendation.primaryPlatform.platform}
+                  </h4>
+                  <p className="text-gray-300 text-sm mb-3">
+                    {research.marketingRecommendation.primaryPlatform.reasoning}
+                  </p>
+                  <div className="flex flex-wrap gap-2 mb-2">
+                    {research.marketingRecommendation.primaryPlatform.contentFormats.map((format, i) => (
+                      <span
+                        key={i}
+                        className="bg-[var(--color-brave-600)]/30 text-[var(--color-brave-500)] px-2 py-1 rounded text-xs font-medium"
+                      >
+                        {format}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="text-xs text-gray-400">
+                    Posting cadence: {research.marketingRecommendation.primaryPlatform.postingCadence}
+                  </p>
+                </div>
+
+                {/* Secondary Platforms */}
+                {research.marketingRecommendation.secondaryPlatforms.length > 0 && (
+                  <div className="grid gap-3 md:grid-cols-2 mb-4">
+                    {research.marketingRecommendation.secondaryPlatforms.map((platform, i) => (
+                      <div key={i} className="bg-[#1a2744] rounded-lg p-3 border border-white/10">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-medium text-white">{platform.platform}</span>
+                          <span className="text-xs text-gray-400">Secondary</span>
+                        </div>
+                        <p className="text-sm text-gray-400 mb-2">{platform.reasoning}</p>
+                        <div className="flex flex-wrap gap-1">
+                          {platform.contentFormats.slice(0, 2).map((format, j) => (
+                            <span key={j} className="bg-gray-600/30 text-gray-300 px-2 py-0.5 rounded text-xs">
+                              {format}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Quick Win */}
+                <div className="bg-emerald-500/10 rounded-lg p-4 border border-emerald-500/30 mb-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl">⚡</span>
+                    <div>
+                      <h5 className="font-medium text-emerald-400 mb-1">Quick Win (Do This Week)</h5>
+                      <p className="text-gray-300 text-sm">{research.marketingRecommendation.quickWin}</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content Strategy Tips */}
+                <div>
+                  <h5 className="font-medium text-gray-300 mb-2 flex items-center gap-2">
+                    <span>💡</span> Content Strategy Tips
+                  </h5>
+                  <ul className="space-y-2">
+                    {research.marketingRecommendation.contentStrategyTips.map((tip, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                        <span className="text-[var(--color-brave-500)] mt-0.5">•</span>
+                        {tip}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </motion.div>
+          )}
+
           {/* Language Map */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -333,7 +429,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
             </div>
           </motion.div>
 
-          {/* Communities */}
+          {/* Communities - Where They Gather */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -357,34 +453,102 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                     exit={{ height: 0, opacity: 0 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-6 pb-6 space-y-4">
-                      <div>
-                        <h4 className="font-medium text-gray-300 mb-2">Subreddits</h4>
-                        <div className="grid gap-2 md:grid-cols-2">
-                          {research.congregationPoints.subreddits.map((sub, i) => (
-                            <div key={i} className="bg-orange-500/10 p-3 rounded-lg border border-orange-500/20">
-                              <span className="font-medium text-orange-300">{sub.name}</span>
-                              <span className="text-orange-400/70 text-sm ml-2">
-                                ({sub.subscribers})
+                    <div className="px-6 pb-6 space-y-6">
+                      {/* Subreddits */}
+                      {research.congregationPoints.subreddits.length > 0 && (
+                        <div>
+                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                            <span className="text-orange-500">🔴</span> Subreddits
+                          </h4>
+                          <div className="grid gap-2 md:grid-cols-2">
+                            {research.congregationPoints.subreddits.map((sub, i) => (
+                              <div key={i} className="bg-orange-500/10 p-3 rounded-lg border border-orange-500/20">
+                                <div className="flex items-center justify-between">
+                                  <span className="font-medium text-orange-300">{sub.name}</span>
+                                  <span className="text-orange-400/70 text-sm">
+                                    {sub.subscribers}
+                                  </span>
+                                </div>
+                                <p className="text-gray-400 text-sm mt-1">{sub.relevance}</p>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* YouTube Channels */}
+                      {research.congregationPoints.youtubeChannels.length > 0 && (
+                        <div>
+                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                            <span className="text-red-500">▶️</span> YouTube Channels
+                          </h4>
+                          <div className="grid gap-2 md:grid-cols-2">
+                            {research.congregationPoints.youtubeChannels.map((channel, i) => (
+                              <div key={i} className="bg-red-500/10 p-3 rounded-lg border border-red-500/20 flex items-center justify-between">
+                                <span className="font-medium text-red-300">{channel.name}</span>
+                                <span className="text-red-400/70 text-sm">{channel.subscribers}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Podcasts */}
+                      {research.congregationPoints.podcasts.length > 0 && (
+                        <div>
+                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                            <span className="text-purple-500">🎙️</span> Podcasts
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {research.congregationPoints.podcasts.map((podcast, i) => (
+                              <span
+                                key={i}
+                                className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30"
+                              >
+                                {podcast}
                               </span>
-                              <p className="text-gray-400 text-sm mt-1">{sub.relevance}</p>
-                            </div>
-                          ))}
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                      <div>
-                        <h4 className="font-medium text-gray-300 mb-2">Influencers</h4>
-                        <div className="flex flex-wrap gap-2">
-                          {research.congregationPoints.influencers.map((name, i) => (
-                            <span
-                              key={i}
-                              className="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30"
-                            >
-                              {name}
-                            </span>
-                          ))}
+                      )}
+
+                      {/* Other Communities */}
+                      {research.congregationPoints.otherCommunities.length > 0 && (
+                        <div>
+                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                            <span className="text-blue-500">💬</span> Other Communities
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {research.congregationPoints.otherCommunities.map((community, i) => (
+                              <span
+                                key={i}
+                                className="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30"
+                              >
+                                {community}
+                              </span>
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      )}
+
+                      {/* Influencers */}
+                      {research.congregationPoints.influencers.length > 0 && (
+                        <div>
+                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                            <span className="text-pink-500">⭐</span> Influencers & Thought Leaders
+                          </h4>
+                          <div className="flex flex-wrap gap-2">
+                            {research.congregationPoints.influencers.map((name, i) => (
+                              <span
+                                key={i}
+                                className="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm border border-pink-500/30"
+                              >
+                                {name}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 )}

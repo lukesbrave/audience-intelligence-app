@@ -44,6 +44,24 @@ export const CongregationPointsSchema = z.object({
   otherCommunities: z.array(z.string()).describe('Facebook groups, Discord servers, forums'),
 })
 
+// Marketing Platform Recommendation
+export const PlatformRecommendationSchema = z.object({
+  platform: z.string().describe('Platform name: LinkedIn, YouTube, Instagram, TikTok, Twitter/X, Reddit, Facebook, Podcast, Newsletter'),
+  reasoning: z.string().describe('Why this platform is ideal for this specific audience'),
+  contentFormats: z.array(z.string()).describe('Recommended content types: short-form video, long-form articles, carousels, live streams, stories, podcasts'),
+  postingCadence: z.string().describe('Suggested posting frequency'),
+})
+
+export const MarketingRecommendationSchema = z.object({
+  primaryPlatform: PlatformRecommendationSchema.describe('The #1 platform to focus on first'),
+  secondaryPlatforms: z.array(PlatformRecommendationSchema).max(2).describe('1-2 secondary platforms'),
+  contentStrategyTips: z.array(z.string()).describe('3-5 actionable content tips for this audience'),
+  quickWin: z.string().describe('One specific action to take this week'),
+})
+
+export type PlatformRecommendation = z.infer<typeof PlatformRecommendationSchema>
+export type MarketingRecommendation = z.infer<typeof MarketingRecommendationSchema>
+
 export const CompetitorSchema = z.object({
   name: z.string().describe('Competitor or solution name'),
   positioning: z.string().describe('How they position themselves'),
@@ -67,6 +85,7 @@ export const ResearchOutputSchema = z.object({
   painPoints: z.array(PainPointSchema).min(5).max(8).describe('5-8 validated pain points from real conversations'),
   languageMap: LanguageMapSchema,
   congregationPoints: CongregationPointsSchema,
+  marketingRecommendation: MarketingRecommendationSchema.describe('Strategic marketing platform recommendation'),
   competitiveLandscape: CompetitiveLandscapeSchema,
 })
 

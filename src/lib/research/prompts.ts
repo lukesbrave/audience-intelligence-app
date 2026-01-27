@@ -76,14 +76,30 @@ Extract the exact words they use:
 - Emotional triggers (words that resonate)
 
 ### 5. CONGREGATION POINTS
-Where does this audience gather?
-- Subreddits (with subscriber counts)
-- Facebook groups
-- YouTube channels they watch
-- Podcasts they listen to
-- Influencers they trust
+Where does this audience gather? Be specific with real data:
+- Subreddits (with subscriber counts and why relevant)
+- YouTube channels they watch (with subscriber counts)
+- Podcasts they listen to (specific show names)
+- Facebook groups, Discord servers, forums
+- Influencers and thought leaders they trust
 
-### 6. COMPETITIVE LANDSCAPE
+### 6. MARKETING RECOMMENDATION
+Based on your research, recommend WHERE they should focus marketing efforts:
+
+**Primary Platform**: Which ONE platform should they prioritize first?
+Consider: Where does this audience spend the most time? What platform matches their content consumption? Where are competitors weak?
+
+**Secondary Platforms**: 1-2 additional platforms to expand to later
+
+For EACH platform include:
+- Why this platform for THIS specific audience
+- Best content formats (short-form video, carousels, long-form articles, etc.)
+- Suggested posting frequency
+
+**Content Strategy Tips**: 3-5 specific, actionable tips for content that resonates
+**Quick Win**: One concrete action they can take THIS WEEK to start reaching this audience
+
+### 7. COMPETITIVE LANDSCAPE
 - What solutions currently target this audience?
 - What do customers complain about? (from real reviews)
 - What gaps exist in the market?
