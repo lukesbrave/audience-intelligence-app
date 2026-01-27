@@ -51,7 +51,12 @@ export function StickyHeader({ className = '' }: StickyHeaderProps) {
   return (
     <header className={`sticky top-0 z-50 bg-[#1a2744]/95 backdrop-blur-sm border-b border-white/5 ${className}`}>
       <div className="px-4 sm:px-6 lg:px-8 py-3 flex justify-center">
-        <Logo size="md" />
+        <div className="relative inline-flex items-start">
+          <Logo size="md" />
+          <span className="ml-1 -mt-1 text-[10px] font-medium text-gray-500 bg-gray-800/50 px-1.5 py-0.5 rounded">
+            v1
+          </span>
+        </div>
       </div>
     </header>
   )
