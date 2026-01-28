@@ -21,19 +21,19 @@ Use this context to understand what type of solution/offer they provide and how 
 
   const focusGroupSection = focusGroupData
     ? `
-## FOCUS GROUP DATA (DIRECT CUSTOMER CONVERSATIONS)
+## AUDIENCE CONTEXT (From Customer Conversations)
 
-The following insights come from real focus group sessions with actual target customers.
-**PRIORITIZE this data over web search results** - these are verified quotes and patterns from real people.
+The following insights come from real customer conversations. Use this to GUIDE your web research - it tells you WHO this audience is and WHAT problems to investigate.
 
 ${focusGroupData}
 
-IMPORTANT INSTRUCTIONS FOR FOCUS GROUP DATA:
-- Use the exact language and phrases from focus groups in your output
-- When you find web results, validate them against these focus group insights
-- Direct quotes from focus groups should be included in the realQuotes arrays
-- Pain points mentioned frequently in focus groups should be marked as "critical" severity
-- The vocabulary patterns should heavily influence your languageMap output
+HOW TO USE THIS CONTEXT:
+- Use these insights to understand WHO this audience is and WHAT problems to research deeper
+- Look for SIMILAR language patterns in your web research (Reddit, forums, reviews, Quora)
+- Validate your web findings against these known pain points
+- DO NOT quote this context data directly in your output - find FRESH examples from web research
+- The vocabulary patterns tell you what language to SEARCH FOR, not what to copy into output
+- When the focus group mentions a pain point, search for real discussions about that pain online
 
 ---
 
@@ -212,7 +212,7 @@ Generate 50 hooks distributed across these categories:
 
 ## RULES
 
-1. Use the audience's actual language from the research
+1. Use language discovered in web research (Reddit, forums, reviews) - the languageMap from research
 2. Match the tone of the brand angle
 3. Make each hook standalone (works without context)
 4. Be specific - avoid generic advice hooks
@@ -249,7 +249,7 @@ ${topHooks}
 The #1 most pressing problem they need solved RIGHT NOW. Their "aspirin" moment.
 
 ### THEM-CENTRIC LANGUAGE
-Their brain is me-centric - only use THEIR exact words and phrases. Mirror their language.
+Their brain is me-centric - use language patterns discovered in the web research (Reddit threads, forum posts, reviews). Mirror how they actually talk online.
 
 ### 8 UNIVERSAL MOTIVATORS
 1. WEALTH - Financial freedom

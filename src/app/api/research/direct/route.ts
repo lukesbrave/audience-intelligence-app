@@ -7,36 +7,40 @@ import { getResearchPrompt } from '@/lib/research/prompts'
 export const maxDuration = 120 // Allow up to 2 minutes
 
 // Format focus group insights into a string for the prompt
+// NOTE: These are framed as GUIDANCE for research, not quotable material
 function formatFocusGroupData(insights: FocusGroupInsights): string {
   const sections: string[] = []
 
-  if (insights.directQuotes?.length > 0) {
-    sections.push('### Direct Quotes from Customers\n' +
-      insights.directQuotes.map(q =>
-        `- "${q.quote}" (${q.emotion})\n  Context: ${q.context}`
-      ).join('\n'))
-  }
-
   if (insights.painPoints?.length > 0) {
-    sections.push('### Pain Points Mentioned\n' +
+    sections.push('### Problems to Research (validate these in web discussions)\n' +
       insights.painPoints.map(p =>
-        `- **${p.pain}** [${p.frequency}]\n  Phrases used: ${p.exactPhrases.join(', ')}`
+        `- ${p.pain} [${p.frequency}] — search for discussions about this`
       ).join('\n'))
-  }
-
-  if (insights.desireStatements?.length > 0) {
-    sections.push('### What They Want (In Their Words)\n' +
-      insights.desireStatements.map(d => `- "${d}"`).join('\n'))
   }
 
   if (insights.vocabularyPatterns?.length > 0) {
-    sections.push('### Vocabulary & Phrases They Use\n' +
-      insights.vocabularyPatterns.map(v => `- ${v}`).join('\n'))
+    sections.push('### Language Patterns to Search For\n' +
+      'Look for these phrases and similar language in Reddit, forums, and reviews:\n' +
+      insights.vocabularyPatterns.map(v => `- "${v}"`).join('\n'))
   }
 
   if (insights.urgencyIndicators?.length > 0) {
-    sections.push('### Most Urgent Problems\n' +
+    sections.push('### Urgent Problems to Prioritize in Research\n' +
       insights.urgencyIndicators.map(u => `- ${u}`).join('\n'))
+  }
+
+  if (insights.desireStatements?.length > 0) {
+    sections.push('### Desired Outcomes to Explore\n' +
+      'Research what this audience says they want online:\n' +
+      insights.desireStatements.map(d => `- ${d}`).join('\n'))
+  }
+
+  if (insights.directQuotes?.length > 0) {
+    sections.push('### Audience Mindset Signals (for context only, do not quote)\n' +
+      'These show the emotional tone to look for in web research:\n' +
+      insights.directQuotes.slice(0, 3).map(q =>
+        `- Feeling: ${q.emotion} | Topic: ${q.context}`
+      ).join('\n'))
   }
 
   return sections.join('\n\n')
