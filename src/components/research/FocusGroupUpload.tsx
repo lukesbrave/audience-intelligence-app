@@ -156,11 +156,11 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                     <div className="bg-[#243351] rounded-xl p-4 border border-white/10">
                       <h4 className="font-medium text-white mb-2">Supported formats</h4>
                       <p className="text-gray-400 text-sm">
-                        Text files (.txt), PDF transcriptions, or JSON exports from transcription services
+                        Text files (.txt) or JSON exports from transcription services
                       </p>
                     </div>
                     <FileUpload
-                      accept=".txt,.pdf,.json"
+                      accept=".txt,.json"
                       maxSizeMB={25}
                       onFileSelect={handleFileSelect}
                       onError={handleError}

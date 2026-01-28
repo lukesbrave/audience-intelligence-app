@@ -302,7 +302,7 @@ export default function DescribeAudience({
               )}
 
               <FileUpload
-                accept=".txt,.pdf,.json"
+                accept=".txt,.json"
                 maxSizeMB={25}
                 variant="dark"
                 onFileSelect={handleFileSelect}

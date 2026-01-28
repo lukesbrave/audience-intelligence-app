@@ -24,7 +24,7 @@ function formatFileSize(bytes: number): string {
 }
 
 function FileUpload({
-  accept = '.pdf',
+  accept = '.txt,.json',
   maxSizeMB = 10,
   onFileSelect,
   onError,
