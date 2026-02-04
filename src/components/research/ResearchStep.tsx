@@ -113,7 +113,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
       <div className="max-w-2xl mx-auto">
         <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Let's Deep Dive Into Your Audience</h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-white/60 mb-8">
             We'll search the web to find real conversations, communities, and insights about your
             target audience.
           </p>
@@ -165,7 +165,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                   <span className="text-2xl">{phase.icon}</span>
                   <span
                     className={`font-medium ${
-                      isActive ? 'text-[var(--color-brave-500)]' : isComplete ? 'text-[var(--color-brave-500)]' : 'text-gray-400'
+                      isActive ? 'text-[var(--color-brave-500)]' : isComplete ? 'text-[var(--color-brave-500)]' : 'text-white/60'
                     }`}
                   >
                     {phase.label}
@@ -195,7 +195,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
         <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Research Failed</h2>
-          <p className="text-gray-400 mb-6">{error}</p>
+          <p className="text-white/60 mb-6">{error}</p>
           <button
             onClick={startResearch}
             className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -217,7 +217,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
       >
         <div className="text-5xl mb-4">🎉</div>
         <h2 className="text-2xl font-bold text-white">Research Complete!</h2>
-        <p className="text-gray-400">Here's what we discovered about your audience</p>
+        <p className="text-white/60">Here's what we discovered about your audience</p>
       </motion.div>
 
       {research && (
@@ -232,10 +232,10 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 {/* Current State */}
                 <div className="bg-gray-500/10 p-4 rounded-lg border border-gray-500/30 relative">
                   <div className="absolute -top-3 left-4 bg-[#141414] px-2">
-                    <span className="text-sm font-medium text-gray-400">WHERE THEY ARE NOW</span>
+                    <span className="text-sm font-medium text-white/60">WHERE THEY ARE NOW</span>
                   </div>
                   <div className="pt-2">
-                    <p className="text-gray-300 leading-relaxed">{research.audienceState.currentState}</p>
+                    <p className="text-white/70 leading-relaxed">{research.audienceState.currentState}</p>
                   </div>
                 </div>
                 {/* Desired State */}
@@ -263,11 +263,11 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
               <div className="grid gap-4 md:grid-cols-2">
                 <div className="bg-red-500/10 p-4 rounded-lg border border-red-500/20">
                   <h4 className="font-medium text-red-400 mb-2">Why It's Urgent</h4>
-                  <p className="text-gray-300">{research.urgencyGateway.whyUrgent}</p>
+                  <p className="text-white/70">{research.urgencyGateway.whyUrgent}</p>
                 </div>
                 <div className="bg-[var(--color-brave-500)]/10 p-4 rounded-lg border border-[var(--color-brave-500)]/20">
                   <h4 className="font-medium text-[var(--color-brave-600)] mb-2">The Aspirin</h4>
-                  <p className="text-gray-300">{research.urgencyGateway.aspirinSolution}</p>
+                  <p className="text-white/70">{research.urgencyGateway.aspirinSolution}</p>
                 </div>
               </div>
             </div>
@@ -283,7 +283,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-white">Recommended Marketing Focus</h3>
-                    <p className="text-sm text-gray-400">Where to reach your audience</p>
+                    <p className="text-sm text-white/60">Where to reach your audience</p>
                   </div>
                 </div>
 
@@ -300,7 +300,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                   <h4 className="text-xl font-bold text-white mb-2">
                     {research.marketingRecommendation.primaryPlatform.platform}
                   </h4>
-                  <p className="text-gray-300 text-sm mb-3">
+                  <p className="text-white/70 text-sm mb-3">
                     {research.marketingRecommendation.primaryPlatform.reasoning}
                   </p>
                   <div className="flex flex-wrap gap-2 mb-2">
@@ -313,7 +313,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       </span>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-400">
+                  <p className="text-xs text-white/60">
                     Posting cadence: {research.marketingRecommendation.primaryPlatform.postingCadence}
                   </p>
                 </div>
@@ -325,12 +325,12 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       <div key={i} className="bg-[#0a0a0a] rounded-lg p-3 border border-white/10">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-medium text-white">{platform.platform}</span>
-                          <span className="text-xs text-gray-400">Secondary</span>
+                          <span className="text-xs text-white/60">Secondary</span>
                         </div>
-                        <p className="text-sm text-gray-400 mb-2">{platform.reasoning}</p>
+                        <p className="text-sm text-white/60 mb-2">{platform.reasoning}</p>
                         <div className="flex flex-wrap gap-1">
                           {platform.contentFormats.slice(0, 2).map((format, j) => (
-                            <span key={j} className="bg-gray-600/30 text-gray-300 px-2 py-0.5 rounded text-xs">
+                            <span key={j} className="bg-gray-600/30 text-white/70 px-2 py-0.5 rounded text-xs">
                               {format}
                             </span>
                           ))}
@@ -346,19 +346,19 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                     <span className="text-xl">⚡</span>
                     <div>
                       <h5 className="font-medium text-emerald-400 mb-1">Quick Win (Do This Week)</h5>
-                      <p className="text-gray-300 text-sm">{research.marketingRecommendation.quickWin}</p>
+                      <p className="text-white/70 text-sm">{research.marketingRecommendation.quickWin}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Content Strategy Tips */}
                 <div>
-                  <h5 className="font-medium text-gray-300 mb-2 flex items-center gap-2">
+                  <h5 className="font-medium text-white/70 mb-2 flex items-center gap-2">
                     <span>💡</span> Content Strategy Tips
                   </h5>
                   <ul className="space-y-2">
                     {research.marketingRecommendation.contentStrategyTips.map((tip, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
+                      <li key={i} className="flex items-start gap-2 text-sm text-white/70">
                         <span className="text-[var(--color-brave-500)] mt-0.5">•</span>
                         {tip}
                       </li>
@@ -383,7 +383,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                   <span>💬</span> Their Language
                 </h3>
-                <span className="text-gray-400">{expandedSections.includes('language') ? '−' : '+'}</span>
+                <span className="text-white/60">{expandedSections.includes('language') ? '−' : '+'}</span>
               </div>
               <AnimatePresence>
                 {expandedSections.includes('language') && (
@@ -396,7 +396,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                     <div className="px-6 pb-6">
                       <div className="grid gap-4 md:grid-cols-2">
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-2">Pain Phrases</h4>
+                          <h4 className="font-medium text-white/70 mb-2">Pain Phrases</h4>
                           <div className="flex flex-wrap gap-2">
                             {research.languageMap.painPhrases.map((phrase, i) => (
                               <span
@@ -409,7 +409,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                           </div>
                         </div>
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-2">Desire Phrases</h4>
+                          <h4 className="font-medium text-white/70 mb-2">Desire Phrases</h4>
                           <div className="flex flex-wrap gap-2">
                             {research.languageMap.desirePhrases.map((phrase, i) => (
                               <span
@@ -443,7 +443,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                   <span>👥</span> Where They Gather
                 </h3>
-                <span className="text-gray-400">{expandedSections.includes('communities') ? '−' : '+'}</span>
+                <span className="text-white/60">{expandedSections.includes('communities') ? '−' : '+'}</span>
               </div>
               <AnimatePresence>
                 {expandedSections.includes('communities') && (
@@ -457,7 +457,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       {/* Subreddits */}
                       {research.congregationPoints.subreddits.length > 0 && (
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                          <h4 className="font-medium text-white/70 mb-3 flex items-center gap-2">
                             <span className="text-orange-500">🔴</span> Subreddits
                           </h4>
                           <div className="grid gap-2 md:grid-cols-2">
@@ -469,7 +469,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                                     {sub.subscribers}
                                   </span>
                                 </div>
-                                <p className="text-gray-400 text-sm mt-1">{sub.relevance}</p>
+                                <p className="text-white/60 text-sm mt-1">{sub.relevance}</p>
                               </div>
                             ))}
                           </div>
@@ -479,7 +479,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       {/* YouTube Channels */}
                       {research.congregationPoints.youtubeChannels.length > 0 && (
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                          <h4 className="font-medium text-white/70 mb-3 flex items-center gap-2">
                             <span className="text-red-500">▶️</span> YouTube Channels
                           </h4>
                           <div className="grid gap-2 md:grid-cols-2">
@@ -496,7 +496,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       {/* Podcasts */}
                       {research.congregationPoints.podcasts.length > 0 && (
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                          <h4 className="font-medium text-white/70 mb-3 flex items-center gap-2">
                             <span className="text-purple-500">🎙️</span> Podcasts
                           </h4>
                           <div className="flex flex-wrap gap-2">
@@ -515,7 +515,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       {/* Other Communities */}
                       {research.congregationPoints.otherCommunities.length > 0 && (
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                          <h4 className="font-medium text-white/70 mb-3 flex items-center gap-2">
                             <span className="text-blue-500">💬</span> Other Communities
                           </h4>
                           <div className="flex flex-wrap gap-2">
@@ -534,7 +534,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       {/* Influencers */}
                       {research.congregationPoints.influencers.length > 0 && (
                         <div>
-                          <h4 className="font-medium text-gray-300 mb-3 flex items-center gap-2">
+                          <h4 className="font-medium text-white/70 mb-3 flex items-center gap-2">
                             <span className="text-pink-500">⭐</span> Influencers & Thought Leaders
                           </h4>
                           <div className="flex flex-wrap gap-2">
@@ -570,7 +570,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                   <span>💢</span> Pain Points ({research.painPoints.length})
                 </h3>
-                <span className="text-gray-400">{expandedSections.includes('pain') ? '−' : '+'}</span>
+                <span className="text-white/60">{expandedSections.includes('pain') ? '−' : '+'}</span>
               </div>
               <AnimatePresence>
                 {expandedSections.includes('pain') && (
@@ -593,12 +593,12 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                           }`}
                         >
                           <p className="font-medium text-white">{point.pain}</p>
-                          <p className="text-gray-400 text-sm mt-1">{point.emotionalContext}</p>
+                          <p className="text-white/60 text-sm mt-1">{point.emotionalContext}</p>
                           {point.realQuotes.length > 0 && (
                             <div className="mt-2">
-                              <p className="text-xs text-gray-400 mb-1">Real quotes:</p>
+                              <p className="text-xs text-white/60 mb-1">Real quotes:</p>
                               {point.realQuotes.slice(0, 2).map((quote, j) => (
-                                <p key={j} className="text-sm italic text-gray-400">
+                                <p key={j} className="text-sm italic text-white/60">
                                   "{quote}"
                                 </p>
                               ))}

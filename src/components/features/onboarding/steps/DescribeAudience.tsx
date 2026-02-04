@@ -154,7 +154,7 @@ export default function DescribeAudience({
       <h1 className="text-2xl font-bold text-white mb-2">
         Tell us about your business and who you serve
       </h1>
-      <p className="text-gray-400 mb-6">
+      <p className="text-white/60 mb-6">
         The more detail you share, the sharper your research will be.
       </p>
 
@@ -165,7 +165,7 @@ export default function DescribeAudience({
           className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all ${
             activeTab === 'manual'
               ? 'bg-[#141414] text-white shadow-sm'
-              : 'text-gray-400 hover:text-white'
+              : 'text-white/60 hover:text-white'
           }`}
         >
           Describe Manually
@@ -175,7 +175,7 @@ export default function DescribeAudience({
           className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all flex items-center justify-center gap-2 ${
             activeTab === 'upload'
               ? 'bg-[#141414] text-white shadow-sm'
-              : 'text-gray-400 hover:text-white'
+              : 'text-white/60 hover:text-white'
           }`}
         >
           <span>✨</span> Upload Focus Group Data
@@ -196,7 +196,7 @@ export default function DescribeAudience({
               className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
               rows={4}
             />
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-white/50 text-sm mt-1">
               Describe your business, service, or expertise in a few sentences.
             </p>
           </div>
@@ -212,7 +212,7 @@ export default function DescribeAudience({
               className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
               rows={6}
             />
-            <p className="text-gray-500 text-sm mt-1">
+            <p className="text-white/50 text-sm mt-1">
               Describe them like you&apos;re telling a friend - their situation, struggles, and what they&apos;re hoping for.
             </p>
           </div>
@@ -228,7 +228,7 @@ export default function DescribeAudience({
                 <h4 className="font-medium text-[var(--color-brave-400)] mb-2 flex items-center gap-2">
                   <span>🎯</span> Skip the typing - let your customers speak for you
                 </h4>
-                <p className="text-gray-400 text-sm">
+                <p className="text-white/60 text-sm">
                   Upload your focus group transcriptions and we&apos;ll extract exactly who your audience is, what they struggle with, and how they talk about it.
                 </p>
               </div>
@@ -245,7 +245,7 @@ export default function DescribeAudience({
                   placeholder="e.g., I help entrepreneurs scale their coaching business"
                   className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)]"
                 />
-                <p className="text-gray-400 text-sm mt-1">
+                <p className="text-white/60 text-sm mt-1">
                   This helps us better understand your transcriptions
                 </p>
               </div>
@@ -279,12 +279,12 @@ export default function DescribeAudience({
                         </div>
                         <div>
                           <p className="text-white text-sm font-medium">{file.name}</p>
-                          <p className="text-gray-400 text-xs">{formatFileSize(file.size)}</p>
+                          <p className="text-white/60 text-xs">{formatFileSize(file.size)}</p>
                         </div>
                       </div>
                       <button
                         onClick={() => handleRemoveFile(file.id)}
-                        className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+                        className="p-2 text-white/60 hover:text-red-400 transition-colors"
                         aria-label="Remove file"
                       >
                         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -344,7 +344,7 @@ export default function DescribeAudience({
               <h3 className="text-xl font-semibold text-white mb-2">
                 Processing {uploadedFiles.length} Transcription{uploadedFiles.length > 1 ? 's' : ''}
               </h3>
-              <p className="text-gray-400">
+              <p className="text-white/60">
                 Extracting insights from your focus group data...
               </p>
               <div className="mt-6 space-y-2 max-w-sm mx-auto">
@@ -363,7 +363,7 @@ export default function DescribeAudience({
                     >
                       ●
                     </motion.span>
-                    <span className="text-gray-300">{step}</span>
+                    <span className="text-white/70">{step}</span>
                   </motion.div>
                 ))}
               </div>
@@ -374,7 +374,7 @@ export default function DescribeAudience({
             <div className="text-center py-12">
               <div className="text-5xl mb-4">❌</div>
               <h3 className="text-xl font-semibold text-red-400 mb-2">Processing Failed</h3>
-              <p className="text-gray-400 mb-6">{error}</p>
+              <p className="text-white/60 mb-6">{error}</p>
               <button
                 onClick={handleClear}
                 className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -393,7 +393,7 @@ export default function DescribeAudience({
                   </svg>
                   <span className="font-medium">Insights Extracted Successfully</span>
                 </div>
-                <p className="text-gray-300 text-sm">
+                <p className="text-white/70 text-sm">
                   We found {localInsights.directQuotes.length} quotes, {localInsights.painPoints.length} pain points, and {localInsights.vocabularyPatterns.length} vocabulary patterns. This will supercharge your research!
                 </p>
               </div>
@@ -408,7 +408,7 @@ export default function DescribeAudience({
                     {localInsights.directQuotes.slice(0, 3).map((q, i) => (
                       <div key={i} className="bg-[#0a0a0a] p-3 rounded-lg border border-white/10">
                         <p className="text-white italic">&ldquo;{q.quote}&rdquo;</p>
-                        <div className="flex gap-4 mt-2 text-xs text-gray-400">
+                        <div className="flex gap-4 mt-2 text-xs text-white/60">
                           <span>{q.context}</span>
                           <span className="text-[var(--color-brave-500)]">{q.emotion}</span>
                         </div>
@@ -433,7 +433,7 @@ export default function DescribeAudience({
                             ? 'bg-red-500/20 text-red-300 border border-red-500/30'
                             : p.frequency === 'recurring'
                               ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30'
-                              : 'bg-gray-500/20 text-gray-300 border border-gray-500/30'
+                              : 'bg-gray-500/20 text-white/70 border border-gray-500/30'
                         }`}
                       >
                         {p.pain}
@@ -464,7 +464,7 @@ export default function DescribeAudience({
 
               <button
                 onClick={handleClear}
-                className="text-gray-400 hover:text-white text-sm transition-colors"
+                className="text-white/60 hover:text-white text-sm transition-colors"
               >
                 Start over with different files
               </button>
@@ -476,7 +476,7 @@ export default function DescribeAudience({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-white/60 hover:text-white transition-colors"
         >
           &#8592; Back
         </button>

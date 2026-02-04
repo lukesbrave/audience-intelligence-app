@@ -40,10 +40,10 @@ function ConfidenceIndicator({
         ))}
       </div>
       {showLabel && (
-        <span className="text-xs text-gray-400">{config.label}</span>
+        <span className="text-xs text-white/60">{config.label}</span>
       )}
       {sourceCount !== undefined && (
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-white/50">
           {sourceCount} source{sourceCount !== 1 ? 's' : ''}
         </span>
       )}

@@ -21,13 +21,6 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-3xl"
       >
-        {/* Brand mark */}
-        <div className="mb-8">
-          <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider uppercase text-[var(--color-brave-500)] border border-[var(--color-brave-500)]/40 rounded-full">
-            Brand Intelligence
-          </span>
-        </div>
-
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
           Stop Guessing.
           <span className="block bg-gradient-to-r from-[var(--color-brave-500)] to-[var(--color-brave-600)] bg-clip-text text-transparent mt-2">
@@ -35,7 +28,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           </span>
         </h1>
 
-        <p className="text-xl text-gray-300 mb-12">
+        <p className="text-xl text-white/70 mb-12">
           Deep audience research in minutes — not weeks.
         </p>
 
@@ -46,7 +39,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           transition={{ delay: 0.3 }}
           className="mb-12"
         >
-          <h3 className="text-sm font-normal text-gray-500 mb-6 uppercase tracking-wider">What you&apos;ll walk away with</h3>
+          <h3 className="text-sm font-normal text-white/50 mb-6 uppercase tracking-wider">What you&apos;ll walk away with</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {outcomes.map((outcome, i) => (
               <motion.div
@@ -58,7 +51,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
               >
                 <div className="text-3xl mb-2">{outcome.icon}</div>
                 <p className="text-white font-bold text-base mb-1">{outcome.label}</p>
-                <p className="text-gray-300 text-xs leading-relaxed">{outcome.desc}</p>
+                <p className="text-white/70 text-xs leading-relaxed">{outcome.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -82,7 +75,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}
-          className="text-gray-400 text-sm mt-6"
+          className="text-white/60 text-sm mt-6"
         >
           Used by 500+ marketers to find their edge.
         </motion.p>

@@ -106,8 +106,8 @@ export function SwipeCard({ hook, onSwipe, isTop }: SwipeCardProps) {
 
         {/* Target emotion */}
         <div className="mt-6 pt-4 border-t border-white/10">
-          <p className="text-sm text-gray-400">
-            <span className="font-medium text-gray-300">Targets:</span> {hook.targetEmotion}
+          <p className="text-sm text-white/60">
+            <span className="font-medium text-white/70">Targets:</span> {hook.targetEmotion}
           </p>
         </div>
 
@@ -120,7 +120,7 @@ export function SwipeCard({ hook, onSwipe, isTop }: SwipeCardProps) {
         </motion.div>
 
         <motion.div
-          className="absolute top-4 left-4 text-gray-400 text-4xl"
+          className="absolute top-4 left-4 text-white/60 text-4xl"
           style={{ opacity: skipOpacity }}
         >
           ⬅️

@@ -33,7 +33,7 @@ export default function StoryQuestions({
         <h1 className="text-2xl font-bold text-white mb-2">
           Let&apos;s dig into your journey
         </h1>
-        <p className="text-gray-400">
+        <p className="text-white/60">
           Your experiences shape who you can best serve. Be honest - there are no wrong answers.
         </p>
       </div>
@@ -82,7 +82,7 @@ export default function StoryQuestions({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-white/60 hover:text-white transition-colors"
         >
           &#8592; Back
         </button>

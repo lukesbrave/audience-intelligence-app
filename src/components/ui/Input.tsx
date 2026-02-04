@@ -42,7 +42,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               : 'border-gray-200 focus:border-[#0a0a0a] focus:ring-2 focus:ring-[#0a0a0a]/30'
             }
             focus:outline-none
-            disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+            disabled:bg-gray-50 disabled:text-white/50 disabled:cursor-not-allowed
             ${className}
           `}
           {...props}
@@ -57,7 +57,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
           </p>
         )}
         {hint && !error && (
-          <p id={`${inputId}-hint`} className="mt-1.5 text-sm text-gray-500">
+          <p id={`${inputId}-hint`} className="mt-1.5 text-sm text-white/50">
             {hint}
           </p>
         )}

@@ -58,7 +58,7 @@ function MetricCard({
   const trendColors = {
     up: 'text-green-600',
     down: 'text-red-600',
-    neutral: 'text-gray-500'
+    neutral: 'text-white/50'
   };
 
   const trendIcons = {
@@ -94,7 +94,7 @@ function MetricCard({
           </div>
 
           {/* Label */}
-          <div className={`${sizeStyles[size].label} text-gray-500 mt-1`}>
+          <div className={`${sizeStyles[size].label} text-white/50 mt-1`}>
             {label}
           </div>
 
@@ -102,7 +102,7 @@ function MetricCard({
           {(sublabel || trend) && (
             <div className="mt-2 flex items-center gap-2">
               {sublabel && (
-                <span className="text-xs text-gray-400">{sublabel}</span>
+                <span className="text-xs text-white/60">{sublabel}</span>
               )}
               {trend && (
                 <span className={`flex items-center gap-1 text-xs font-medium ${trendColors[trend.direction]}`}>
@@ -116,7 +116,7 @@ function MetricCard({
 
         {/* Icon */}
         {icon && (
-          <div className={`${sizeStyles[size].icon} flex items-center justify-center rounded-lg bg-gray-100 text-gray-600`}>
+          <div className={`${sizeStyles[size].icon} flex items-center justify-center rounded-lg bg-gray-100 text-white/60`}>
             {icon}
           </div>
         )}

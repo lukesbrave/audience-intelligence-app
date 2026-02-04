@@ -68,7 +68,7 @@ interface CardDescriptionProps {
 
 function CardDescription({ children, className = '' }: CardDescriptionProps) {
   return (
-    <p className={`text-sm text-gray-500 mt-1 ${className}`}>
+    <p className={`text-sm text-white/50 mt-1 ${className}`}>
       {children}
     </p>
   );

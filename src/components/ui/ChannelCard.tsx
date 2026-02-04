@@ -22,7 +22,7 @@ const priorityStyles: Record<ChannelPriority, { badge: string; border: string; l
     label: 'MEDIUM',
   },
   tier3: {
-    badge: 'bg-gray-500/20 text-gray-400',
+    badge: 'bg-gray-500/20 text-white/60',
     border: 'border-gray-500/20',
     label: 'SECONDARY',
   },
@@ -74,18 +74,18 @@ function ChannelCard({ name, priority, why, whatWorks, className = '' }: Channel
 
       {why && (
         <div className="mb-4">
-          <p className="text-sm text-gray-300 leading-relaxed">{why}</p>
+          <p className="text-sm text-white/70 leading-relaxed">{why}</p>
         </div>
       )}
 
       {whatWorks && whatWorks.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
+          <p className="text-xs font-medium text-white/60 uppercase tracking-wide mb-2">
             What works:
           </p>
           <ul className="space-y-1.5">
             {whatWorks.map((item, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-gray-300">
+              <li key={index} className="flex items-start gap-2 text-sm text-white/70">
                 <span className="text-[#BBDCEF] mt-0.5">•</span>
                 {item}
               </li>
@@ -114,7 +114,7 @@ function ChannelListItem({ name, description, className = '' }: ChannelListItemP
       <div className="min-w-0 flex-1">
         <p className="text-sm font-medium text-white truncate">{name}</p>
         {description && (
-          <p className="text-xs text-gray-400 truncate">{description}</p>
+          <p className="text-xs text-white/60 truncate">{description}</p>
         )}
       </div>
     </div>

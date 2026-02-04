@@ -20,7 +20,7 @@ function ResearchScoreCard({ depth, sourceCount, confidence }: ResearchScoreCard
       <div className="grid grid-cols-3 divide-x divide-gray-200">
         {/* Depth */}
         <div className="p-4 text-center">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+          <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
             Depth
           </p>
           <p className="text-2xl font-bold text-gray-900 tabular-nums">{depth}%</p>
@@ -34,7 +34,7 @@ function ResearchScoreCard({ depth, sourceCount, confidence }: ResearchScoreCard
 
         {/* Sources */}
         <div className="p-4 text-center">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+          <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
             Sources
           </p>
           <p className="text-2xl font-bold text-gray-900 tabular-nums">{sourceCount}</p>
@@ -57,7 +57,7 @@ function ResearchScoreCard({ depth, sourceCount, confidence }: ResearchScoreCard
 
         {/* Confidence */}
         <div className="p-4 text-center">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+          <p className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-2">
             Confidence
           </p>
           <p className="text-lg font-bold text-gray-900">{config.label}</p>

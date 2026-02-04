@@ -73,7 +73,7 @@ function BarChart({ segments, title, showLegend, showValues, total, className }:
                 className="w-2.5 h-2.5 rounded-full"
                 style={{ backgroundColor: segment.color }}
               />
-              <span className="text-gray-600">{segment.label}</span>
+              <span className="text-white/60">{segment.label}</span>
               {showValues && (
                 <span className="font-medium text-gray-900">{segment.value}</span>
               )}
@@ -152,7 +152,7 @@ function DonutChart({ segments, title, showLegend, showValues, total, className 
                   className="w-3 h-3 rounded-full flex-shrink-0"
                   style={{ backgroundColor: segment.color }}
                 />
-                <span className="text-gray-600">{segment.label}</span>
+                <span className="text-white/60">{segment.label}</span>
                 {showValues && (
                   <span className="font-medium text-gray-900 ml-auto">{segment.value}</span>
                 )}

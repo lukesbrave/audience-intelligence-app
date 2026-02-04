@@ -14,7 +14,7 @@ export default function StepIndicator({ currentStep, totalSteps, title }: StepIn
           <span className="text-[var(--color-brave-500)] text-lg">&#10022;</span>
         </div>
         <div>
-          <p className="text-gray-400 text-sm uppercase tracking-wide">Getting Started</p>
+          <p className="text-white/60 text-sm uppercase tracking-wide">Getting Started</p>
           <h2 className="text-white font-semibold text-lg">{title}</h2>
         </div>
       </div>

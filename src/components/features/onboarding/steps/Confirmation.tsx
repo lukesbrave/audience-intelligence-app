@@ -63,25 +63,25 @@ export default function Confirmation({
         <h1 className="text-2xl font-bold text-white mb-2">
           Let&apos;s run your deep research
         </h1>
-        <p className="text-gray-400">
+        <p className="text-white/60">
           We&apos;ll analyze your audience and create a comprehensive intelligence report.
         </p>
       </div>
 
       <div className="bg-[#0a0a0a] rounded-lg p-6 mb-8 border border-white/5">
-        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
+        <h3 className="text-sm font-medium text-white/60 uppercase tracking-wide mb-3">
           Delivery Email
         </h3>
         <p className="text-white mb-6">{state.email}</p>
 
-        <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
+        <h3 className="text-sm font-medium text-white/60 uppercase tracking-wide mb-3">
           Your Target Audience
         </h3>
         <p className="text-white">{getAudienceSummary()}</p>
 
         {state.selectedPath === 'direct' && (
           <>
-            <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mt-6 mb-3">
+            <h3 className="text-sm font-medium text-white/60 uppercase tracking-wide mt-6 mb-3">
               Your Business
             </h3>
             <p className="text-white">{state.businessDescription}</p>
@@ -91,7 +91,7 @@ export default function Confirmation({
 
       <div className="bg-gradient-to-r from-[var(--color-brave-600)]/10 to-[var(--color-brave-500)]/10 rounded-lg p-6 mb-8 border border-[var(--color-brave-500)]/20">
         <h3 className="text-white font-medium mb-3">What you&apos;ll get:</h3>
-        <ul className="space-y-2 text-gray-300 text-sm">
+        <ul className="space-y-2 text-white/70 text-sm">
           <li className="flex items-start gap-2">
             <svg className="w-5 h-5 text-[var(--color-brave-500)] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
@@ -128,7 +128,7 @@ export default function Confirmation({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-white/60 hover:text-white transition-colors"
           disabled={isSubmitting}
         >
           &#8592; Back

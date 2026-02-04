@@ -28,7 +28,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
         <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
           First things first
         </h1>
-        <p className="text-gray-400 mb-6">
+        <p className="text-white/60 mb-6">
           Where should we send your completed report?
         </p>
 
@@ -50,7 +50,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
         <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
           Do you know who you&apos;re here to serve?
         </h2>
-        <p className="text-gray-400 mb-8">
+        <p className="text-white/60 mb-8">
           Pick the path that fits where you&apos;re at right now.
         </p>
 
@@ -80,7 +80,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
             <h3 className="text-lg font-semibold text-white mb-2">
               Yes, I know my audience
             </h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white/60 text-sm">
               I can describe who I serve and what they struggle with
             </p>
           </motion.button>
@@ -109,7 +109,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
             <h3 className="text-lg font-semibold text-white mb-2">
               I&apos;m still figuring it out
             </h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-white/60 text-sm">
               Help me uncover who I&apos;m best positioned to serve
             </p>
           </motion.button>

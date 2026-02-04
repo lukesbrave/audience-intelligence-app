@@ -79,7 +79,7 @@ function InsightCallout({
           <h4 className={`font-semibold text-sm ${styles.title}`}>
             {title}
           </h4>
-          <p className="text-sm text-gray-600 mt-1">
+          <p className="text-sm text-white/60 mt-1">
             {description}
           </p>
         </div>

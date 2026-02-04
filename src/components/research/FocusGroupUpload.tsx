@@ -88,7 +88,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
                 <span>✨</span> Supercharge Your Research
               </h3>
-              <p className="text-gray-400 text-sm mt-1">
+              <p className="text-white/60 text-sm mt-1">
                 Upload focus group transcriptions for deeper, validated insights
               </p>
             </div>
@@ -96,7 +96,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
               <button
                 onClick={handleSkip}
                 disabled={disabled}
-                className="px-4 py-2 text-gray-400 hover:text-white transition-colors text-sm"
+                className="px-4 py-2 text-white/60 hover:text-white transition-colors text-sm"
               >
                 Skip
               </button>
@@ -135,13 +135,13 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
               <div className="p-6 border-b border-white/10 flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-white">Add Focus Group Data</h2>
-                  <p className="text-gray-400 text-sm mt-1">
+                  <p className="text-white/60 text-sm mt-1">
                     Upload transcriptions from customer conversations
                   </p>
                 </div>
                 <button
                   onClick={handleClose}
-                  className="p-2 text-gray-400 hover:text-white transition-colors rounded-lg hover:bg-white/5"
+                  className="p-2 text-white/60 hover:text-white transition-colors rounded-lg hover:bg-white/5"
                 >
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -155,7 +155,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                   <div className="space-y-6">
                     <div className="bg-[#141414] rounded-xl p-4 border border-white/10">
                       <h4 className="font-medium text-white mb-2">Supported formats</h4>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-white/60 text-sm">
                         Text files (.txt) or JSON exports from transcription services
                       </p>
                     </div>
@@ -184,7 +184,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                     <h3 className="text-xl font-semibold text-white mb-2">
                       Processing Transcription
                     </h3>
-                    <p className="text-gray-400">
+                    <p className="text-white/60">
                       Extracting insights from your focus group data...
                     </p>
                     <div className="mt-6 space-y-2 max-w-sm mx-auto">
@@ -203,7 +203,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                           >
                             ●
                           </motion.span>
-                          <span className="text-gray-300">{step}</span>
+                          <span className="text-white/70">{step}</span>
                         </motion.div>
                       ))}
                     </div>
@@ -214,7 +214,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                   <div className="text-center py-12">
                     <div className="text-5xl mb-4">❌</div>
                     <h3 className="text-xl font-semibold text-red-400 mb-2">Processing Failed</h3>
-                    <p className="text-gray-400 mb-6">{error}</p>
+                    <p className="text-white/60 mb-6">{error}</p>
                     <button
                       onClick={handleClear}
                       className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -233,7 +233,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                         </svg>
                         <span className="font-medium">Insights Extracted Successfully</span>
                       </div>
-                      <p className="text-gray-300 text-sm">
+                      <p className="text-white/70 text-sm">
                         Review the insights below. These will be used to enhance your audience research.
                       </p>
                     </div>
@@ -248,7 +248,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                           {insights.directQuotes.slice(0, 5).map((q, i) => (
                             <div key={i} className="bg-[#141414] p-3 rounded-lg border border-white/10">
                               <p className="text-white italic">"{q.quote}"</p>
-                              <div className="flex gap-4 mt-2 text-xs text-gray-400">
+                              <div className="flex gap-4 mt-2 text-xs text-white/60">
                                 <span>{q.context}</span>
                                 <span className="text-[var(--color-brave-500)]">{q.emotion}</span>
                               </div>
@@ -273,7 +273,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                                   ? 'bg-red-500/20 text-red-300 border border-red-500/30'
                                   : p.frequency === 'recurring'
                                     ? 'bg-yellow-500/20 text-yellow-300 border border-yellow-500/30'
-                                    : 'bg-gray-500/20 text-gray-300 border border-gray-500/30'
+                                    : 'bg-gray-500/20 text-white/70 border border-gray-500/30'
                               }`}
                             >
                               {p.pain}
@@ -310,7 +310,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                 <div className="p-6 border-t border-white/10 flex justify-end gap-3">
                   <button
                     onClick={handleClear}
-                    className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                    className="px-4 py-2 text-white/60 hover:text-white transition-colors"
                   >
                     Upload Different File
                   </button>

@@ -77,7 +77,7 @@ export function PlaybookStep({
             📋
           </motion.div>
           <h2 className="text-xl font-semibold text-white">Creating Your Playbook</h2>
-          <p className="text-gray-400 mt-2">Compiling your research, angles, and hooks...</p>
+          <p className="text-white/60 mt-2">Compiling your research, angles, and hooks...</p>
         </div>
       </div>
     )
@@ -139,7 +139,7 @@ export function PlaybookStep({
           <div className="text-3xl font-bold text-[var(--color-brave-500)]">
             {research.painPoints.length}
           </div>
-          <p className="text-sm text-gray-400 mt-1">Pain Points</p>
+          <p className="text-sm text-white/60 mt-1">Pain Points</p>
         </motion.div>
 
         <motion.div
@@ -152,7 +152,7 @@ export function PlaybookStep({
           <div className="text-3xl font-bold text-[var(--color-brave-500)]">
             {selectedAngles.length}
           </div>
-          <p className="text-sm text-gray-400 mt-1">Brand Angles</p>
+          <p className="text-sm text-white/60 mt-1">Brand Angles</p>
         </motion.div>
 
         <motion.div
@@ -163,7 +163,7 @@ export function PlaybookStep({
         >
           <div className="text-3xl mb-2">🔥</div>
           <div className="text-3xl font-bold text-orange-400">{lovedHooks.length}</div>
-          <p className="text-sm text-gray-400 mt-1">Fire Hooks</p>
+          <p className="text-sm text-white/60 mt-1">Fire Hooks</p>
         </motion.div>
 
         <motion.div
@@ -174,7 +174,7 @@ export function PlaybookStep({
         >
           <div className="text-3xl mb-2">❤️</div>
           <div className="text-3xl font-bold text-pink-400">{likedHooks.length}</div>
-          <p className="text-sm text-gray-400 mt-1">Liked Hooks</p>
+          <p className="text-sm text-white/60 mt-1">Liked Hooks</p>
         </motion.div>
       </div>
 
@@ -244,14 +244,14 @@ export function PlaybookStep({
                         ? 'bg-red-500/20 text-red-300'
                         : point.severity === 'moderate'
                           ? 'bg-yellow-500/20 text-yellow-300'
-                          : 'bg-gray-500/20 text-gray-300'
+                          : 'bg-gray-500/20 text-white/70'
                     }`}
                   >
                     {point.severity}
                   </span>
                   <div className="flex-1">
                     <p className="text-white font-medium">{point.pain}</p>
-                    <p className="text-sm text-gray-400 mt-1">{point.emotionalContext}</p>
+                    <p className="text-sm text-white/60 mt-1">{point.emotionalContext}</p>
                   </div>
                 </div>
               )
@@ -279,7 +279,7 @@ export function PlaybookStep({
                 >
                   <div className="text-left">
                     <p className="text-xl font-bold text-[var(--color-brave-500)]">{angle.name}</p>
-                    <p className="text-gray-400 mt-1">"{angle.tagline}"</p>
+                    <p className="text-white/60 mt-1">"{angle.tagline}"</p>
                   </div>
                   <span className="text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)]">
                     {expandedAngle === i ? 'Hide details' : 'Show details'}
@@ -297,32 +297,32 @@ export function PlaybookStep({
                       <div className="px-5 pb-5 space-y-4 border-t border-white/10 pt-4">
                         <div className="grid md:grid-cols-2 gap-4">
                           <div className="bg-[#0a0a0a] p-4 rounded-lg">
-                            <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                            <p className="text-xs uppercase tracking-wide text-white/50 mb-1">
                               Target Pain
                             </p>
                             <p className="text-white">{angle.targetPain}</p>
                           </div>
                           <div className="bg-[#0a0a0a] p-4 rounded-lg">
-                            <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                            <p className="text-xs uppercase tracking-wide text-white/50 mb-1">
                               Target Desire
                             </p>
                             <p className="text-white">{angle.targetDesire}</p>
                           </div>
                         </div>
                         <div className="bg-[#0a0a0a] p-4 rounded-lg">
-                          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                          <p className="text-xs uppercase tracking-wide text-white/50 mb-1">
                             Tone & Voice
                           </p>
                           <p className="text-white">{angle.tone}</p>
                         </div>
                         <div className="bg-[#0a0a0a] p-4 rounded-lg">
-                          <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
+                          <p className="text-xs uppercase tracking-wide text-white/50 mb-1">
                             Why It Works
                           </p>
                           <p className="text-white">{angle.whyItWorks}</p>
                         </div>
                         <div className="bg-[#0a0a0a] p-4 rounded-lg">
-                          <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+                          <p className="text-xs uppercase tracking-wide text-white/50 mb-2">
                             Content Themes
                           </p>
                           <div className="flex flex-wrap gap-2">
@@ -414,7 +414,7 @@ export function PlaybookStep({
           </div>
           <div className="p-6 space-y-4">
             <div>
-              <p className="text-sm font-medium text-gray-400 mb-3">Pain Phrases</p>
+              <p className="text-sm font-medium text-white/60 mb-3">Pain Phrases</p>
               <div className="flex flex-wrap gap-2">
                 {research.languageMap.painPhrases.slice(0, 8).map((phrase, i) => (
                   <span
@@ -427,7 +427,7 @@ export function PlaybookStep({
               </div>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-400 mb-3">Desire Phrases</p>
+              <p className="text-sm font-medium text-white/60 mb-3">Desire Phrases</p>
               <div className="flex flex-wrap gap-2">
                 {research.languageMap.desirePhrases.slice(0, 8).map((phrase, i) => (
                   <span
@@ -468,7 +468,7 @@ export function PlaybookStep({
               ⚡
             </motion.div>
             <h3 className="text-2xl font-bold text-white mb-2">Ready to Go Deeper?</h3>
-            <p className="text-gray-400 mb-6 max-w-md mx-auto">
+            <p className="text-white/60 mb-6 max-w-md mx-auto">
               Your playbook is complete. Now unlock the emotional core of your brand -
               the foundation for all your future copy and content.
             </p>
@@ -499,7 +499,7 @@ export function PlaybookStep({
       >
         <button
           onClick={onBack}
-          className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+          className="px-4 py-2 text-white/60 hover:text-white transition-colors"
         >
           ← Back to Hooks
         </button>

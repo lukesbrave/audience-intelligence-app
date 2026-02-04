@@ -19,7 +19,7 @@ function PullQuote({ quote, attribution = 'Research Synthesis' }: PullQuoteProps
 
       {attribution && (
         <footer className="mt-3 pl-4">
-          <cite className="text-sm text-gray-500 not-italic">
+          <cite className="text-sm text-white/50 not-italic">
             — {attribution}
           </cite>
         </footer>

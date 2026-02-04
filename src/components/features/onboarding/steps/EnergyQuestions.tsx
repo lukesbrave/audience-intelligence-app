@@ -63,7 +63,7 @@ export default function EnergyQuestions({
         <h1 className="text-2xl font-bold text-white mb-2">
           What lights you up?
         </h1>
-        <p className="text-gray-400">
+        <p className="text-white/60">
           Your energy is a compass pointing to who you should serve.
         </p>
       </div>
@@ -137,7 +137,7 @@ export default function EnergyQuestions({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-white/60 hover:text-white transition-colors"
           disabled={isGenerating}
         >
           &#8592; Back

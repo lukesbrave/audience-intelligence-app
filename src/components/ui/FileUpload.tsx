@@ -193,7 +193,7 @@ function FileUpload({
               <p className="text-sm font-medium text-gray-900 truncate">
                 {currentFile.name}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-white/50">
                 {formatFileSize(currentFile.size)}
               </p>
             </div>
@@ -202,7 +202,7 @@ function FileUpload({
             <button
               type="button"
               onClick={handleClear}
-              className="flex-shrink-0 p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded transition-colors"
+              className="flex-shrink-0 p-1.5 text-white/60 hover:text-white/60 hover:bg-gray-200 rounded transition-colors"
               aria-label="Remove file"
             >
               <svg
@@ -263,7 +263,7 @@ function FileUpload({
               <svg
                 className={`w-6 h-6 ${
                   disabled
-                    ? isDark ? 'text-gray-500' : 'text-gray-400'
+                    ? isDark ? 'text-white/50' : 'text-white/60'
                     : isDark ? 'text-[var(--color-brave-400)]' : 'text-[#0a0a0a]'
                 }`}
                 fill="none"
@@ -279,13 +279,13 @@ function FileUpload({
               </svg>
             </div>
             <div>
-              <p className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+              <p className={`text-sm font-medium ${isDark ? 'text-white/70' : 'text-gray-700'}`}>
                 <span className={isDark ? 'text-[var(--color-brave-400)]' : 'text-[#0a0a0a]'}>
                   Click to upload
                 </span>{' '}
                 or drag and drop
               </p>
-              <p className={`text-xs mt-1 ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+              <p className={`text-xs mt-1 ${isDark ? 'text-white/60' : 'text-white/50'}`}>
                 {accept.replace(/\./g, '').toUpperCase()} up to {maxSizeMB}MB
               </p>
             </div>
@@ -299,7 +299,7 @@ function FileUpload({
         </p>
       )}
       {hint && !error && (
-        <p id="file-hint" className={`mt-1.5 text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        <p id="file-hint" className={`mt-1.5 text-sm ${isDark ? 'text-white/60' : 'text-white/50'}`}>
           {hint}
         </p>
       )}

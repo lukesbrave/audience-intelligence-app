@@ -60,7 +60,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               : 'border-gray-200 focus:border-[#0a0a0a] focus:ring-2 focus:ring-[#0a0a0a]/30'
             }
             focus:outline-none
-            disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+            disabled:bg-gray-50 disabled:text-white/50 disabled:cursor-not-allowed
             ${className}
           `}
           {...props}
@@ -77,14 +77,14 @@ const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
               </p>
             )}
             {hint && !error && (
-              <p id={`${textareaId}-hint`} className="text-sm text-gray-500">
+              <p id={`${textareaId}-hint`} className="text-sm text-white/50">
                 {hint}
               </p>
             )}
           </div>
           {showCount && maxLength && (
             <p
-              className={`text-sm ${charCount > maxLength * 0.9 ? 'text-amber-600' : 'text-gray-400'}`}
+              className={`text-sm ${charCount > maxLength * 0.9 ? 'text-amber-600' : 'text-white/60'}`}
             >
               {charCount}/{maxLength}
             </p>

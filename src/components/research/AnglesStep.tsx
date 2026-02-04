@@ -88,7 +88,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
             🎯
           </motion.div>
           <h2 className="text-xl font-semibold text-white">Crafting Your Brand Angles</h2>
-          <p className="text-gray-400 mt-2">Analyzing your research to find unique positions...</p>
+          <p className="text-white/60 mt-2">Analyzing your research to find unique positions...</p>
         </div>
       </div>
     )
@@ -100,7 +100,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
         <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
-          <p className="text-gray-400 mb-6">{error}</p>
+          <p className="text-white/60 mb-6">{error}</p>
           <button
             onClick={generateAngles}
             className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -124,7 +124,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
           {status === 'complete' && (
             <button
               onClick={handleRegenerate}
-              className="p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-all"
+              className="p-2 text-white/60 hover:text-white hover:bg-white/10 rounded-lg transition-all"
               title="Generate new angles"
             >
               <svg
@@ -146,7 +146,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
             </button>
           )}
         </div>
-        <p className="text-gray-400 mt-2">
+        <p className="text-white/60 mt-2">
           {status === 'revealing'
             ? 'Unlocking your unique positions...'
             : 'Select the angle(s) that resonate with you'}
@@ -193,35 +193,35 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
                   <div className="flex items-start gap-2">
                     <span className="text-red-400">💢</span>
                     <div>
-                      <span className="font-medium text-gray-300">Addresses:</span>
-                      <span className="text-gray-300 ml-1">{angle.targetPain}</span>
+                      <span className="font-medium text-white/70">Addresses:</span>
+                      <span className="text-white/70 ml-1">{angle.targetPain}</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2">
                     <span className="text-[var(--color-brave-600)]">✨</span>
                     <div>
-                      <span className="font-medium text-gray-300">Fulfills:</span>
-                      <span className="text-gray-300 ml-1">{angle.targetDesire}</span>
+                      <span className="font-medium text-white/70">Fulfills:</span>
+                      <span className="text-white/70 ml-1">{angle.targetDesire}</span>
                     </div>
                   </div>
 
                   <div className="flex items-start gap-2">
                     <span className="text-purple-400">🎭</span>
                     <div>
-                      <span className="font-medium text-gray-300">Tone:</span>
-                      <span className="text-gray-300 ml-1">{angle.tone}</span>
+                      <span className="font-medium text-white/70">Tone:</span>
+                      <span className="text-white/70 ml-1">{angle.tone}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="mt-4 pt-4 border-t border-white/10">
-                  <p className="text-sm text-gray-400 mb-2">Content themes:</p>
+                  <p className="text-sm text-white/60 mb-2">Content themes:</p>
                   <div className="flex flex-wrap gap-2">
                     {angle.contentThemes.slice(0, 3).map((theme, i) => (
                       <span
                         key={i}
-                        className="bg-white/10 text-gray-300 px-3 py-1 rounded text-sm"
+                        className="bg-white/10 text-white/70 px-3 py-1 rounded text-sm"
                       >
                         {theme}
                       </span>
@@ -256,13 +256,13 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
         >
           <button
             onClick={onBack}
-            className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-white/60 hover:text-white transition-colors"
           >
             ← Back to Research
           </button>
 
           <div className="flex items-center gap-4">
-            <span className="text-sm text-gray-400">
+            <span className="text-sm text-white/60">
               {selectedAngles.length === 0
                 ? 'Select at least one angle'
                 : `${selectedAngles.length} angle${selectedAngles.length > 1 ? 's' : ''} selected`}

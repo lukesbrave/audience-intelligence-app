@@ -19,9 +19,9 @@ const variantStyles = {
 };
 
 const iconContainerStyles = {
-  default: 'bg-gray-100 text-gray-600',
+  default: 'bg-gray-100 text-white/60',
   primary: 'bg-[#BBDCEF]/30 text-[#0a0a0a]',
-  muted: 'bg-gray-100 text-gray-500',
+  muted: 'bg-gray-100 text-white/50',
 };
 
 const sizeStyles = {
@@ -60,9 +60,9 @@ function IconCard({
         {value !== undefined && (
           <p className={`${sizes.value} font-bold text-gray-900`}>{value}</p>
         )}
-        <p className={`${sizes.title} font-medium text-gray-600`}>{title}</p>
+        <p className={`${sizes.title} font-medium text-white/60`}>{title}</p>
         {description && (
-          <p className="text-xs text-gray-500">{description}</p>
+          <p className="text-xs text-white/50">{description}</p>
         )}
       </div>
     </Component>

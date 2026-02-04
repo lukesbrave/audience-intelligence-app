@@ -53,7 +53,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
                 : 'border-gray-200 focus:border-[#0a0a0a] focus:ring-2 focus:ring-[#0a0a0a]/30'
               }
               focus:outline-none
-              disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
+              disabled:bg-gray-50 disabled:text-white/50 disabled:cursor-not-allowed
               ${className}
             `}
             {...props}
@@ -71,7 +71,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </select>
           <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
             <svg
-              className="h-5 w-5 text-gray-400"
+              className="h-5 w-5 text-white/60"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 20 20"
               fill="currentColor"
@@ -95,7 +95,7 @@ const Select = forwardRef<HTMLSelectElement, SelectProps>(
           </p>
         )}
         {hint && !error && (
-          <p id={`${selectId}-hint`} className="mt-1.5 text-sm text-gray-500">
+          <p id={`${selectId}-hint`} className="mt-1.5 text-sm text-white/50">
             {hint}
           </p>
         )}

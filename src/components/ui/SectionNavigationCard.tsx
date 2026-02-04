@@ -28,7 +28,7 @@ function SectionNavigationCard({
     >
       <div className="flex items-start gap-3">
         {icon && (
-          <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-[#BBDCEF]/30 group-hover:text-[#0a0a0a] transition-colors">
+          <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-white/50 group-hover:bg-[#BBDCEF]/30 group-hover:text-[#0a0a0a] transition-colors">
             {icon}
           </div>
         )}
@@ -38,7 +38,7 @@ function SectionNavigationCard({
               {title}
             </h4>
             <svg
-              className="w-5 h-5 text-gray-400 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all"
+              className="w-5 h-5 text-white/60 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -46,7 +46,7 @@ function SectionNavigationCard({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>
-          <p className="text-sm text-gray-500 mt-0.5">{description}</p>
+          <p className="text-sm text-white/50 mt-0.5">{description}</p>
           {stats && (
             <p className="text-xs text-[#0a0a0a] font-medium mt-2 bg-[#BBDCEF]/20 inline-block px-2 py-0.5 rounded">
               {stats}

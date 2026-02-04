@@ -115,7 +115,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
             🪝
           </motion.div>
           <h2 className="text-xl font-semibold text-white">Generating Your Hooks</h2>
-          <p className="text-gray-400 mt-2">
+          <p className="text-white/60 mt-2">
             Creating 50 scroll-stopping hooks based on your brand angle...
           </p>
         </div>
@@ -129,7 +129,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
         <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
-          <p className="text-gray-400 mb-6">{error}</p>
+          <p className="text-white/60 mb-6">{error}</p>
           <button
             onClick={generateHooks}
             className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -151,7 +151,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
         >
           <div className="text-5xl mb-4">🎉</div>
           <h2 className="text-2xl font-bold text-white">You've Rated All Hooks!</h2>
-          <p className="text-gray-400 mt-2">
+          <p className="text-white/60 mt-2">
             You saved {topHooks.length} hooks ({lovedHooks.length} loved, {likedHooks.length} liked)
           </p>
         </motion.div>
@@ -173,7 +173,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
                     >
                       <div className="bg-[#141414] rounded-xl p-4 border-l-4 border-l-orange-500 border border-white/10">
                         <p className="font-medium text-white">"{hook.text}"</p>
-                        <p className="text-sm text-gray-400 mt-2">{hook.category}</p>
+                        <p className="text-sm text-white/60 mt-2">{hook.category}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -196,7 +196,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
                     >
                       <div className="bg-[#141414] rounded-xl p-4 border-l-4 border-l-[var(--color-brave-500)] border border-white/10">
                         <p className="font-medium text-white">"{hook.text}"</p>
-                        <p className="text-sm text-gray-400 mt-2">{hook.category}</p>
+                        <p className="text-sm text-white/60 mt-2">{hook.category}</p>
                       </div>
                     </motion.div>
                   ))}
@@ -214,7 +214,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
         >
           <button
             onClick={onBack}
-            className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-white/60 hover:text-white transition-colors"
           >
             ← Back to Angles
           </button>
@@ -238,12 +238,12 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
         className="text-center mb-6"
       >
         <h2 className="text-2xl font-bold text-white">Rate Your Hooks</h2>
-        <p className="text-gray-400 mt-2">Swipe right ❤️, left ⬅️, or up 🔥</p>
+        <p className="text-white/60 mt-2">Swipe right ❤️, left ⬅️, or up 🔥</p>
       </motion.div>
 
       {/* Progress */}
       <div className="mb-6">
-        <div className="flex justify-between text-sm text-gray-400 mb-2">
+        <div className="flex justify-between text-sm text-white/60 mb-2">
           <span>
             {currentIndex + 1} of {hooks.length}
           </span>
@@ -299,7 +299,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
         </button>
       </div>
 
-      <p className="text-center text-sm text-gray-400 mt-4">
+      <p className="text-center text-sm text-white/60 mt-4">
         Or use keyboard: ← skip, → like, ↑ love
       </p>
     </div>

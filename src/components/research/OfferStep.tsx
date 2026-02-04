@@ -443,7 +443,7 @@ export function OfferStep({
           </div>
 
           <div className="p-6 space-y-6">
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-white/70 leading-relaxed">
               You're about to <strong className="text-red-400">obliterate</strong> all your research,
               brand angles, hooks, and offer core. This action cannot be undone.
             </p>
@@ -458,7 +458,7 @@ export function OfferStep({
             <div className="flex gap-4 pt-4">
               <button
                 onClick={() => setStatus('complete')}
-                className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 hover:bg-white/5 rounded-lg transition-colors"
+                className="flex-1 px-6 py-3 border border-gray-600 text-white/70 hover:bg-white/5 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -513,7 +513,7 @@ export function OfferStep({
             <motion.p
               animate={{ opacity: [0.5, 1, 0.5] }}
               transition={{ duration: 0.5, repeat: Infinity }}
-              className="text-gray-400"
+              className="text-white/60"
             >
               {countdown > 0 ? 'Preparing to obliterate research data...' : 'BOOM!'}
             </motion.p>
@@ -582,7 +582,7 @@ export function OfferStep({
           >
             <div className="text-6xl mb-4">💥</div>
             <h2 className="text-2xl font-bold text-white">Research Obliterated!</h2>
-            <p className="text-gray-400 mt-2">Starting fresh...</p>
+            <p className="text-white/60 mt-2">Starting fresh...</p>
           </motion.div>
         </motion.div>
       </div>
@@ -600,7 +600,7 @@ export function OfferStep({
         >
           <div className="text-6xl mb-6">⚡</div>
           <h2 className="text-2xl font-bold text-white mb-4">Ready for the Next Level?</h2>
-          <p className="text-gray-400 mb-8 leading-relaxed">
+          <p className="text-white/60 mb-8 leading-relaxed">
             You've discovered your audience and crafted your hooks. Now it's time to define
             the emotional core of your brand - the foundation for everything you'll create.
           </p>
@@ -622,7 +622,7 @@ export function OfferStep({
         >
           <button
             onClick={onBack}
-            className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+            className="px-4 py-2 text-white/60 hover:text-white transition-colors"
           >
             ← Back to Playbook
           </button>
@@ -647,14 +647,14 @@ export function OfferStep({
           </div>
 
           <div className="p-6 space-y-6">
-            <p className="text-gray-300 leading-relaxed">
+            <p className="text-white/70 leading-relaxed">
               Everything you create from here forward - your copy, content, and sales pages
               - will be built on what we're about to generate.
             </p>
 
             <div className="space-y-3">
               <p className="text-white font-medium">This includes:</p>
-              <ul className="space-y-2 text-gray-300">
+              <ul className="space-y-2 text-white/70">
                 <li className="flex items-center gap-3">
                   <span className="text-yellow-400">✦</span>
                   Your <strong className="text-white">Offer Statement</strong> (the emotional
@@ -682,14 +682,14 @@ export function OfferStep({
               </ul>
             </div>
 
-            <p className="text-gray-400 italic text-sm">
+            <p className="text-white/60 italic text-sm">
               Once you see it, you can't unsee it.
             </p>
 
             <div className="flex gap-4 pt-4">
               <button
                 onClick={() => setStatus('idle')}
-                className="flex-1 px-6 py-3 border border-gray-600 text-gray-300 hover:bg-white/5 rounded-lg transition-colors"
+                className="flex-1 px-6 py-3 border border-gray-600 text-white/70 hover:bg-white/5 rounded-lg transition-colors"
               >
                 Cancel
               </button>
@@ -748,7 +748,7 @@ export function OfferStep({
                         ? 'text-yellow-400'
                         : isComplete
                           ? 'text-green-400'
-                          : 'text-gray-400'
+                          : 'text-white/60'
                     }`}
                   >
                     {phase.label}
@@ -779,7 +779,7 @@ export function OfferStep({
         <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
-          <p className="text-gray-400 mb-6">{error}</p>
+          <p className="text-white/60 mb-6">{error}</p>
           <button
             onClick={() => setStatus('warning')}
             className="px-6 py-2 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-medium rounded-lg transition-colors"
@@ -802,7 +802,7 @@ export function OfferStep({
       >
         <div className="text-5xl mb-4">⚡</div>
         <h2 className="text-2xl font-bold text-white">Your Offer Core</h2>
-        <p className="text-gray-400">The emotional foundation of your brand</p>
+        <p className="text-white/60">The emotional foundation of your brand</p>
       </motion.div>
 
       {/* Action buttons row */}
@@ -821,7 +821,7 @@ export function OfferStep({
             >
               <span>☢️</span> Start Fresh
             </button>
-            <span className="text-xs text-gray-500 max-w-[200px]">
+            <span className="text-xs text-white/50 max-w-[200px]">
               Save your data first!
             </span>
           </div>
@@ -877,7 +877,7 @@ export function OfferStep({
                         setEditedOfferStatement(offerCore.offerStatement.finalStatement)
                         setEditingField(null)
                       }}
-                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                      className="px-4 py-2 text-white/60 hover:text-white transition-colors"
                     >
                       Cancel
                     </button>
@@ -896,19 +896,19 @@ export function OfferStep({
                 >
                   <p className="text-xl text-white font-medium leading-relaxed group-hover:bg-white/5 p-2 -m-2 rounded-lg transition-colors">
                     "{editedOfferStatement || offerCore.offerStatement.finalStatement}"
-                    <span className="ml-2 text-gray-500 opacity-0 group-hover:opacity-100 transition-opacity text-sm">✏️ Click to edit</span>
+                    <span className="ml-2 text-white/50 opacity-0 group-hover:opacity-100 transition-opacity text-sm">✏️ Click to edit</span>
                   </p>
                 </div>
               )}
               <div className="mt-6 grid md:grid-cols-2 gap-4">
                 <div className="bg-black/20 p-4 rounded-lg">
-                  <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+                  <p className="text-xs uppercase tracking-wide text-white/50 mb-2">
                     Emotional Core
                   </p>
                   <p className="text-white">{offerCore.offerStatement.emotionalCore}</p>
                 </div>
                 <div className="bg-black/20 p-4 rounded-lg">
-                  <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">
+                  <p className="text-xs uppercase tracking-wide text-white/50 mb-2">
                     Universal Motivators
                   </p>
                   <div className="flex flex-wrap gap-2">
@@ -939,7 +939,7 @@ export function OfferStep({
               {editingField !== 'benefits' && (
                 <button
                   onClick={() => setEditingField('benefits')}
-                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                  className="ml-auto text-white/50 hover:text-white text-sm transition-colors"
                 >
                   ✏️ Edit
                 </button>
@@ -963,7 +963,7 @@ export function OfferStep({
                       />
                       <button
                         onClick={() => setEditedBenefits(editedBenefits.filter((_, idx) => idx !== i))}
-                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                        className="p-3 text-white/50 hover:text-red-400 transition-colors"
                       >
                         ×
                       </button>
@@ -971,7 +971,7 @@ export function OfferStep({
                   ))}
                   <button
                     onClick={() => setEditedBenefits([...editedBenefits, ''])}
-                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-gray-400 hover:text-white hover:border-white/40 transition-colors"
+                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-white/60 hover:text-white hover:border-white/40 transition-colors"
                   >
                     + Add benefit
                   </button>
@@ -981,7 +981,7 @@ export function OfferStep({
                         setEditedBenefits([...offerCore.theOfferGivesYou])
                         setEditingField(null)
                       }}
-                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                      className="px-4 py-2 text-white/60 hover:text-white transition-colors"
                     >
                       Cancel
                     </button>
@@ -1020,7 +1020,7 @@ export function OfferStep({
               {editingField !== 'useCases' && (
                 <button
                   onClick={() => setEditingField('useCases')}
-                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                  className="ml-auto text-white/50 hover:text-white text-sm transition-colors"
                 >
                   ✏️ Edit
                 </button>
@@ -1044,7 +1044,7 @@ export function OfferStep({
                       />
                       <button
                         onClick={() => setEditedUseCases(editedUseCases.filter((_, idx) => idx !== i))}
-                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                        className="p-3 text-white/50 hover:text-red-400 transition-colors"
                       >
                         ×
                       </button>
@@ -1052,7 +1052,7 @@ export function OfferStep({
                   ))}
                   <button
                     onClick={() => setEditedUseCases([...editedUseCases, ''])}
-                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-gray-400 hover:text-white hover:border-white/40 transition-colors"
+                    className="w-full p-3 border border-dashed border-white/20 rounded-lg text-white/60 hover:text-white hover:border-white/40 transition-colors"
                   >
                     + Add use case
                   </button>
@@ -1062,7 +1062,7 @@ export function OfferStep({
                         setEditedUseCases([...offerCore.youCanUseItTo])
                         setEditingField(null)
                       }}
-                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                      className="px-4 py-2 text-white/60 hover:text-white transition-colors"
                     >
                       Cancel
                     </button>
@@ -1101,7 +1101,7 @@ export function OfferStep({
               {editingField !== 'hiddenBenefits' && (
                 <button
                   onClick={() => setEditingField('hiddenBenefits')}
-                  className="ml-auto text-gray-500 hover:text-white text-sm transition-colors"
+                  className="ml-auto text-white/50 hover:text-white text-sm transition-colors"
                 >
                   ✏️ Edit
                 </button>
@@ -1124,7 +1124,7 @@ export function OfferStep({
                       />
                       <button
                         onClick={() => setEditedHiddenBenefits(editedHiddenBenefits.filter((_, idx) => idx !== i))}
-                        className="p-3 text-gray-500 hover:text-red-400 transition-colors"
+                        className="p-3 text-white/50 hover:text-red-400 transition-colors"
                       >
                         ×
                       </button>
@@ -1132,7 +1132,7 @@ export function OfferStep({
                   ))}
                   <button
                     onClick={() => setEditedHiddenBenefits([...editedHiddenBenefits, ''])}
-                    className="w-full p-3 border border-dashed border-purple-500/30 rounded-lg text-gray-400 hover:text-white hover:border-purple-500/50 transition-colors"
+                    className="w-full p-3 border border-dashed border-purple-500/30 rounded-lg text-white/60 hover:text-white hover:border-purple-500/50 transition-colors"
                   >
                     + Add hidden benefit
                   </button>
@@ -1142,7 +1142,7 @@ export function OfferStep({
                         setEditedHiddenBenefits([...offerCore.hiddenBenefits])
                         setEditingField(null)
                       }}
-                      className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+                      className="px-4 py-2 text-white/60 hover:text-white transition-colors"
                     >
                       Cancel
                     </button>
@@ -1188,12 +1188,12 @@ export function OfferStep({
                     {option.name}
                   </p>
                   <div className="space-y-2 text-sm">
-                    <p className="text-gray-400">
-                      <span className="text-gray-300 font-medium">Mechanism:</span>{' '}
+                    <p className="text-white/60">
+                      <span className="text-white/70 font-medium">Mechanism:</span>{' '}
                       {option.uniqueMechanism}
                     </p>
-                    <p className="text-gray-400">
-                      <span className="text-gray-300 font-medium">Why it works:</span>{' '}
+                    <p className="text-white/60">
+                      <span className="text-white/70 font-medium">Why it works:</span>{' '}
                       {option.rationale}
                     </p>
                   </div>
@@ -1212,7 +1212,7 @@ export function OfferStep({
             <h4 className="text-white font-medium mb-3 flex items-center gap-2">
               <span>💡</span> How to Use This
             </h4>
-            <p className="text-gray-400 text-sm leading-relaxed">
+            <p className="text-white/60 text-sm leading-relaxed">
               Download the JSON version and use it to give any AI tool context about your
               brand's emotional core. Paste it into ChatGPT, Claude, or any writing assistant
               when creating copy, content, or sales pages. The AI will understand your
@@ -1231,7 +1231,7 @@ export function OfferStep({
       >
         <button
           onClick={onBack}
-          className="px-4 py-2 text-gray-400 hover:text-white transition-colors"
+          className="px-4 py-2 text-white/60 hover:text-white transition-colors"
         >
           ← Back to Playbook
         </button>

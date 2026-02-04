@@ -20,7 +20,7 @@ export default function SelectableCard({ icon, title, description, selected, onC
         <span className="text-2xl flex-shrink-0">{icon}</span>
         <div className="flex-1 min-w-0">
           <h3 className="text-white font-medium">{title}</h3>
-          <p className="text-gray-400 text-sm mt-1">{description}</p>
+          <p className="text-white/60 text-sm mt-1">{description}</p>
         </div>
         {selected && (
           <div className="w-6 h-6 rounded-full bg-[var(--color-brave-600)] flex items-center justify-center flex-shrink-0">

@@ -64,30 +64,30 @@ function OfferStageCard({
             <span className="text-2xl">{config.icon}</span>
             <h4 className="font-semibold text-white text-lg">{name}</h4>
           </div>
-          <span className="text-sm font-medium text-gray-400 whitespace-nowrap">{priceRange}</span>
+          <span className="text-sm font-medium text-white/60 whitespace-nowrap">{priceRange}</span>
         </div>
 
         <div className="space-y-3">
           <div className="bg-[#0a0a0a] rounded-lg p-3">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-medium text-white/60 uppercase tracking-wide mb-1">
               Solves
             </p>
-            <p className="text-sm text-gray-300">{problemSolved}</p>
+            <p className="text-sm text-white/70">{problemSolved}</p>
           </div>
 
           <div className="bg-[#0a0a0a] rounded-lg p-3">
-            <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+            <p className="text-xs font-medium text-white/60 uppercase tracking-wide mb-1">
               Promise
             </p>
-            <p className="text-sm text-gray-300">{promise}</p>
+            <p className="text-sm text-white/70">{promise}</p>
           </div>
 
           {format && (
             <div className="bg-[#0a0a0a] rounded-lg p-3">
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+              <p className="text-xs font-medium text-white/60 uppercase tracking-wide mb-1">
                 Format
               </p>
-              <p className="text-sm text-gray-300">{format}</p>
+              <p className="text-sm text-white/70">{format}</p>
             </div>
           )}
         </div>

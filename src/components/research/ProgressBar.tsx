@@ -36,7 +36,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
             <span className="text-2xl">{steps[currentStep - 1]?.icon || '✨'}</span>
           </div>
           <div>
-            <p className="text-gray-400 text-sm uppercase tracking-wide">
+            <p className="text-white/60 text-sm uppercase tracking-wide">
               Step {currentStep} of {totalSteps}
             </p>
             <h2 className="text-white font-semibold text-lg">
@@ -122,7 +122,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
               className={`flex-1 text-center text-xs font-medium ${
                 isCurrent || isCompleted
                   ? 'text-[var(--color-brave-600)]'
-                  : 'text-gray-500'
+                  : 'text-white/50'
               }`}
             >
               {step.name}

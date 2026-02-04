@@ -36,7 +36,7 @@ function PhaseTimeline({ phases, activePhase, onPhaseClick }: PhaseTimelineProps
                     transition-all duration-200
                     ${isActive
                       ? 'bg-[#0a0a0a] text-white shadow-lg scale-110'
-                      : 'bg-gray-100 text-gray-600 group-hover:bg-[#BBDCEF]/50 group-hover:text-[#0a0a0a]'
+                      : 'bg-gray-100 text-white/60 group-hover:bg-[#BBDCEF]/50 group-hover:text-[#0a0a0a]'
                     }
                   `}
                 >
@@ -45,7 +45,7 @@ function PhaseTimeline({ phases, activePhase, onPhaseClick }: PhaseTimelineProps
                 <span
                   className={`
                     absolute -bottom-6 text-xs whitespace-nowrap max-w-[80px] truncate text-center
-                    ${isActive ? 'text-[#0a0a0a] font-medium' : 'text-gray-500'}
+                    ${isActive ? 'text-[#0a0a0a] font-medium' : 'text-white/50'}
                   `}
                 >
                   {phase.name}

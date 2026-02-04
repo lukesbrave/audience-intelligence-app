@@ -36,7 +36,7 @@ export default function AudienceSuggestions({
         <h1 className="text-2xl font-bold text-white mb-2">
           Based on your answers, you&apos;re well-positioned to serve...
         </h1>
-        <p className="text-gray-400">
+        <p className="text-white/60">
           Select the audience that resonates most, or describe your own.
         </p>
       </div>
@@ -55,7 +55,7 @@ export default function AudienceSuggestions({
             <div className="flex items-start gap-4">
               <div className="flex-1 min-w-0">
                 <h3 className="text-white font-medium">{suggestion.title}</h3>
-                <p className="text-gray-400 text-sm mt-1">{suggestion.description}</p>
+                <p className="text-white/60 text-sm mt-1">{suggestion.description}</p>
               </div>
               {selectedId === suggestion.id && (
                 <div className="w-6 h-6 rounded-full bg-[var(--color-brave-600)] flex items-center justify-center flex-shrink-0">
@@ -75,7 +75,7 @@ export default function AudienceSuggestions({
             <div className="w-full border-t border-white/10"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-3 bg-[#141414] text-gray-400">Or describe your own</span>
+            <span className="px-3 bg-[#141414] text-white/60">Or describe your own</span>
           </div>
         </div>
 
@@ -93,7 +93,7 @@ export default function AudienceSuggestions({
       <div className="flex items-center justify-between">
         <button
           onClick={onBack}
-          className="text-gray-400 hover:text-white transition-colors"
+          className="text-white/60 hover:text-white transition-colors"
         >
           &#8592; Back
         </button>
