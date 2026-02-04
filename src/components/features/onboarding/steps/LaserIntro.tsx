@@ -7,10 +7,10 @@ interface LaserIntroProps {
 }
 
 const outcomes = [
-  { icon: '🔍', label: 'Audience Truth', desc: 'Where your audience actually spends attention, what they care about right now, and what\'s quietly driving their decisions.' },
-  { icon: '🎯', label: 'Your Strategic Angle', desc: 'The positioning that makes your message land, stand out, and actually stick.' },
-  { icon: '🎣', label: 'Demand Triggers', desc: 'Proven ways into attention, ranked, refined, and ready to deploy when it actually matters.' },
-  { icon: '💰', label: 'What Makes Them Say Yes', desc: 'The real emotional drivers behind action, so your offer connects before it convinces.' },
+  { icon: '🎯', label: 'Know Your Audience', desc: 'Discover where they hang out, what keeps them up at night, and the hidden triggers that drive their decisions.' },
+  { icon: '📍', label: 'Find Your Position', desc: 'Uncover the strategic angle that makes you stand out — not just different, but impossible to ignore.' },
+  { icon: '🔑', label: 'Unlock Demand', desc: 'Get proven attention hooks, ranked by impact, ready to deploy the moment they matter most.' },
+  { icon: '💡', label: 'Convert with Clarity', desc: 'Understand the emotional drivers that turn interest into action — so your offer lands before it sells.' },
 ]
 
 export default function LaserIntro({ onStart }: LaserIntroProps) {
@@ -21,20 +21,22 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
         animate={{ opacity: 1, y: 0 }}
         className="text-center max-w-3xl"
       >
-        {/* Lightning bolt icon */}
-        <div className="text-8xl mb-8">
-          ⚡
+        {/* Brand mark */}
+        <div className="mb-8">
+          <span className="inline-block px-4 py-2 text-sm font-semibold tracking-wider uppercase text-[var(--color-brave-500)] border border-[var(--color-brave-500)]/40 rounded-full">
+            Brand Intelligence
+          </span>
         </div>
 
         <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
-          Start Marketing
-          <span className="block bg-gradient-to-r from-[var(--color-brave-400)] to-[var(--color-brave-600)] bg-clip-text text-transparent mt-2">
-            Like a Laser Beam
+          Stop Guessing.
+          <span className="block bg-gradient-to-r from-[var(--color-brave-500)] to-[var(--color-brave-600)] bg-clip-text text-transparent mt-2">
+            Start Knowing.
           </span>
         </h1>
 
         <p className="text-xl text-gray-300 mb-12">
-          Focused. Precise. Impossible to ignore.
+          Deep audience research in minutes — not weeks.
         </p>
 
         {/* What You Get - enhanced panels */}
@@ -52,11 +54,11 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 + i * 0.1 }}
-                className="bg-[#1e3a5f] p-4 rounded-xl border border-[var(--color-brave-500)]/30 text-center cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:bg-[#254a73] hover:border-[var(--color-brave-500)]/60 hover:shadow-lg hover:shadow-[var(--color-brave-500)]/20"
+                className="bg-[var(--color-brave-primary)] p-4 rounded-xl border border-[var(--color-brave-500)]/20 text-center cursor-pointer transition-all duration-300 ease-out hover:scale-105 hover:bg-[var(--color-brave-primary-light)] hover:border-[var(--color-brave-500)]/50 hover:shadow-lg hover:shadow-[var(--color-brave-500)]/10"
               >
                 <div className="text-3xl mb-2">{outcome.icon}</div>
                 <p className="text-white font-bold text-base mb-1">{outcome.label}</p>
-                <p className="text-gray-300 text-xs">{outcome.desc}</p>
+                <p className="text-gray-300 text-xs leading-relaxed">{outcome.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -68,11 +70,11 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.8, type: 'spring' }}
           onClick={onStart}
-          className="px-10 py-5 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-500)] text-white font-bold text-xl rounded-xl shadow-lg shadow-[var(--color-brave-500)]/30 hover:shadow-[var(--color-brave-500)]/50 transition-all duration-200 ease-out hover:scale-105 active:scale-98"
+          className="px-10 py-5 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-700)] text-white font-bold text-xl rounded-xl shadow-lg shadow-[var(--color-brave-600)]/30 hover:shadow-[var(--color-brave-600)]/50 transition-all duration-200 ease-out hover:scale-105 active:scale-98"
         >
           <span className="flex items-center gap-3">
-            <span>Activate Laser Mode</span>
-            <span>⚡</span>
+            <span>Get Your Audience Intel</span>
+            <span>→</span>
           </span>
         </motion.button>
 
@@ -82,7 +84,7 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           transition={{ delay: 1 }}
           className="text-gray-400 text-sm mt-6"
         >
-          More leads. More conversions. More growth.
+          Used by 500+ marketers to find their edge.
         </motion.p>
       </motion.div>
     </div>
