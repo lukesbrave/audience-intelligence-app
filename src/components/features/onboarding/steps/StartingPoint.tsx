@@ -36,7 +36,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
           type="email"
           value={email}
           onChange={(e) => onEmailChange(e.target.value)}
-          className="w-full px-4 py-4 bg-[#243351] border border-white/10 rounded-xl text-white text-lg placeholder-gray-500 focus:border-[var(--color-brave-500)] focus:outline-none transition-colors"
+          className="w-full px-4 py-4 bg-[#141414] border border-white/10 rounded-xl text-white text-lg placeholder-gray-500 focus:border-[var(--color-brave-500)] focus:outline-none transition-colors"
           placeholder="you@example.com"
         />
       </motion.div>
@@ -63,7 +63,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
             className={`relative p-6 rounded-xl border-2 text-left transition-all duration-200 ${
               selectedPath === 'direct'
                 ? 'bg-[var(--color-brave-600)]/20 border-[var(--color-brave-500)]'
-                : 'bg-[#243351] border-white/10 hover:border-white/30 hover:bg-[#2a3d5f]'
+                : 'bg-[#141414] border-white/10 hover:border-white/30 hover:bg-[#2a3d5f]'
             }`}
           >
             {selectedPath === 'direct' && (
@@ -72,7 +72,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
                 animate={{ scale: 1 }}
                 className="absolute top-4 right-4 w-6 h-6 bg-[var(--color-brave-500)] rounded-full flex items-center justify-center"
               >
-                <span className="text-[#1a2744] text-sm font-bold">✓</span>
+                <span className="text-[#0a0a0a] text-sm font-bold">✓</span>
               </motion.div>
             )}
 
@@ -92,7 +92,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
             className={`relative p-6 rounded-xl border-2 text-left transition-all duration-200 ${
               selectedPath === 'discovery'
                 ? 'bg-[var(--color-brave-600)]/20 border-[var(--color-brave-500)]'
-                : 'bg-[#243351] border-white/10 hover:border-white/30 hover:bg-[#2a3d5f]'
+                : 'bg-[#141414] border-white/10 hover:border-white/30 hover:bg-[#2a3d5f]'
             }`}
           >
             {selectedPath === 'discovery' && (
@@ -101,7 +101,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
                 animate={{ scale: 1 }}
                 className="absolute top-4 right-4 w-6 h-6 bg-[var(--color-brave-500)] rounded-full flex items-center justify-center"
               >
-                <span className="text-[#1a2744] text-sm font-bold">✓</span>
+                <span className="text-[#0a0a0a] text-sm font-bold">✓</span>
               </motion.div>
             )}
 

@@ -79,7 +79,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
   if (status === 'loading') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -97,7 +97,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
   if (error) {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
           <p className="text-gray-400 mb-6">{error}</p>
@@ -167,7 +167,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
               }}
             >
               <div
-                className={`bg-[#243351] rounded-xl p-6 border cursor-pointer transition-all duration-300 h-full ${
+                className={`bg-[#141414] rounded-xl p-6 border cursor-pointer transition-all duration-300 h-full ${
                   isSelected(angle)
                     ? 'border-[var(--color-brave-500)] ring-2 ring-[var(--color-brave-500)]/50 bg-[var(--color-brave-500)]/10'
                     : 'border-white/10 hover:border-white/30'
@@ -238,7 +238,7 @@ export function AnglesStep({ research, onComplete, onBack }: AnglesStepProps) {
           Array.from({ length: angles.length - revealedCount }).map((_, i) => (
             <motion.div
               key={`placeholder-${i}`}
-              className="h-64 bg-[#243351] border border-white/10 rounded-xl flex items-center justify-center"
+              className="h-64 bg-[#141414] border border-white/10 rounded-xl flex items-center justify-center"
               animate={{ opacity: [0.5, 0.8, 0.5] }}
               transition={{ duration: 1.5, repeat: Infinity }}
             >

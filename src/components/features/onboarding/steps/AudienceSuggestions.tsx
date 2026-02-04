@@ -28,7 +28,7 @@ export default function AudienceSuggestions({
   const isValid = selectedId || customDescription.length >= 20
 
   return (
-    <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+    <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
         <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Your Audience
@@ -75,7 +75,7 @@ export default function AudienceSuggestions({
             <div className="w-full border-t border-white/10"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-3 bg-[#243351] text-gray-400">Or describe your own</span>
+            <span className="px-3 bg-[#141414] text-gray-400">Or describe your own</span>
           </div>
         </div>
 
@@ -83,7 +83,7 @@ export default function AudienceSuggestions({
           value={customDescription}
           onChange={(e) => onCustomChange(e.target.value)}
           placeholder="Describe your ideal audience in detail..."
-          className={`w-full mt-4 px-4 py-3 bg-[#1a2744] border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none ${
+          className={`w-full mt-4 px-4 py-3 bg-[#0a0a0a] border rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none ${
             customDescription.length > 0 ? 'border-[var(--color-brave-500)]' : 'border-white/10'
           }`}
           rows={4}

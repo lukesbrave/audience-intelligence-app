@@ -51,7 +51,7 @@ function OfferStageCard({
   const config = levelConfig[level];
 
   return (
-    <div className={`bg-[#243351] rounded-xl border border-white/10 overflow-hidden ${className}`}>
+    <div className={`bg-[#141414] rounded-xl border border-white/10 overflow-hidden ${className}`}>
       <div className={`px-5 py-3 ${config.bg} border-b border-white/10`}>
         <p className={`text-xs font-semibold uppercase tracking-wider ${config.color}`}>
           {config.label}
@@ -68,14 +68,14 @@ function OfferStageCard({
         </div>
 
         <div className="space-y-3">
-          <div className="bg-[#1a2744] rounded-lg p-3">
+          <div className="bg-[#0a0a0a] rounded-lg p-3">
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
               Solves
             </p>
             <p className="text-sm text-gray-300">{problemSolved}</p>
           </div>
 
-          <div className="bg-[#1a2744] rounded-lg p-3">
+          <div className="bg-[#0a0a0a] rounded-lg p-3">
             <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
               Promise
             </p>
@@ -83,7 +83,7 @@ function OfferStageCard({
           </div>
 
           {format && (
-            <div className="bg-[#1a2744] rounded-lg p-3">
+            <div className="bg-[#0a0a0a] rounded-lg p-3">
               <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
                 Format
               </p>

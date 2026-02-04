@@ -55,7 +55,7 @@ export default function EnergyQuestions({
   }
 
   return (
-    <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+    <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
         <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Your Energy
@@ -80,7 +80,7 @@ export default function EnergyQuestions({
             value={introspection.firesYouUp}
             onChange={(e) => onUpdate({ firesYouUp: e.target.value })}
             placeholder="What topics or causes make you feel energized and motivated?"
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={3}
           />
         </div>
@@ -96,7 +96,7 @@ export default function EnergyQuestions({
             value={introspection.pissesYouOff}
             onChange={(e) => onUpdate({ pissesYouOff: e.target.value })}
             placeholder="What injustices, bad advice, or problems in your industry frustrate you?"
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={3}
           />
         </div>
@@ -112,7 +112,7 @@ export default function EnergyQuestions({
             value={introspection.lightsUpInConversation}
             onChange={(e) => onUpdate({ lightsUpInConversation: e.target.value })}
             placeholder="What topics make you lean in? When do people say 'your eyes light up'?"
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={3}
           />
         </div>
@@ -128,7 +128,7 @@ export default function EnergyQuestions({
             value={introspection.loveToDoAnyway}
             onChange={(e) => onUpdate({ loveToDoAnyway: e.target.value })}
             placeholder="What do you find yourself doing for free because you genuinely love it?"
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={3}
           />
         </div>

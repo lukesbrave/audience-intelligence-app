@@ -55,7 +55,7 @@ export default function Confirmation({
   }
 
   return (
-    <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+    <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
         <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Ready to Launch
@@ -68,7 +68,7 @@ export default function Confirmation({
         </p>
       </div>
 
-      <div className="bg-[#1a2744] rounded-lg p-6 mb-8 border border-white/5">
+      <div className="bg-[#0a0a0a] rounded-lg p-6 mb-8 border border-white/5">
         <h3 className="text-sm font-medium text-gray-400 uppercase tracking-wide mb-3">
           Delivery Email
         </h3>

@@ -20,8 +20,8 @@ function InsightCallout({
   const variantStyles = {
     insight: {
       container: 'bg-[#BBDCEF]/10 border-[#BBDCEF]',
-      icon: 'bg-[#BBDCEF]/30 text-[#16314C]',
-      title: 'text-[#16314C]'
+      icon: 'bg-[#BBDCEF]/30 text-[#0a0a0a]',
+      title: 'text-[#0a0a0a]'
     },
     warning: {
       container: 'bg-amber-50 border-amber-200',

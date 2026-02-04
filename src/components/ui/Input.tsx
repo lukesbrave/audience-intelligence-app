@@ -39,7 +39,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             transition-colors
             ${error
               ? 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200'
-              : 'border-gray-200 focus:border-[#16314C] focus:ring-2 focus:ring-[#16314C]/30'
+              : 'border-gray-200 focus:border-[#0a0a0a] focus:ring-2 focus:ring-[#0a0a0a]/30'
             }
             focus:outline-none
             disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed

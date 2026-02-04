@@ -434,7 +434,7 @@ export function OfferStep({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-[#243351] rounded-xl border-2 border-red-500/50 overflow-hidden"
+          className="bg-[#141414] rounded-xl border-2 border-red-500/50 overflow-hidden"
         >
           <div className="bg-gradient-to-r from-red-500/20 to-orange-500/20 px-6 py-4 border-b border-red-500/30">
             <h2 className="text-xl font-bold text-red-400 flex items-center gap-2">
@@ -482,7 +482,7 @@ export function OfferStep({
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="bg-[#243351] rounded-xl border-2 border-red-500 overflow-hidden"
+          className="bg-[#141414] rounded-xl border-2 border-red-500 overflow-hidden"
         >
           <div className="p-12 text-center">
             <motion.div
@@ -531,7 +531,7 @@ export function OfferStep({
           initial={{ opacity: 1, scale: 1 }}
           animate={{ opacity: 0, scale: 0.8 }}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="bg-[#243351] rounded-xl border border-white/10 p-12 text-center relative overflow-hidden"
+          className="bg-[#141414] rounded-xl border border-white/10 p-12 text-center relative overflow-hidden"
         >
           {/* Flash effect */}
           <motion.div
@@ -596,7 +596,7 @@ export function OfferStep({
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center"
+          className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center"
         >
           <div className="text-6xl mb-6">⚡</div>
           <h2 className="text-2xl font-bold text-white mb-4">Ready for the Next Level?</h2>
@@ -638,7 +638,7 @@ export function OfferStep({
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          className="bg-[#243351] rounded-xl border-2 border-yellow-500/50 overflow-hidden"
+          className="bg-[#141414] rounded-xl border-2 border-yellow-500/50 overflow-hidden"
         >
           <div className="bg-gradient-to-r from-yellow-500/20 to-orange-500/20 px-6 py-4 border-b border-yellow-500/30">
             <h2 className="text-xl font-bold text-yellow-400 flex items-center gap-2">
@@ -710,7 +710,7 @@ export function OfferStep({
   if (status === 'loading') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
           <div className="text-center mb-8">
             <motion.div
               animate={{ rotate: 360 }}
@@ -738,7 +738,7 @@ export function OfferStep({
                       ? 'bg-yellow-500/20 border-2 border-yellow-500/50'
                       : isComplete
                         ? 'bg-green-500/10 border-2 border-green-500/30'
-                        : 'bg-[#1a2744] border-2 border-transparent'
+                        : 'bg-[#0a0a0a] border-2 border-transparent'
                   }`}
                 >
                   <span className="text-2xl">{phase.icon}</span>
@@ -776,7 +776,7 @@ export function OfferStep({
   if (status === 'error') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
           <p className="text-gray-400 mb-6">{error}</p>
@@ -867,7 +867,7 @@ export function OfferStep({
                   <textarea
                     value={editedOfferStatement}
                     onChange={(e) => setEditedOfferStatement(e.target.value)}
-                    className="w-full p-4 bg-[#1a2744] border border-yellow-500/30 rounded-lg text-white text-xl font-medium leading-relaxed resize-none focus:outline-none focus:border-yellow-500"
+                    className="w-full p-4 bg-[#0a0a0a] border border-yellow-500/30 rounded-lg text-white text-xl font-medium leading-relaxed resize-none focus:outline-none focus:border-yellow-500"
                     rows={4}
                     autoFocus
                   />
@@ -931,7 +931,7 @@ export function OfferStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🎁</span>
@@ -959,7 +959,7 @@ export function OfferStep({
                           newBenefits[i] = e.target.value
                           setEditedBenefits(newBenefits)
                         }}
-                        className="flex-1 p-3 bg-[#1a2744] border border-white/20 rounded-lg text-white focus:outline-none focus:border-green-500/50"
+                        className="flex-1 p-3 bg-[#0a0a0a] border border-white/20 rounded-lg text-white focus:outline-none focus:border-green-500/50"
                       />
                       <button
                         onClick={() => setEditedBenefits(editedBenefits.filter((_, idx) => idx !== i))}
@@ -997,7 +997,7 @@ export function OfferStep({
                 (editedBenefits.length > 0 ? editedBenefits : offerCore.theOfferGivesYou).map((benefit, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
+                    className="flex items-start gap-3 p-3 bg-[#0a0a0a] rounded-lg"
                   >
                     <span className="text-green-400 mt-0.5">✓</span>
                     <p className="text-white">{benefit}</p>
@@ -1012,7 +1012,7 @@ export function OfferStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.35 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🚀</span>
@@ -1040,7 +1040,7 @@ export function OfferStep({
                           newUseCases[i] = e.target.value
                           setEditedUseCases(newUseCases)
                         }}
-                        className="flex-1 p-3 bg-[#1a2744] border border-white/20 rounded-lg text-white focus:outline-none focus:border-[var(--color-brave-500)]/50"
+                        className="flex-1 p-3 bg-[#0a0a0a] border border-white/20 rounded-lg text-white focus:outline-none focus:border-[var(--color-brave-500)]/50"
                       />
                       <button
                         onClick={() => setEditedUseCases(editedUseCases.filter((_, idx) => idx !== i))}
@@ -1078,7 +1078,7 @@ export function OfferStep({
                 (editedUseCases.length > 0 ? editedUseCases : offerCore.youCanUseItTo).map((useCase, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
+                    className="flex items-start gap-3 p-3 bg-[#0a0a0a] rounded-lg"
                   >
                     <span className="text-[var(--color-brave-500)] mt-0.5">→</span>
                     <p className="text-white">{useCase}</p>
@@ -1093,7 +1093,7 @@ export function OfferStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">💎</span>
@@ -1172,7 +1172,7 @@ export function OfferStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🏷️</span>
@@ -1182,7 +1182,7 @@ export function OfferStep({
               {offerCore.programNameOptions.map((option, i) => (
                 <div
                   key={i}
-                  className="p-4 bg-[#1a2744] rounded-lg border border-white/5"
+                  className="p-4 bg-[#0a0a0a] rounded-lg border border-white/5"
                 >
                   <p className="text-xl font-bold text-[var(--color-brave-500)] mb-2">
                     {option.name}
@@ -1207,7 +1207,7 @@ export function OfferStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="bg-[#1a2744] rounded-xl p-6 border border-white/5"
+            className="bg-[#0a0a0a] rounded-xl p-6 border border-white/5"
           >
             <h4 className="text-white font-medium mb-3 flex items-center gap-2">
               <span>💡</span> How to Use This

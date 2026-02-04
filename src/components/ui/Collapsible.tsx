@@ -60,7 +60,7 @@ function Collapsible({
         <div className="flex items-center gap-3">
           <span className="font-medium text-gray-900">{title}</span>
           {badge !== undefined && (
-            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#BBDCEF] text-[#16314C]">
+            <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-[#BBDCEF] text-[#0a0a0a]">
               {badge}
             </span>
           )}

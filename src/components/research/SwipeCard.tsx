@@ -89,7 +89,7 @@ export function SwipeCard({ hook, onSwipe, isTop }: SwipeCardProps) {
         transition: { duration: 0.2 },
       }}
     >
-      <div className="bg-[#243351] rounded-2xl shadow-xl p-8 border border-white/10 min-h-[300px] flex flex-col">
+      <div className="bg-[#141414] rounded-2xl shadow-xl p-8 border border-white/10 min-h-[300px] flex flex-col">
         {/* Category badge */}
         <div className="flex justify-between items-start mb-4">
           <span

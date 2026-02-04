@@ -20,7 +20,7 @@ const variantStyles = {
 
 const iconContainerStyles = {
   default: 'bg-gray-100 text-gray-600',
-  primary: 'bg-[#BBDCEF]/30 text-[#16314C]',
+  primary: 'bg-[#BBDCEF]/30 text-[#0a0a0a]',
   muted: 'bg-gray-100 text-gray-500',
 };
 

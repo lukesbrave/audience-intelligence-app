@@ -25,7 +25,7 @@ export default function StoryQuestions({
     introspection.proudestAchievement.length >= 20
 
   return (
-    <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+    <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
       <div className="mb-6">
         <span className="inline-block px-3 py-1 bg-[var(--color-brave-600)]/20 text-[var(--color-brave-500)] text-sm rounded-full mb-3">
           Your Story
@@ -47,7 +47,7 @@ export default function StoryQuestions({
             value={introspection.biggestChallenge}
             onChange={(e) => onUpdate({ biggestChallenge: e.target.value })}
             placeholder="Describe a significant obstacle you faced and how you moved through it..."
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={4}
           />
         </div>
@@ -60,7 +60,7 @@ export default function StoryQuestions({
             value={introspection.biggestTrauma}
             onChange={(e) => onUpdate({ biggestTrauma: e.target.value })}
             placeholder="This could be professional, personal, or both. What shaped who you are today?"
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={4}
           />
         </div>
@@ -73,7 +73,7 @@ export default function StoryQuestions({
             value={introspection.proudestAchievement}
             onChange={(e) => onUpdate({ proudestAchievement: e.target.value })}
             placeholder="Something that made you think 'I did that.' Big or small."
-            className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+            className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
             rows={4}
           />
         </div>

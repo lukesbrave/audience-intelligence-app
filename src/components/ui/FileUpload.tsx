@@ -176,7 +176,7 @@ function FileUpload({
           <div className="flex items-center gap-3 min-w-0">
             <div className="flex-shrink-0 w-10 h-10 bg-[#BBDCEF] rounded-lg flex items-center justify-center">
               <svg
-                className="w-5 h-5 text-[#16314C]"
+                className="w-5 h-5 text-[#0a0a0a]"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -241,12 +241,12 @@ function FileUpload({
               : isDragging
                 ? isDark
                   ? 'border-[var(--color-brave-500)] bg-[var(--color-brave-500)]/20'
-                  : 'border-[#16314C] bg-[#BBDCEF]/20'
+                  : 'border-[#0a0a0a] bg-[#BBDCEF]/20'
                 : error
                   ? 'border-red-300 hover:border-red-400 bg-red-50/50'
                   : isDark
-                    ? 'border-white/20 hover:border-[var(--color-brave-500)] bg-[#1a2744] hover:bg-[#1a2744]/80'
-                    : 'border-gray-300 hover:border-[#16314C] hover:bg-gray-50'
+                    ? 'border-white/20 hover:border-[var(--color-brave-500)] bg-[#0a0a0a] hover:bg-[#0a0a0a]/80'
+                    : 'border-gray-300 hover:border-[#0a0a0a] hover:bg-gray-50'
             }
           `}
         >
@@ -264,7 +264,7 @@ function FileUpload({
                 className={`w-6 h-6 ${
                   disabled
                     ? isDark ? 'text-gray-500' : 'text-gray-400'
-                    : isDark ? 'text-[var(--color-brave-400)]' : 'text-[#16314C]'
+                    : isDark ? 'text-[var(--color-brave-400)]' : 'text-[#0a0a0a]'
                 }`}
                 fill="none"
                 viewBox="0 0 24 24"
@@ -280,7 +280,7 @@ function FileUpload({
             </div>
             <div>
               <p className={`text-sm font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
-                <span className={isDark ? 'text-[var(--color-brave-400)]' : 'text-[#16314C]'}>
+                <span className={isDark ? 'text-[var(--color-brave-400)]' : 'text-[#0a0a0a]'}>
                   Click to upload
                 </span>{' '}
                 or drag and drop

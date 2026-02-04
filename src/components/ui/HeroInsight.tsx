@@ -20,7 +20,7 @@ const confidenceColors = {
 
 function HeroInsight({ insight, sourceCount, confidence }: HeroInsightProps) {
   return (
-    <div className="bg-gradient-to-br from-[#16314C] to-[#1e4a6e] rounded-2xl overflow-hidden shadow-lg animate-fadeIn">
+    <div className="bg-gradient-to-br from-[#0a0a0a] to-[#1e4a6e] rounded-2xl overflow-hidden shadow-lg animate-fadeIn">
       <div className="px-6 py-8 sm:px-8 sm:py-10">
         {/* Label */}
         <div className="flex items-center gap-2 mb-4">

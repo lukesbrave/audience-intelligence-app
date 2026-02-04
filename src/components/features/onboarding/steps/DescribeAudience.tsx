@@ -150,7 +150,7 @@ export default function DescribeAudience({
   }
 
   return (
-    <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+    <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
       <h1 className="text-2xl font-bold text-white mb-2">
         Tell us about your business and who you serve
       </h1>
@@ -159,12 +159,12 @@ export default function DescribeAudience({
       </p>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-8 p-1 bg-[#1a2744] rounded-lg">
+      <div className="flex gap-2 mb-8 p-1 bg-[#0a0a0a] rounded-lg">
         <button
           onClick={() => handleTabChange('manual')}
           className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all ${
             activeTab === 'manual'
-              ? 'bg-[#243351] text-white shadow-sm'
+              ? 'bg-[#141414] text-white shadow-sm'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -174,7 +174,7 @@ export default function DescribeAudience({
           onClick={() => handleTabChange('upload')}
           className={`flex-1 py-3 px-4 rounded-md text-sm font-medium transition-all flex items-center justify-center gap-2 ${
             activeTab === 'upload'
-              ? 'bg-[#243351] text-white shadow-sm'
+              ? 'bg-[#141414] text-white shadow-sm'
               : 'text-gray-400 hover:text-white'
           }`}
         >
@@ -193,7 +193,7 @@ export default function DescribeAudience({
               value={businessDescription}
               onChange={(e) => onUpdate({ businessDescription: e.target.value })}
               placeholder="I help [who] achieve [what] through [how]..."
-              className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+              className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
               rows={4}
             />
             <p className="text-gray-500 text-sm mt-1">
@@ -209,7 +209,7 @@ export default function DescribeAudience({
               value={idealClientDescription}
               onChange={(e) => onUpdate({ idealClientDescription: e.target.value })}
               placeholder="They're typically [role/situation] who struggle with [problem] and want [outcome]..."
-              className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
+              className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)] resize-none"
               rows={6}
             />
             <p className="text-gray-500 text-sm mt-1">
@@ -243,7 +243,7 @@ export default function DescribeAudience({
                   value={uploadBusinessContext}
                   onChange={(e) => setUploadBusinessContext(e.target.value)}
                   placeholder="e.g., I help entrepreneurs scale their coaching business"
-                  className="w-full px-4 py-3 bg-[#1a2744] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)]"
+                  className="w-full px-4 py-3 bg-[#0a0a0a] border border-white/10 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-[var(--color-brave-500)] focus:ring-1 focus:ring-[var(--color-brave-500)]"
                 />
                 <p className="text-gray-400 text-sm mt-1">
                   This helps us better understand your transcriptions
@@ -259,7 +259,7 @@ export default function DescribeAudience({
                   {uploadedFiles.map(file => (
                     <div
                       key={file.id}
-                      className="flex items-center justify-between bg-[#1a2744] p-3 rounded-lg border border-white/10"
+                      className="flex items-center justify-between bg-[#0a0a0a] p-3 rounded-lg border border-white/10"
                     >
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-[var(--color-brave-500)]/20 rounded-lg flex items-center justify-center">
@@ -406,7 +406,7 @@ export default function DescribeAudience({
                   </h4>
                   <div className="space-y-3 max-h-48 overflow-y-auto">
                     {localInsights.directQuotes.slice(0, 3).map((q, i) => (
-                      <div key={i} className="bg-[#1a2744] p-3 rounded-lg border border-white/10">
+                      <div key={i} className="bg-[#0a0a0a] p-3 rounded-lg border border-white/10">
                         <p className="text-white italic">&ldquo;{q.quote}&rdquo;</p>
                         <div className="flex gap-4 mt-2 text-xs text-gray-400">
                           <span>{q.context}</span>

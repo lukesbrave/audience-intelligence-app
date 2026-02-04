@@ -106,7 +106,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
   if (status === 'loading') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -126,7 +126,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
   if (error) {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Generation Failed</h2>
           <p className="text-gray-400 mb-6">{error}</p>
@@ -171,7 +171,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.1 }}
                     >
-                      <div className="bg-[#243351] rounded-xl p-4 border-l-4 border-l-orange-500 border border-white/10">
+                      <div className="bg-[#141414] rounded-xl p-4 border-l-4 border-l-orange-500 border border-white/10">
                         <p className="font-medium text-white">"{hook.text}"</p>
                         <p className="text-sm text-gray-400 mt-2">{hook.category}</p>
                       </div>
@@ -194,7 +194,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.05 }}
                     >
-                      <div className="bg-[#243351] rounded-xl p-4 border-l-4 border-l-[var(--color-brave-500)] border border-white/10">
+                      <div className="bg-[#141414] rounded-xl p-4 border-l-4 border-l-[var(--color-brave-500)] border border-white/10">
                         <p className="font-medium text-white">"{hook.text}"</p>
                         <p className="text-sm text-gray-400 mt-2">{hook.category}</p>
                       </div>
@@ -251,7 +251,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
             ❤️ {likedHooks.length} | 🔥 {lovedHooks.length}
           </span>
         </div>
-        <div className="h-2 bg-[#243351] rounded-full overflow-hidden">
+        <div className="h-2 bg-[#141414] rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-[var(--color-brave-500)]"
             initial={{ width: '0%' }}
@@ -278,7 +278,7 @@ export function HooksStep({ selectedAngles, research, onComplete, onBack }: Hook
       <div className="flex justify-center gap-6 mt-8">
         <button
           onClick={() => handleSwipeAction('skip')}
-          className="w-16 h-16 rounded-full bg-[#243351] border border-white/10 flex items-center justify-center text-2xl hover:bg-[#2a3d5f] transition-colors"
+          className="w-16 h-16 rounded-full bg-[#141414] border border-white/10 flex items-center justify-center text-2xl hover:bg-[#2a3d5f] transition-colors"
           aria-label="Skip"
         >
           ⬅️

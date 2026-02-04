@@ -306,7 +306,7 @@ export default function OnboardingContainer() {
   // Show the intro screen first
   if (showIntro) {
     return (
-      <div className="min-h-screen bg-[#1a2744] flex flex-col">
+      <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
         <StickyHeader />
         <div className="flex-1">
           <LaserIntro onStart={() => setShowIntro(false)} />
@@ -317,7 +317,7 @@ export default function OnboardingContainer() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1a2744] flex flex-col">
+    <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
       <StickyHeader />
       <div className="flex-1 flex flex-col items-center py-8 px-4">
         <div className="w-full max-w-xl">

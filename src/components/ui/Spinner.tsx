@@ -12,7 +12,7 @@ const sizes = {
 function Spinner({ size = 'md', className = '' }: SpinnerProps) {
   return (
     <svg
-      className={`animate-spin text-[#16314C] ${sizes[size]} ${className}`}
+      className={`animate-spin text-[#0a0a0a] ${sizes[size]} ${className}`}
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

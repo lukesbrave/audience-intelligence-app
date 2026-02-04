@@ -28,17 +28,17 @@ function SectionNavigationCard({
     >
       <div className="flex items-start gap-3">
         {icon && (
-          <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-[#BBDCEF]/30 group-hover:text-[#16314C] transition-colors">
+          <div className="w-10 h-10 rounded-lg bg-gray-100 flex items-center justify-center text-gray-500 group-hover:bg-[#BBDCEF]/30 group-hover:text-[#0a0a0a] transition-colors">
             {icon}
           </div>
         )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
-            <h4 className="font-semibold text-gray-900 group-hover:text-[#16314C] transition-colors">
+            <h4 className="font-semibold text-gray-900 group-hover:text-[#0a0a0a] transition-colors">
               {title}
             </h4>
             <svg
-              className="w-5 h-5 text-gray-400 group-hover:text-[#16314C] group-hover:translate-x-1 transition-all"
+              className="w-5 h-5 text-gray-400 group-hover:text-[#0a0a0a] group-hover:translate-x-1 transition-all"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -48,7 +48,7 @@ function SectionNavigationCard({
           </div>
           <p className="text-sm text-gray-500 mt-0.5">{description}</p>
           {stats && (
-            <p className="text-xs text-[#16314C] font-medium mt-2 bg-[#BBDCEF]/20 inline-block px-2 py-0.5 rounded">
+            <p className="text-xs text-[#0a0a0a] font-medium mt-2 bg-[#BBDCEF]/20 inline-block px-2 py-0.5 rounded">
               {stats}
             </p>
           )}

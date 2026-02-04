@@ -28,11 +28,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        'bg-[#16314C] text-white hover:bg-[#1e4366] active:bg-[#0f2235]',
+        'bg-[#0a0a0a] text-white hover:bg-[#1e4366] active:bg-[#0f2235]',
       secondary:
-        'border-2 border-[#16314C] text-[#16314C] hover:bg-[#16314C]/5 active:bg-[#16314C]/10',
+        'border-2 border-[#0a0a0a] text-[#0a0a0a] hover:bg-[#0a0a0a]/5 active:bg-[#0a0a0a]/10',
       ghost:
-        'text-[#16314C] hover:bg-gray-100 active:bg-gray-200',
+        'text-[#0a0a0a] hover:bg-gray-100 active:bg-gray-200',
     };
 
     const sizes = {

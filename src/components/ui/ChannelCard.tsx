@@ -60,7 +60,7 @@ function ChannelCard({ name, priority, why, whatWorks, className = '' }: Channel
 
   return (
     <div
-      className={`bg-[#243351] rounded-xl p-5 border ${styles.border} hover:border-white/20 transition-colors ${className}`}
+      className={`bg-[#141414] rounded-xl p-5 border ${styles.border} hover:border-white/20 transition-colors ${className}`}
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-3">
@@ -108,7 +108,7 @@ function ChannelListItem({ name, description, className = '' }: ChannelListItemP
 
   return (
     <div
-      className={`flex items-center gap-3 px-4 py-3 bg-[#243351] rounded-lg border border-white/10 ${className}`}
+      className={`flex items-center gap-3 px-4 py-3 bg-[#141414] rounded-lg border border-white/10 ${className}`}
     >
       <span className="text-lg">{icon}</span>
       <div className="min-w-0 flex-1">

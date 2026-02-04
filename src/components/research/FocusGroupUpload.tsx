@@ -82,7 +82,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
     <>
       {/* Trigger Button */}
       <div className="max-w-2xl mx-auto mb-6">
-        <div className="bg-[#243351] rounded-xl p-6 border border-white/10">
+        <div className="bg-[#141414] rounded-xl p-6 border border-white/10">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>
               <h3 className="text-lg font-semibold text-white flex items-center gap-2">
@@ -129,7 +129,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="bg-[#1a2744] rounded-2xl border border-white/10 w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
+              className="bg-[#0a0a0a] rounded-2xl border border-white/10 w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"
             >
               {/* Header */}
               <div className="p-6 border-b border-white/10 flex items-center justify-between">
@@ -153,7 +153,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
               <div className="flex-1 overflow-y-auto p-6">
                 {status === 'idle' && (
                   <div className="space-y-6">
-                    <div className="bg-[#243351] rounded-xl p-4 border border-white/10">
+                    <div className="bg-[#141414] rounded-xl p-4 border border-white/10">
                       <h4 className="font-medium text-white mb-2">Supported formats</h4>
                       <p className="text-gray-400 text-sm">
                         Text files (.txt) or JSON exports from transcription services
@@ -246,7 +246,7 @@ export function FocusGroupUpload({ onInsightsReady, onSkip, disabled }: FocusGro
                         </h4>
                         <div className="space-y-3 max-h-48 overflow-y-auto">
                           {insights.directQuotes.slice(0, 5).map((q, i) => (
-                            <div key={i} className="bg-[#243351] p-3 rounded-lg border border-white/10">
+                            <div key={i} className="bg-[#141414] p-3 rounded-lg border border-white/10">
                               <p className="text-white italic">"{q.quote}"</p>
                               <div className="flex gap-4 mt-2 text-xs text-gray-400">
                                 <span>{q.context}</span>

@@ -92,7 +92,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
     if (audienceProfile) {
       return (
         <div className="max-w-2xl mx-auto">
-          <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+          <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
             <div className="text-center mb-8">
               <motion.div
                 animate={{ rotate: 360 }}
@@ -111,7 +111,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
     // No profile - show manual start (fallback)
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <h2 className="text-2xl font-bold text-white mb-4">Let's Deep Dive Into Your Audience</h2>
           <p className="text-gray-400 mb-8">
             We'll search the web to find real conversations, communities, and insights about your
@@ -119,7 +119,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
           </p>
           <button
             onClick={startResearch}
-            className="px-8 py-3 bg-[var(--color-brave-500)] hover:bg-[var(--color-brave-600)] text-[#1a2744] font-semibold rounded-lg transition-colors"
+            className="px-8 py-3 bg-[var(--color-brave-500)] hover:bg-[var(--color-brave-600)] text-[#0a0a0a] font-semibold rounded-lg transition-colors"
           >
             Start Research
           </button>
@@ -131,7 +131,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
   if (status === 'loading') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10">
           <div className="text-center mb-8">
             <motion.div
               animate={{ rotate: 360 }}
@@ -159,7 +159,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                       ? 'bg-[var(--color-brave-600)]/20 border-2 border-[var(--color-brave-500)]'
                       : isComplete
                         ? 'bg-[var(--color-brave-600)]/10 border-2 border-[var(--color-brave-600)]'
-                        : 'bg-[#1a2744] border-2 border-transparent'
+                        : 'bg-[#0a0a0a] border-2 border-transparent'
                   }`}
                 >
                   <span className="text-2xl">{phase.icon}</span>
@@ -192,7 +192,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
   if (status === 'error') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <div className="text-5xl mb-4">❌</div>
           <h2 className="text-xl font-semibold text-red-400 mb-2">Research Failed</h2>
           <p className="text-gray-400 mb-6">{error}</p>
@@ -224,14 +224,14 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
         <>
           {/* Transformation Journey - Current State vs Desired State */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-            <div className="bg-[#243351] rounded-xl p-6 border border-white/10">
+            <div className="bg-[#141414] rounded-xl p-6 border border-white/10">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <span>🗺️</span> The Transformation Journey
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
                 {/* Current State */}
                 <div className="bg-gray-500/10 p-4 rounded-lg border border-gray-500/30 relative">
-                  <div className="absolute -top-3 left-4 bg-[#243351] px-2">
+                  <div className="absolute -top-3 left-4 bg-[#141414] px-2">
                     <span className="text-sm font-medium text-gray-400">WHERE THEY ARE NOW</span>
                   </div>
                   <div className="pt-2">
@@ -240,7 +240,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 </div>
                 {/* Desired State */}
                 <div className="bg-emerald-500/10 p-4 rounded-lg border border-emerald-500/30 relative">
-                  <div className="absolute -top-3 left-4 bg-[#243351] px-2">
+                  <div className="absolute -top-3 left-4 bg-[#141414] px-2">
                     <span className="text-sm font-medium text-emerald-400">WHERE THEY WANT TO BE</span>
                   </div>
                   <div className="pt-2">
@@ -253,7 +253,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
 
           {/* Urgency Gateway - Always expanded */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.05 }}>
-            <div className="bg-[#243351] rounded-xl p-6 border border-white/10 border-l-4 border-l-red-500">
+            <div className="bg-[#141414] rounded-xl p-6 border border-white/10 border-l-4 border-l-red-500">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <span>🔥</span> The #1 Headache
               </h3>
@@ -276,7 +276,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
           {/* Marketing Recommendation - Prominent Card */}
           {research.marketingRecommendation && (
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.08 }}>
-              <div className="bg-gradient-to-br from-[#243351] to-[#1a2744] rounded-xl p-6 border-2 border-[var(--color-brave-500)]/50">
+              <div className="bg-gradient-to-br from-[#141414] to-[#0a0a0a] rounded-xl p-6 border-2 border-[var(--color-brave-500)]/50">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 bg-[var(--color-brave-500)]/20 rounded-lg flex items-center justify-center">
                     <span className="text-2xl">🎯</span>
@@ -322,7 +322,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
                 {research.marketingRecommendation.secondaryPlatforms.length > 0 && (
                   <div className="grid gap-3 md:grid-cols-2 mb-4">
                     {research.marketingRecommendation.secondaryPlatforms.map((platform, i) => (
-                      <div key={i} className="bg-[#1a2744] rounded-lg p-3 border border-white/10">
+                      <div key={i} className="bg-[#0a0a0a] rounded-lg p-3 border border-white/10">
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-medium text-white">{platform.platform}</span>
                           <span className="text-xs text-gray-400">Secondary</span>
@@ -376,7 +376,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
             transition={{ delay: 0.1 }}
           >
             <div
-              className="bg-[#243351] rounded-xl border border-white/10 cursor-pointer"
+              className="bg-[#141414] rounded-xl border border-white/10 cursor-pointer"
               onClick={() => toggleSection('language')}
             >
               <div className="p-6 flex items-center justify-between">
@@ -436,7 +436,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
             transition={{ delay: 0.2 }}
           >
             <div
-              className="bg-[#243351] rounded-xl border border-white/10 cursor-pointer"
+              className="bg-[#141414] rounded-xl border border-white/10 cursor-pointer"
               onClick={() => toggleSection('communities')}
             >
               <div className="p-6 flex items-center justify-between">
@@ -563,7 +563,7 @@ export function ResearchStep({ audienceProfile, focusGroupInsights, businessCont
             transition={{ delay: 0.3 }}
           >
             <div
-              className="bg-[#243351] rounded-xl border border-white/10 cursor-pointer"
+              className="bg-[#141414] rounded-xl border border-white/10 cursor-pointer"
               onClick={() => toggleSection('pain')}
             >
               <div className="p-6 flex items-center justify-between">

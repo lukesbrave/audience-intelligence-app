@@ -26,7 +26,7 @@ function ResearchScoreCard({ depth, sourceCount, confidence }: ResearchScoreCard
           <p className="text-2xl font-bold text-gray-900 tabular-nums">{depth}%</p>
           <div className="mt-2 h-1.5 bg-gray-100 rounded-full overflow-hidden">
             <div
-              className="h-full bg-[#16314C] rounded-full transition-all duration-500"
+              className="h-full bg-[#0a0a0a] rounded-full transition-all duration-500"
               style={{ width: `${depth}%` }}
             />
           </div>

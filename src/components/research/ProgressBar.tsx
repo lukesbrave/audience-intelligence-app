@@ -30,7 +30,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
   return (
     <div className="w-full max-w-2xl mx-auto">
       {/* Header card matching onboarding StepIndicator */}
-      <div className="bg-[#243351] rounded-xl p-6 border border-white/10">
+      <div className="bg-[#141414] rounded-xl p-6 border border-white/10">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-10 h-10 rounded-full bg-[var(--color-brave-600)]/20 flex items-center justify-center">
             <span className="text-2xl">{steps[currentStep - 1]?.icon || '✨'}</span>
@@ -46,7 +46,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
         </div>
 
         {/* Progress bar */}
-        <div className="h-1 bg-[#1a2744] rounded-full overflow-hidden">
+        <div className="h-1 bg-[#0a0a0a] rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-[var(--color-brave-500)]"
             initial={{ width: '0%' }}
@@ -70,8 +70,8 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
                   className={`
                     relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
                     ${isCompleted ? 'bg-[var(--color-brave-600)]' : ''}
-                    ${isCurrent ? 'bg-[#243351] border-2 border-[var(--color-brave-500)]' : ''}
-                    ${!isCompleted && !isCurrent ? 'bg-[#243351] border border-white/10' : ''}
+                    ${isCurrent ? 'bg-[#141414] border-2 border-[var(--color-brave-500)]' : ''}
+                    ${!isCompleted && !isCurrent ? 'bg-[#141414] border border-white/10' : ''}
                     transition-colors duration-300
                   `}
                   initial={{ scale: 0.8, opacity: 0 }}
@@ -96,7 +96,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
 
               {/* Connector line */}
               {index < steps.length - 1 && (
-                <div className="flex-1 h-0.5 mx-2 bg-[#243351] rounded-full overflow-hidden">
+                <div className="flex-1 h-0.5 mx-2 bg-[#141414] rounded-full overflow-hidden">
                   <motion.div
                     className="h-full bg-[var(--color-brave-500)]"
                     initial={{ width: '0%' }}

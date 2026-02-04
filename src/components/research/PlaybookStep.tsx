@@ -68,7 +68,7 @@ export function PlaybookStep({
   if (status === 'generating') {
     return (
       <div className="max-w-2xl mx-auto">
-        <div className="bg-[#243351] rounded-xl p-8 border border-white/10 text-center">
+        <div className="bg-[#141414] rounded-xl p-8 border border-white/10 text-center">
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
@@ -133,7 +133,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-[#243351] rounded-xl p-5 border border-white/10 text-center"
+          className="bg-[#141414] rounded-xl p-5 border border-white/10 text-center"
         >
           <div className="text-3xl mb-2">🔍</div>
           <div className="text-3xl font-bold text-[var(--color-brave-500)]">
@@ -146,7 +146,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 }}
-          className="bg-[#243351] rounded-xl p-5 border border-white/10 text-center"
+          className="bg-[#141414] rounded-xl p-5 border border-white/10 text-center"
         >
           <div className="text-3xl mb-2">🎯</div>
           <div className="text-3xl font-bold text-[var(--color-brave-500)]">
@@ -159,7 +159,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-[#243351] rounded-xl p-5 border border-white/10 text-center"
+          className="bg-[#141414] rounded-xl p-5 border border-white/10 text-center"
         >
           <div className="text-3xl mb-2">🔥</div>
           <div className="text-3xl font-bold text-orange-400">{lovedHooks.length}</div>
@@ -170,7 +170,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.25 }}
-          className="bg-[#243351] rounded-xl p-5 border border-white/10 text-center"
+          className="bg-[#141414] rounded-xl p-5 border border-white/10 text-center"
         >
           <div className="text-3xl mb-2">❤️</div>
           <div className="text-3xl font-bold text-pink-400">{likedHooks.length}</div>
@@ -195,7 +195,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+          className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
             <span className="text-2xl">🔥</span>
@@ -215,7 +215,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.35 }}
-          className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+          className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
@@ -236,7 +236,7 @@ export function PlaybookStep({
               (point, i) => (
                 <div
                   key={i}
-                  className="flex items-start gap-3 p-3 bg-[#1a2744] rounded-lg"
+                  className="flex items-start gap-3 p-3 bg-[#0a0a0a] rounded-lg"
                 >
                   <span
                     className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
@@ -264,7 +264,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
-          className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+          className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
             <span className="text-2xl">🎯</span>
@@ -296,32 +296,32 @@ export function PlaybookStep({
                     >
                       <div className="px-5 pb-5 space-y-4 border-t border-white/10 pt-4">
                         <div className="grid md:grid-cols-2 gap-4">
-                          <div className="bg-[#1a2744] p-4 rounded-lg">
+                          <div className="bg-[#0a0a0a] p-4 rounded-lg">
                             <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
                               Target Pain
                             </p>
                             <p className="text-white">{angle.targetPain}</p>
                           </div>
-                          <div className="bg-[#1a2744] p-4 rounded-lg">
+                          <div className="bg-[#0a0a0a] p-4 rounded-lg">
                             <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
                               Target Desire
                             </p>
                             <p className="text-white">{angle.targetDesire}</p>
                           </div>
                         </div>
-                        <div className="bg-[#1a2744] p-4 rounded-lg">
+                        <div className="bg-[#0a0a0a] p-4 rounded-lg">
                           <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
                             Tone & Voice
                           </p>
                           <p className="text-white">{angle.tone}</p>
                         </div>
-                        <div className="bg-[#1a2744] p-4 rounded-lg">
+                        <div className="bg-[#0a0a0a] p-4 rounded-lg">
                           <p className="text-xs uppercase tracking-wide text-gray-500 mb-1">
                             Why It Works
                           </p>
                           <p className="text-white">{angle.whyItWorks}</p>
                         </div>
-                        <div className="bg-[#1a2744] p-4 rounded-lg">
+                        <div className="bg-[#0a0a0a] p-4 rounded-lg">
                           <p className="text-xs uppercase tracking-wide text-gray-500 mb-2">
                             Content Themes
                           </p>
@@ -351,7 +351,7 @@ export function PlaybookStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.45 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">🔥</span>
@@ -379,7 +379,7 @@ export function PlaybookStep({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5 }}
-            className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+            className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
           >
             <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
               <span className="text-2xl">❤️</span>
@@ -406,7 +406,7 @@ export function PlaybookStep({
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.55 }}
-          className="bg-[#243351] rounded-xl border border-white/10 overflow-hidden"
+          className="bg-[#141414] rounded-xl border border-white/10 overflow-hidden"
         >
           <div className="px-6 py-4 border-b border-white/10 flex items-center gap-3">
             <span className="text-2xl">💬</span>
@@ -451,7 +451,7 @@ export function PlaybookStep({
         className="mt-10 relative"
       >
         <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/20 via-orange-500/20 to-yellow-500/20 rounded-2xl blur-xl" />
-        <div className="relative bg-gradient-to-r from-[#1a2744] via-[#243351] to-[#1a2744] rounded-2xl border border-yellow-500/30 p-8 text-center overflow-hidden">
+        <div className="relative bg-gradient-to-r from-[#0a0a0a] via-[#141414] to-[#0a0a0a] rounded-2xl border border-yellow-500/30 p-8 text-center overflow-hidden">
           {/* Electric background effect */}
           <div className="absolute inset-0 opacity-30">
             <div className="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-yellow-400 to-transparent animate-pulse" />
