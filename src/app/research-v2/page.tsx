@@ -345,6 +345,7 @@ function ResearchV2Content() {
               research={flowState.research}
               selectedAngles={flowState.selectedAngles}
               ratedHooks={flowState.ratedHooks}
+              offerCore={flowState.offerCore}
               onBack={() => goToStep(3)}
               onRestart={handleRestart}
               onOfferCore={goToOfferCore}
