@@ -8,9 +8,10 @@ interface StartingPointProps {
   onEmailChange: (email: string) => void
   onSelect: (path: 'direct' | 'discovery') => void
   onNext: () => void
+  onBack?: () => void
 }
 
-export default function StartingPoint({ selectedPath, onSelect, onNext }: StartingPointProps) {
+export default function StartingPoint({ selectedPath, onSelect, onNext, onBack }: StartingPointProps) {
   const canContinue = !!selectedPath
 
   return (
@@ -96,16 +97,29 @@ export default function StartingPoint({ selectedPath, onSelect, onNext }: Starti
           </motion.button>
         </div>
 
-        {/* Continue Button */}
-        <motion.button
-          onClick={onNext}
-          disabled={!canContinue}
-          whileHover={canContinue ? { scale: 1.02 } : {}}
-          whileTap={canContinue ? { scale: 0.98 } : {}}
-          className="w-full py-4 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-500)] text-white font-semibold text-lg rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-brave-600)]"
-        >
-          Start My Research →
-        </motion.button>
+        {/* Buttons */}
+        <div className="flex flex-col gap-3">
+          <motion.button
+            onClick={onNext}
+            disabled={!canContinue}
+            whileHover={canContinue ? { scale: 1.02 } : {}}
+            whileTap={canContinue ? { scale: 0.98 } : {}}
+            className="w-full py-4 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-500)] text-white font-semibold text-lg rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-brave-600)]"
+          >
+            Start My Research →
+          </motion.button>
+
+          {onBack && (
+            <motion.button
+              onClick={onBack}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full py-3 text-white/60 hover:text-white font-medium transition-colors"
+            >
+              ← Back
+            </motion.button>
+          )}
+        </div>
       </motion.div>
     </div>
   )

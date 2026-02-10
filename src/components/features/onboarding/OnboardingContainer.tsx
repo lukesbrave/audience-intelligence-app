@@ -178,7 +178,7 @@ export default function OnboardingContainer() {
   }
 
   const renderStep = () => {
-    // Step 1: Email + Path selection
+    // Step 1: Path selection
     if (currentStep === 1) {
       return (
         <StartingPoint
@@ -187,6 +187,7 @@ export default function OnboardingContainer() {
           onEmailChange={(email) => updateState({ email })}
           onSelect={handlePathSelect}
           onNext={handleNext}
+          onBack={() => setShowIntro(true)}
         />
       )
     }
