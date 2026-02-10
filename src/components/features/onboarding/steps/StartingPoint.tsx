@@ -10,48 +10,21 @@ interface StartingPointProps {
   onNext: () => void
 }
 
-function isValidEmail(email: string): boolean {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-}
-
-export default function StartingPoint({ email, selectedPath, onEmailChange, onSelect, onNext }: StartingPointProps) {
-  const canContinue = selectedPath && email && isValidEmail(email)
+export default function StartingPoint({ selectedPath, onSelect, onNext }: StartingPointProps) {
+  const canContinue = !!selectedPath
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* Email Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="mb-12"
-      >
-        <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
-          First things first
-        </h1>
-        <p className="text-white/60 mb-6">
-          Where should we send your completed report?
-        </p>
-
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => onEmailChange(e.target.value)}
-          className="w-full px-4 py-4 bg-[#141414] border border-white/10 rounded-xl text-white text-lg placeholder-gray-500 focus:border-[var(--color-brave-500)] focus:outline-none transition-colors"
-          placeholder="you@example.com"
-        />
-      </motion.div>
-
       {/* Path Selection */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.1 }}
       >
-        <h2 className="text-xl md:text-2xl font-bold text-white mb-2">
-          Do you know who you&apos;re here to serve?
-        </h2>
+        <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
+          Do you know who you're here to serve?
+        </h1>
         <p className="text-white/60 mb-8">
-          Pick the path that fits where you&apos;re at right now.
+          Pick the path that fits where you're at right now.
         </p>
 
         {/* Side-by-side path cards */}
@@ -76,7 +49,11 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
               </motion.div>
             )}
 
-            <div className="text-4xl mb-4">🎯</div>
+            <div className="w-12 h-12 mb-4 rounded-xl bg-[var(--color-brave-500)]/20 flex items-center justify-center">
+              <svg className="w-6 h-6 text-[var(--color-brave-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
             <h3 className="text-lg font-semibold text-white mb-2">
               Yes, I know my audience
             </h3>
@@ -105,12 +82,16 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
               </motion.div>
             )}
 
-            <div className="text-4xl mb-4">🧩</div>
+            <div className="w-12 h-12 mb-4 rounded-xl bg-[var(--color-brave-500)]/20 flex items-center justify-center">
+              <svg className="w-6 h-6 text-[var(--color-brave-400)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
             <h3 className="text-lg font-semibold text-white mb-2">
-              I&apos;m still figuring it out
+              I'm still figuring it out
             </h3>
             <p className="text-white/60 text-sm">
-              Help me uncover who I&apos;m best positioned to serve
+              Help me uncover who I'm best positioned to serve
             </p>
           </motion.button>
         </div>
@@ -123,7 +104,7 @@ export default function StartingPoint({ email, selectedPath, onEmailChange, onSe
           whileTap={canContinue ? { scale: 0.98 } : {}}
           className="w-full py-4 bg-[var(--color-brave-600)] hover:bg-[var(--color-brave-500)] text-white font-semibold text-lg rounded-xl transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:bg-[var(--color-brave-600)]"
         >
-          Continue
+          Start My Research →
         </motion.button>
       </motion.div>
     </div>

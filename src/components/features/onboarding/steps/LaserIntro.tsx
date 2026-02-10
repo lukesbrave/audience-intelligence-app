@@ -71,14 +71,6 @@ export default function LaserIntro({ onStart }: LaserIntroProps) {
           </span>
         </motion.button>
 
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1 }}
-          className="text-white/60 text-sm mt-6"
-        >
-          Used by 500+ marketers to find their edge.
-        </motion.p>
       </motion.div>
     </div>
   )
