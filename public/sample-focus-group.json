@@ -1,0 +1,67 @@
+{
+  "directQuotes": [
+    {
+      "quote": "I spend more time figuring out what to post than actually running my business",
+      "context": "Discussing daily marketing challenges",
+      "emotion": "frustration"
+    },
+    {
+      "quote": "Every time I think I've figured out the algorithm, it changes again",
+      "context": "Talking about social media strategy",
+      "emotion": "exhaustion"
+    },
+    {
+      "quote": "I just want someone to tell me exactly what to do and I'll do it",
+      "context": "When asked about ideal solutions",
+      "emotion": "desperation"
+    },
+    {
+      "quote": "My competitors seem to have it all figured out and I'm still guessing",
+      "context": "Comparing themselves to others in the market",
+      "emotion": "self-doubt"
+    }
+  ],
+  "painPoints": [
+    {
+      "pain": "No clear marketing strategy or system",
+      "frequency": "dominant_theme",
+      "exactPhrases": ["flying blind", "throwing spaghetti at the wall", "no real plan"]
+    },
+    {
+      "pain": "Overwhelmed by too many marketing channels",
+      "frequency": "recurring",
+      "exactPhrases": ["can't be everywhere", "spreading too thin", "which platform should I focus on"]
+    },
+    {
+      "pain": "Content creation takes too much time",
+      "frequency": "recurring",
+      "exactPhrases": ["hours on one post", "content hamster wheel", "never-ending content"]
+    },
+    {
+      "pain": "Don't know if marketing efforts are working",
+      "frequency": "mentioned_once",
+      "exactPhrases": ["vanity metrics", "likes don't pay bills", "what's actually converting"]
+    }
+  ],
+  "desireStatements": [
+    "I want a simple system I can follow without thinking",
+    "I want to know exactly who I'm talking to and what they need to hear",
+    "I want my marketing to feel authentic, not salesy",
+    "I want to spend less time on marketing and more time serving clients"
+  ],
+  "vocabularyPatterns": [
+    "ideal client",
+    "niche down",
+    "content pillars",
+    "value ladder",
+    "lead magnet",
+    "conversion",
+    "engagement rate"
+  ],
+  "urgencyIndicators": [
+    "Revenue is flat and I need to grow NOW",
+    "Competitors are eating my lunch",
+    "I've already wasted money on courses that didn't help",
+    "My current approach isn't sustainable"
+  ]
+}
