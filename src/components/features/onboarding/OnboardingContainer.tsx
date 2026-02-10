@@ -173,6 +173,7 @@ export default function OnboardingContainer() {
 
     } catch (error) {
       console.error('Error completing onboarding:', error)
+      alert(`Error: ${error instanceof Error ? error.message : 'Failed to start research. Check console for details.'}`)
       setIsSubmitting(false)
     }
   }
