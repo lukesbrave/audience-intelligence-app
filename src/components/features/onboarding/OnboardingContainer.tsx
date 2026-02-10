@@ -320,7 +320,7 @@ export default function OnboardingContainer() {
   return (
     <div className="min-h-screen bg-[#0a0a0a] flex flex-col">
       <StickyHeader />
-      <div className="flex-1 flex flex-col items-center py-8 px-4">
+      <div className={`flex-1 flex flex-col items-center px-4 ${currentStep === 1 ? 'justify-center' : 'py-8'}`}>
         <div className="w-full max-w-xl">
           {/* Only show step indicator after the first step */}
           {currentStep > 1 && (
