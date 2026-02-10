@@ -15,7 +15,7 @@ export default function StartingPoint({ selectedPath, onSelect, onNext, onBack }
   const canContinue = !!selectedPath
 
   return (
-    <div className="min-h-[70vh] flex flex-col justify-center max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       {/* Path Selection */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
