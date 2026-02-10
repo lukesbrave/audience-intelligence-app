@@ -242,16 +242,6 @@ export function PlaybookStep({
         </motion.div>
       </div>
 
-      {/* Quick Actions */}
-      <div className="flex justify-end mb-6">
-        <button
-          onClick={downloadPlaybook}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm text-[var(--color-brave-500)] hover:text-[var(--color-brave-400)] transition-colors"
-        >
-          <span>📥</span> Download Playbook
-        </button>
-      </div>
-
       {/* Main Playbook Content */}
       <div className="space-y-6">
         {/* The #1 Headache */}
