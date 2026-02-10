@@ -140,7 +140,7 @@ export default function OnboardingContainer() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          email: state.email,
+          email: state.email || 'skool-member@bravebrand.com',
           name: `Research - ${new Date().toLocaleDateString()}`,
           pdfFilename: '',
           businessContext: state.selectedPath === 'direct'
