@@ -69,7 +69,7 @@ export function SwipeCard({ hook, onSwipe, isTop }: SwipeCardProps) {
 
   return (
     <motion.div
-      className="absolute w-full cursor-grab active:cursor-grabbing"
+      className="absolute w-full cursor-grab active:cursor-grabbing rounded-2xl overflow-hidden"
       style={{
         x,
         y,
