@@ -5,15 +5,14 @@ import { motion } from 'framer-motion'
 interface Step {
   id: number
   name: string
-  icon: string
 }
 
 const steps: Step[] = [
-  { id: 1, name: 'Research', icon: '🔍' },
-  { id: 2, name: 'Brand Angles', icon: '🎯' },
-  { id: 3, name: 'Hooks', icon: '🪝' },
-  { id: 4, name: 'Playbook', icon: '📋' },
-  { id: 5, name: 'Offer Core', icon: '⚡' },
+  { id: 1, name: 'Research' },
+  { id: 2, name: 'Brand Angles' },
+  { id: 3, name: 'Hooks' },
+  { id: 4, name: 'Playbook' },
+  { id: 5, name: 'Offer Core' },
 ]
 
 interface ProgressBarProps {
@@ -22,10 +21,8 @@ interface ProgressBarProps {
 }
 
 export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
-  // Progress is based on all 5 steps
   const totalSteps = 5
   const progress = (currentStep / totalSteps) * 100
-
 
   return (
     <div className="w-full max-w-2xl mx-auto">
@@ -33,7 +30,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
       <div className="bg-[#141414] rounded-xl p-6 border border-white/10">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-10 h-10 rounded-full bg-[var(--color-brave-600)]/20 flex items-center justify-center">
-            <span className="text-2xl">{steps[currentStep - 1]?.icon || '✨'}</span>
+            <span className="text-xl font-bold text-[var(--color-brave-500)]">{currentStep}</span>
           </div>
           <div>
             <p className="text-white/60 text-sm uppercase tracking-wide">
@@ -61,6 +58,7 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
         {steps.map((step, index) => {
           const isCompleted = completedSteps.includes(step.id)
           const isCurrent = currentStep === step.id
+          const isPending = !isCompleted && !isCurrent
 
           return (
             <div key={step.id} className="flex items-center flex-1">
@@ -69,28 +67,16 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
                 <motion.div
                   className={`
                     relative flex items-center justify-center w-10 h-10 rounded-full cursor-pointer
-                    ${isCompleted ? 'bg-[var(--color-brave-600)]' : ''}
-                    ${isCurrent ? 'bg-[#141414] border-2 border-[var(--color-brave-500)]' : ''}
-                    ${!isCompleted && !isCurrent ? 'bg-[#141414] border border-white/10' : ''}
-                    transition-colors duration-300
+                    text-lg font-bold transition-colors duration-300
+                    ${isCompleted ? 'bg-[var(--color-brave-500)] text-[#0a0a0a]' : ''}
+                    ${isCurrent ? 'bg-[var(--color-brave-500)]/20 text-[var(--color-brave-500)] ring-2 ring-[var(--color-brave-500)]/30' : ''}
+                    ${isPending ? 'bg-[#1a1a1a] text-white/40' : ''}
                   `}
                   initial={{ scale: 0.8, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  {isCompleted ? (
-                    <span className="text-white">✓</span>
-                  ) : (
-                    <span className="text-lg">{step.icon}</span>
-                  )}
-
-                  {/* Pulse animation for current step - CSS for smooth looping */}
-                  {isCurrent && (
-                    <>
-                      <div className="absolute -inset-0.5 rounded-full border-2 border-[var(--color-brave-500)] animate-step-pulse" />
-                      <div className="absolute -inset-0.5 rounded-full border-2 border-[var(--color-brave-500)] animate-step-pulse-delayed" />
-                    </>
-                  )}
+                  {isCompleted ? '✓' : step.id}
                 </motion.div>
               </div>
 
@@ -120,9 +106,9 @@ export function ProgressBar({ currentStep, completedSteps }: ProgressBarProps) {
             <div
               key={step.id}
               className={`flex-1 text-center text-xs font-medium ${
-                isCurrent || isCompleted
-                  ? 'text-[var(--color-brave-600)]'
-                  : 'text-white/50'
+                isCurrent ? 'text-[var(--color-brave-500)]' : ''
+              } ${isCompleted ? 'text-[var(--color-brave-500)]/70' : ''} ${
+                !isCurrent && !isCompleted ? 'text-white/40' : ''
               }`}
             >
               {step.name}
